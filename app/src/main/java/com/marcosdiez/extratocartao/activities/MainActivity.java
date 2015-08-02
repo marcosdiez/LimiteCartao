@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.marcosdiez.extratocartao.R;
+import com.marcosdiez.extratocartao.SmsParser;
 import com.marcosdiez.extratocartao.datamodel.Bank;
 import com.marcosdiez.extratocartao.datamodel.Card;
 import com.marcosdiez.extratocartao.datamodel.Purchase;
@@ -19,14 +20,13 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        testeDB();
+//        testeDB();
         testSMS();
-
-
-        listPurchases();
+//        listPurchases();
     }
 
-    void listPurchases(){
+
+    void listPurchases() {
         for (Purchase p : Purchase.listAll(Purchase.class)) {
             Log.d(TAG, p.toString());
         }
@@ -35,6 +35,7 @@ public class MainActivity extends Activity {
     void testSMS() {
         for (SMSData sms : SmsReader.readSms(this)) {
             Log.d(TAG, sms.toString());
+            SmsParser.parseSms(sms);
         }
     }
 
