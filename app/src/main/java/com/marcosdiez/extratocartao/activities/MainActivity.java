@@ -9,38 +9,41 @@ import com.marcosdiez.extratocartao.datamodel.Bank;
 import com.marcosdiez.extratocartao.datamodel.Card;
 import com.marcosdiez.extratocartao.datamodel.Purchase;
 import com.marcosdiez.extratocartao.datamodel.Store;
-
-import java.util.List;
+import com.marcosdiez.extratocartao.sms.SMSData;
+import com.marcosdiez.extratocartao.sms.SmsReader;
 
 public class MainActivity extends Activity {
+    public static final String TAG = "EC-MAIN";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        teste();
+        testeDB();
+        testSMS();
+
+
+        listPurchases();
     }
 
-    void teste() {
-        Bank b = new Bank("Bradesco");
-        b.save();
-
-        List<Bank> listBnank = Bank.listAll(Bank.class);
-
-        for(Bank oneBank : listBnank){
-            Log.d("DD", oneBank.getName());
+    void listPurchases(){
+        for (Purchase p : Purchase.listAll(Purchase.class)) {
+            Log.d(TAG, p.toString());
         }
+    }
 
-        Card c = new Card("Final 5761", b);
-        c.save();
-        Store s = new Store("blah");
-        s.save();
+    void testSMS() {
+        for (SMSData sms : SmsReader.readSms(this)) {
+            Log.d(TAG, sms.toString());
+        }
+    }
 
+    void testeDB() {
+        Bank b = Bank.getOrCreate("Bradesco");
+        Card c = Card.getOrCreate("Final 5761", b);
+        Store s = Store.getOrCreate("blah");
         Purchase p = new Purchase(c, s, 0, 10);
-
         p.save();
-
-
     }
 
 //    @Override

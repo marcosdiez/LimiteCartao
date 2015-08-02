@@ -14,4 +14,24 @@ public class Store extends SugarRecord<Store> {
     public Store(String name) {
         this.name = name;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public static Store getOrCreate(String name) {
+        for (Store s : Store.find(Store.class, "name = ?", name)) {
+            return s;
+        }
+        // if we are here, no Store were found.
+        Store s = new Store(name);
+        s.save();
+        return s;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Store: [" + name + "]";
+    }
 }

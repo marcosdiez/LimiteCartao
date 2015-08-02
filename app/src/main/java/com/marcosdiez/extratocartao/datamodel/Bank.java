@@ -15,6 +15,16 @@ public class Bank extends SugarRecord<Bank> {
         this.name = name;
     }
 
+    public static Bank getOrCreate(String name) {
+        for (Bank b : Bank.find(Bank.class, "name = ?", name)) {
+            return b;
+        }
+        // if we are here, no Bank were found.
+        Bank b = new Bank(name);
+        b.save();
+        return b;
+    }
+
     public String getName() {
         return name;
     }
@@ -25,7 +35,7 @@ public class Bank extends SugarRecord<Bank> {
 
     @Override
     public String toString() {
-        return "Bank: {" + name + "}";
+        return "Bank: [" + name + "]";
     }
 
 }
