@@ -11,7 +11,6 @@ public class Bank extends SugarRecord<Bank> {
     public Bank() {
     }
 
-
     public Bank(String name) {
         this.name = name;
     }
@@ -19,4 +18,14 @@ public class Bank extends SugarRecord<Bank> {
     public String getName() {
         return name;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Bank: {" + name + "}";
+    }
+
 }

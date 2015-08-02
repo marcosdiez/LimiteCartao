@@ -6,6 +6,9 @@ import android.util.Log;
 
 import com.marcosdiez.extratocartao.R;
 import com.marcosdiez.extratocartao.datamodel.Bank;
+import com.marcosdiez.extratocartao.datamodel.Card;
+import com.marcosdiez.extratocartao.datamodel.Purchase;
+import com.marcosdiez.extratocartao.datamodel.Store;
 
 import java.util.List;
 
@@ -28,15 +31,14 @@ public class MainActivity extends Activity {
             Log.d("DD", oneBank.getName());
         }
 
+        Card c = new Card("Final 5761", b);
+        c.save();
+        Store s = new Store("blah");
+        s.save();
 
-//        Card c = new Card("Final 5761", b);
-//        c.save();
-//        Store s = new Store("blah");
-//        s.save();
-//
-//        Purchase p = new Purchase(c, s, 0, 10);
-//
-//        p.save();
+        Purchase p = new Purchase(c, s, 0, 10);
+
+        p.save();
 
 
     }
