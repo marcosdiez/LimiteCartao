@@ -18,7 +18,7 @@ public class SmsReader {
         List<SMSData> smsList = new ArrayList<SMSData>();
 
         Uri uri = Uri.parse("content://sms/inbox");
-        Cursor c = ctx.getContentResolver().query(uri, null, null, null, null);
+        Cursor c = ctx.getContentResolver().query(uri, null, null, null, "date ASC");
         // startManagingCursor(c);
 
         // Read the sms data and store it in the list
@@ -28,6 +28,7 @@ public class SmsReader {
                 sms.setId(c.getInt((int) c.getColumnIndexOrThrow("_id")));
                 sms.setBody(c.getString(c.getColumnIndexOrThrow("body")).toString());
                 sms.setNumber(c.getString(c.getColumnIndexOrThrow("address")).toString());
+                sms.setDate(c.getString(c.getColumnIndexOrThrow("date")));
                 smsList.add(sms);
 
                 c.moveToNext();

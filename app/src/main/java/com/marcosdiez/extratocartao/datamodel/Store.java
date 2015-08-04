@@ -15,10 +15,6 @@ public class Store extends SugarRecord<Store> {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public static Store getOrCreate(String name) {
         for (Store s : Store.find(Store.class, "name = ?", name)) {
             return s;
@@ -29,9 +25,13 @@ public class Store extends SugarRecord<Store> {
         return s;
     }
 
+    public String getName() {
+        return name;
+    }
 
     @Override
     public String toString() {
-        return "Store: [" + name + "]";
+        return name;
+//        return "Store: [" + name + "]";
     }
 }

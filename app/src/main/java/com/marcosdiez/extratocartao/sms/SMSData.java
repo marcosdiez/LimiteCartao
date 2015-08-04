@@ -6,8 +6,17 @@ public class SMSData {
     private int id;
     // Number from witch the sms was send
     private String number;
+    private String date;
     // SMS text body
     private String body;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public int getId() {
         return id;

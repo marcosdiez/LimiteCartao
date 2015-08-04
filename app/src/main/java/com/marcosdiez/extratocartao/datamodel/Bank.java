@@ -35,7 +35,8 @@ public class Bank extends SugarRecord<Bank> {
 
     @Override
     public String toString() {
-        return "Bank: [" + name + "]";
+        return name;
+//        return "Bank: [" + name + "]";
     }
 
 }
