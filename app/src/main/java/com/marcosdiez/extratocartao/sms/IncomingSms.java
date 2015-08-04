@@ -16,13 +16,16 @@ import com.marcosdiez.extratocartao.datamodel.Purchase;
 import com.marcosdiez.extratocartao.glue.SmsParser;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Marcos on 2015-08-03.
  */
 // http://androidexample.com/Incomming_SMS_Broadcast_Receiver_-_Android_Example/index.php?view=article_discription&aid=62&aaid=87
 public class IncomingSms extends BroadcastReceiver {
+    private static List<Gps> gpsList = new ArrayList<Gps>();
 
     final SmsManager sms = SmsManager.getDefault();
     // Get the object of SmsManager
@@ -47,16 +50,18 @@ public class IncomingSms extends BroadcastReceiver {
                     String senderNum = phoneNumber;
                     String message = currentMessage.getDisplayMessageBody();
 
-                    Log.i(TAG, "senderNum: " + senderNum + "; message: " + message);
-
+                    Log.i(TAG, "SMS Received! senderNum: " + senderNum + "; message: " + message);
 
                     SMSData newSms = createSms(phoneNumber, message);
 
                     Purchase p = createPurchase(newSms);
-
-                    new Gps(context).setLocationWhenAvailable(p);
-                    printToast(context, senderNum, message);
-
+                    if (p != null) {
+                        Log.d(TAG, "SMS belongs to a bank");
+                        Gps gps = new Gps(context, this);
+                        gps.setLocationWhenAvailable(p);
+                        printToast(context, senderNum, message);
+                        gpsList.add(gps);
+                    }
 
                 } // end for loop
             } // bundle is null
@@ -67,11 +72,16 @@ public class IncomingSms extends BroadcastReceiver {
         }
     }
 
+    public void removeGpsFromList(Gps gps) {
+        gpsList.remove(gps);
+        Log.d(TAG, "GPS Info should be dealocated.");
+    }
+
     private void printToast(Context context, String senderNum, String message) {
         // Show Alert
         int duration = Toast.LENGTH_LONG;
         Toast toast = Toast.makeText(context,
-                "Sms Recebido de " + senderNum + ":[" + message + "]", duration);
+                "Sms de Banco:[" + message + "]", duration);
         toast.show();
     }
 

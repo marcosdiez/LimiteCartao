@@ -7,30 +7,43 @@ import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.marcosdiez.extratocartao.datamodel.Purchase;
+import com.marcosdiez.extratocartao.sms.IncomingSms;
 
 /**
  * Created by Marcos on 2015-08-03.
  */
-public class Gps implements
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class Gps implements GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener, LocationListener {
+
+    public static final int maximumPrecisionTolerated = 200; // meters
 
     private static String TAG = "EC-Gps";
+    Location mLastLocation;
     private GoogleApiClient mGoogleApiClient;
     private Purchase thePurchase;
+    private IncomingSms incomingSms;
+    private Context ctx;
+    private LocationRequest mLocationRequest;
 
-
-    public Gps(Context ctx) {
-        buildGoogleApiClient(ctx);
+    public Gps(Context ctx, IncomingSms incomingSms) {
+        this.ctx = ctx;
+        this.incomingSms = incomingSms;
     }
 
     public void setLocationWhenAvailable(Purchase thePurchase) {
         this.thePurchase = thePurchase;
+        Log.d(TAG, "Initializing Google Client");
+        buildGoogleApiClient(ctx);
+        Log.d(TAG, "Attempting to connect to it");
+        mGoogleApiClient.connect();
     }
 
     protected synchronized void buildGoogleApiClient(Context ctx) {
-        new GoogleApiClient.Builder(ctx)
+        mGoogleApiClient = new GoogleApiClient.Builder(ctx)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
@@ -45,16 +58,59 @@ public class Gps implements
 
     @Override
     public void onConnectionSuspended(int arg0) {
+        Log.d(TAG, "onConnectionSuspended");
         mGoogleApiClient.connect();
     }
 
     @Override
     public void onConnected(Bundle connectionHint) {
-        Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+        Log.d(TAG, "Connected to Google Client");
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
-        if (mLastLocation != null) {
-            this.thePurchase.setLocation(mLastLocation);
+
+        if (locationIsAcceptable()) {
+            Log.d(TAG, "Initial Location is Acceptable");
+            saveLocationAndStopRequestingUpdates();
+            return;
         }
+        // else
+        startLocationUpdates();
+    }
+
+    private void saveLocationAndStopRequestingUpdates() {
+        Log.d(TAG, "Location is good enough. Saving it.");
+        thePurchase.setLocation(mLastLocation);
+        incomingSms.removeGpsFromList(this); // this should deallocate me
+        stopLocationUpdates();
+    }
+
+    private boolean locationIsAcceptable() {
+        return mLastLocation != null && mLastLocation.getAccuracy() < maximumPrecisionTolerated;
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        // Assign the new location
+        mLastLocation = location;
+        Log.d(TAG, "Received new location.");
+        if (locationIsAcceptable()) {
+            saveLocationAndStopRequestingUpdates();
+        }
+    }
+
+    protected void startLocationUpdates() {
+        mLocationRequest = LocationRequest.create();
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setInterval(20000);
+        mLocationRequest.setFastestInterval(10000);
+        LocationServices.FusedLocationApi.requestLocationUpdates(
+                mGoogleApiClient, mLocationRequest, this);
+
+    }
+
+    protected void stopLocationUpdates() {
+        LocationServices.FusedLocationApi.removeLocationUpdates(
+                mGoogleApiClient, this);
     }
 
 }

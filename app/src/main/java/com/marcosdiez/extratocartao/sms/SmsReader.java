@@ -19,7 +19,6 @@ public class SmsReader {
 
         Uri uri = Uri.parse("content://sms/inbox");
         Cursor c = ctx.getContentResolver().query(uri, null, null, null, "date ASC");
-        // startManagingCursor(c);
 
         // Read the sms data and store it in the list
         if (c.moveToFirst()) {
@@ -35,21 +34,6 @@ public class SmsReader {
             }
         }
         c.close();
-
-//
-//        Cursor cursor = ctx.getContentResolver().query(Uri.parse("content://sms/inbox"), null, null, null, null);
-//
-//        if (cursor.moveToFirst()) { // must check the result to prevent exception
-//            do {
-//                String msgData = "";
-//                for (int idx = 0; idx < cursor.getColumnCount(); idx++) {
-//                    msgData += " " + cursor.getColumnName(idx) + ":" + cursor.getString(idx);
-//                }
-//                // use msgData
-//            } while (cursor.moveToNext());
-//        } else {
-//            // empty box, no SMS
-//        }
 
         return smsList;
 

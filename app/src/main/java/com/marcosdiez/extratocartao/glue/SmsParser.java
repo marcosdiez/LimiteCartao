@@ -15,22 +15,21 @@ import java.util.regex.Pattern;
 public class SmsParser {
     // BRADESCO CARTOES: COMPRA APROVADA NO CARTAO FINAL 5761 EM 30/07/2015 21:02. VALOR DE $ 41,00 NO(A) PANINI PIZZA.             SAO PAULO.
     // Compra aprovada no seu PERSON MUL VISA PLAT final 1976 - PALETERIA CAMPO BELO valor RS 9,00 em 01/08, as 13h59.
+/*
 
+sms send +1111 Compra aprovada no seu PERSON MUL VISA PLAT final 4242 - teste de sms valor RS 42,99 em 01/08, as 13h59.
+
+ */
     private static final String TAG = "EC-SmsParser";
-    private static final String bradescoRegEx = "(\\w+) CARTOES: COMPRA APROVADA NO CARTAO FINAL (\\d+) EM (\\d+/\\d+/\\d+ \\d+:\\d+)\\. VALOR DE \\$ (\\d+,\\d+) NO\\(A\\) (.+)\\.";
-    private static final String itauRegEx = "Compra aprovada no seu ([\\w\\s]+) final (\\d+) - (.+) valor RS (\\d+,\\d+) em (\\d+/\\d+), as (\\d+h\\d+)";
-    private static final Pattern bradescoPattern = Pattern.compile(bradescoRegEx);
-    private static final Pattern itauPattern = Pattern.compile(itauRegEx);
+    private static final String bradescoRegEx = "(\\w+)\\s+CARTOES:\\s+COMPRA\\s+APROVADA\\s+NO\\s+CARTAO\\s+FINAL\\s+(\\d+)\\s+EM\\s+(\\d+/\\d+/\\d+\\s+\\d+:\\d+)\\.\\s+VALOR\\s+DE\\s+\\$?\\s+(\\d+,\\d+)\\s+NO\\(A\\)\\s+(.+)\\.";
+    private static final String itauRegEx = "Compra\\s+aprovada\\s+no\\s+seu\\s+([\\w\\s]+)\\s+final\\s+(\\d+)\\s+-\\s+(.+)\\s+valor\\s+RS\\s+(\\d+,\\d+)\\s+em\\s+(\\d+/\\d+),\\s+as\\s+(\\d+h\\d+)";
+    private static final Pattern bradescoPattern = Pattern.compile(bradescoRegEx, Pattern.CASE_INSENSITIVE);
+    private static final Pattern itauPattern = Pattern.compile(itauRegEx, Pattern.CASE_INSENSITIVE);
 
 
     public static Purchase parseSms(SMSData theSms) {
         String myBody = theSms.getBody();
         Matcher m;
-//        Log.d(TAG, "A----");
-//        Log.d(TAG, "groupCount:" + m.groupCount());
-//            for (int i = 0; i <= m.groupCount(); i++) {
-//                Log.d(TAG, "i: " + i + " " + m.group(i));
-//            }
 
         m = bradescoPattern.matcher(myBody);
         Log.d(TAG,"Checking if SMS is from Bradesco");
@@ -56,7 +55,7 @@ public class SmsParser {
         String estabelecimento = m.group(3);
         String valor = m.group(4);
 
-        int year = Calendar.getInstance().get(Calendar.YEAR); // get year the SMS was received
+        int year = Calendar.getInstance().get(Calendar.YEAR); // I should get year the SMS was received
         String diaMes = m.group(5);
         String hora = m.group(6);
         String data = diaMes + "/" + year + " " + hora.replace("h", ",");
