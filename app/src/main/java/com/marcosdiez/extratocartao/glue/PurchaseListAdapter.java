@@ -48,7 +48,7 @@ public class PurchaseListAdapter extends BaseAdapter
         TextView txtSecond;
         TextView txtThird;
         TextView txtFourth;
-        TextView txtFifth;
+//        TextView txtFifth;
         TextView txtSixth;
     }
 
@@ -69,7 +69,7 @@ public class PurchaseListAdapter extends BaseAdapter
             holder.txtSecond = (TextView) convertView.findViewById(R.id.Store);
             holder.txtThird = (TextView) convertView.findViewById(R.id.Amount);
             holder.txtFourth = (TextView) convertView.findViewById(R.id.When);
-            holder.txtFifth = (TextView) convertView.findViewById(R.id.Map);
+//            holder.txtFifth = (TextView) convertView.findViewById(R.id.Map);
             convertView.setTag(holder);
         }
         else
@@ -83,7 +83,7 @@ public class PurchaseListAdapter extends BaseAdapter
         holder.txtSecond.setText(thePurchase.getStore().toString());
         holder.txtThird.setText(String.format("%1$,.2f", thePurchase.getAmount()));
         holder.txtFourth.setText(thePurchase.getTimeStampString());
-        holder.txtFifth.setText(thePurchase.hasMap() ? "Mapa" : "");
+//        holder.txtFifth.setText(thePurchase.hasMap() ? "Mapa" : "");
 
         return convertView;
     }

@@ -1,17 +1,63 @@
-<TableLayout  xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_height="fill_parent">
 
-                tools:context=".MainActivity">
+    // custom Headers
 
-    <include layout="@layout/item_purchase" />
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
 
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:gravity="center"
+            android:text="ID"/>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.4"
+            android:text="Cartão"/>
+
+        <TextView
+            android:id="@+id/Store"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6"
+            android:text="Loja"/>
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.4"
+            android:gravity="right"
+            android:text="Valor"/>
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6"
+            android:gravity="center"
+            android:text="Data"/>
+    </LinearLayout>
+
+    // This is important to be exactly like below ,android:id="@android:id/list"
 
     <ListView
+        android:id="@android:id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/purchase_list_view"
-        />
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/linearLayout1">
+    </ListView>
 
-</TableLayout >
+</RelativeLayout>
