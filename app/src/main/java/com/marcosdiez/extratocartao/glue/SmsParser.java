@@ -5,7 +5,7 @@ import android.util.Log;
 import com.marcosdiez.extratocartao.datamodel.Purchase;
 import com.marcosdiez.extratocartao.sms.SMSData;
 
-import java.util.Calendar;
+import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,33 +32,34 @@ sms send +1111 Compra aprovada no seu PERSON MUL VISA PLAT final 4242 - teste de
         Matcher m;
 
         m = bradescoPattern.matcher(myBody);
-        Log.d(TAG,"Checking if SMS is from Bradesco");
+        Log.d(TAG, "Checking if SMS is from Bradesco");
         if (m.find()) { // Find each match in turn; String can't do this.
             return bradescoMatcher(m);
         }
 
-        Log.d(TAG,"Checking if SMS is from Itau");
+        Log.d(TAG, "Checking if SMS is from Itau");
         m = itauPattern.matcher(myBody);
         if (m.find()) {
-            return itauMatcher(m);
+            return itauMatcher(m, theSms);
         }
 
 
-        Log.d(TAG,"Unknown SMS");
+        Log.d(TAG, "Unknown SMS");
         return null;
     }
 
-    private static Purchase itauMatcher(Matcher m) {
+    private static Purchase itauMatcher(Matcher m, SMSData theSms) {
         String nomeBanco = "ITAU";
         // String nomePomposoDoCartao = m.group(1)
         String nomeCartao = m.group(2);
         String estabelecimento = m.group(3);
         String valor = m.group(4);
 
-        int year = Calendar.getInstance().get(Calendar.YEAR); // I should get year the SMS was received
+
+        String year = new SimpleDateFormat("yyyy").format(theSms.getDate());
         String diaMes = m.group(5);
-        String hora = m.group(6);
-        String data = diaMes + "/" + year + " " + hora.replace("h", ",");
+        String horaMinuto = m.group(6);
+        String data = diaMes + "/" + year + " " + horaMinuto.replace("h", ":");
 
 
 //        Log.d(TAG, "B----");

@@ -15,7 +15,6 @@ import com.marcosdiez.extratocartao.Gps;
 import com.marcosdiez.extratocartao.datamodel.Purchase;
 import com.marcosdiez.extratocartao.glue.SmsParser;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -99,7 +98,7 @@ public class IncomingSms extends BroadcastReceiver {
     @NonNull
     private SMSData createSms(String phoneNumber, String message) {
         SMSData newSms = new SMSData();
-        newSms.setDate(DateFormat.getDateTimeInstance().format(new Date()));
+        newSms.setDate(new Date());
         newSms.setBody(message);
         newSms.setNumber(phoneNumber);
         newSms.setId(0);

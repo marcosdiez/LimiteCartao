@@ -2,19 +2,21 @@ package com.marcosdiez.extratocartao.sms;
 
 // https://raw.githubusercontent.com/itcuties/Android-Read-SMS/master/ITCReadSMSExample/src/com/itcuties/android/apps/data/SMSData.java
 
+import java.util.Date;
+
 public class SMSData {
     private int id;
     // Number from witch the sms was send
     private String number;
-    private String date;
+    private Date date;
     // SMS text body
     private String body;
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

@@ -14,11 +14,9 @@ import com.marcosdiez.extratocartao.datamodel.Purchase;
 import java.util.List;
 
 /**
- *
  * @author Paresh N. Mayani
  */
-public class PurchaseListAdapter extends BaseAdapter
-{
+public class PurchaseListAdapter extends BaseAdapter {
     public List<Purchase> list;
     Activity activity;
 
@@ -43,25 +41,15 @@ public class PurchaseListAdapter extends BaseAdapter
         return ((Purchase) getItem(position)).getId();
     }
 
-    private class ViewHolder {
-        TextView txtFirst;
-        TextView txtSecond;
-        TextView txtThird;
-        TextView txtFourth;
-//        TextView txtFifth;
-        TextView txtSixth;
-    }
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub
 
         // TODO Auto-generated method stub
         ViewHolder holder;
-        LayoutInflater inflater =  activity.getLayoutInflater();
+        LayoutInflater inflater = activity.getLayoutInflater();
 
-        if (convertView == null)
-        {
+        if (convertView == null) {
             convertView = inflater.inflate(R.layout.item_purchase, null);
             holder = new ViewHolder();
             holder.txtSixth = (TextView) convertView.findViewById(R.id.purchase_id);
@@ -71,9 +59,7 @@ public class PurchaseListAdapter extends BaseAdapter
             holder.txtFourth = (TextView) convertView.findViewById(R.id.When);
 //            holder.txtFifth = (TextView) convertView.findViewById(R.id.Map);
             convertView.setTag(holder);
-        }
-        else
-        {
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
@@ -86,6 +72,15 @@ public class PurchaseListAdapter extends BaseAdapter
 //        holder.txtFifth.setText(thePurchase.hasMap() ? "Mapa" : "");
 
         return convertView;
+    }
+
+    private class ViewHolder {
+        TextView txtFirst;
+        TextView txtSecond;
+        TextView txtThird;
+        TextView txtFourth;
+        //        TextView txtFifth;
+        TextView txtSixth;
     }
 
 }

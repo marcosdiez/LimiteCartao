@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.net.Uri;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,7 +28,7 @@ public class SmsReader {
                 sms.setId(c.getInt((int) c.getColumnIndexOrThrow("_id")));
                 sms.setBody(c.getString(c.getColumnIndexOrThrow("body")));
                 sms.setNumber(c.getString(c.getColumnIndexOrThrow("address")));
-                sms.setDate(c.getString(c.getColumnIndexOrThrow("date")));
+                sms.setDate(new Date(c.getLong(c.getColumnIndexOrThrow("date"))));
                 smsList.add(sms);
 
                 c.moveToNext();
