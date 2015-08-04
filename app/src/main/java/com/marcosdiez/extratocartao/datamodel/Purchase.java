@@ -1,5 +1,7 @@
 package com.marcosdiez.extratocartao.datamodel;
 
+import android.location.Location;
+
 import com.orm.SugarRecord;
 
 import java.text.ParseException;
@@ -17,8 +19,10 @@ public class Purchase extends SugarRecord<Purchase> {
     Store store;
     long timestamp;
     double amount;
+
     double latitude = 0;
     double longitude = 0;
+    float accuracy = 0;
 
     public Purchase() {
 
@@ -35,6 +39,7 @@ public class Purchase extends SugarRecord<Purchase> {
     public Purchase(Card card, Store store, String timestamp, double amount) {
         init(card, store, timestamp, amount);
     }
+
 
     private double fixAmount(String amount) {
         return Double.parseDouble(amount.replace(",", "."));
@@ -74,7 +79,10 @@ public class Purchase extends SugarRecord<Purchase> {
 
     @Override
     public String toString() {
-        return "Purchase: id: " + getId() + " amount: [" + amount + "] pos: [ " + latitude + "," + longitude + "], timestamp: " + getTimeStampString() + " " + store.toString() + " " + card.toString();
+        return "Purchase: id: " + getId() + " amount: [" + amount + "] pos: ["
+                + latitude + "," + longitude + " precision: " + accuracy
+                + "m], timestamp: " + getTimeStampString() + " "
+                + store.getName() + " " + card.getName() + "/" + card.getBank().getName();
     }
 
     public Card getCard() {
@@ -99,6 +107,17 @@ public class Purchase extends SugarRecord<Purchase> {
 
     public double getLongitude() {
         return longitude;
+    }
+
+    public float getAccuracy() {
+        return accuracy;
+    }
+
+    public void setLocation(Location mLocation) {
+        this.latitude = mLocation.getLatitude();
+        this.longitude = mLocation.getLongitude();
+        this.accuracy = mLocation.getAccuracy();
+        save();
     }
 
 

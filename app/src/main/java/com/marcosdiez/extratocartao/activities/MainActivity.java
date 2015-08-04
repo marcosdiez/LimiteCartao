@@ -1,9 +1,14 @@
 package com.marcosdiez.extratocartao.activities;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.marcosdiez.extratocartao.R;
 import com.marcosdiez.extratocartao.datamodel.Purchase;
@@ -20,11 +25,43 @@ public class MainActivity extends Activity {
 
     private ListView purchase_list_view;
 
+
+    static String buildAndroidMapsUri(double latitude, double longitude) {
+        String theURL = "geo:0,0?q=" + latitude + "," + longitude;
+        return theURL;
+    }
+
+
+    void openUrl(String theURL) { // }, Activity theActivity, String thePackage) {
+        Log.d(TAG, "Opening location:" + theURL);
+        final Intent intent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse(theURL));
+//        if (thePackage != null) {
+//            intent.setPackage(thePackage);
+//        }
+        startActivity(intent);
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         purchase_list_view = (ListView) findViewById(R.id.purchase_list_view);
+        purchase_list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                Purchase p = (Purchase) purchase_list_view.getItemAtPosition(position);
+                Toast.makeText(getBaseContext(), p.toString(), Toast.LENGTH_LONG).show();
+
+                if (p.hasMap()) {
+                    openUrl(buildAndroidMapsUri(p.getLatitude(), p.getLongitude()));
+                }
+
+            }
+        });
+
 
         loadStoredSmsData();
         populateListView();

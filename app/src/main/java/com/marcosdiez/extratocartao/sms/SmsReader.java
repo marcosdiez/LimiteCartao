@@ -26,8 +26,8 @@ public class SmsReader {
             for (int i = 0; i < c.getCount(); i++) {
                 SMSData sms = new SMSData();
                 sms.setId(c.getInt((int) c.getColumnIndexOrThrow("_id")));
-                sms.setBody(c.getString(c.getColumnIndexOrThrow("body")).toString());
-                sms.setNumber(c.getString(c.getColumnIndexOrThrow("address")).toString());
+                sms.setBody(c.getString(c.getColumnIndexOrThrow("body")));
+                sms.setNumber(c.getString(c.getColumnIndexOrThrow("address")));
                 sms.setDate(c.getString(c.getColumnIndexOrThrow("date")));
                 smsList.add(sms);
 

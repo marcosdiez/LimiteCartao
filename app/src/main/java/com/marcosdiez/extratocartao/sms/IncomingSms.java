@@ -4,11 +4,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.marcosdiez.extratocartao.Gps;
 import com.marcosdiez.extratocartao.datamodel.Purchase;
 import com.marcosdiez.extratocartao.glue.SmsParser;
 
@@ -47,32 +50,49 @@ public class IncomingSms extends BroadcastReceiver {
                     Log.i(TAG, "senderNum: " + senderNum + "; message: " + message);
 
 
-                    SMSData newSms = new SMSData();
-                    newSms.setDate(DateFormat.getDateTimeInstance().format(new Date()));
-                    newSms.setBody(message);
-                    newSms.setNumber(phoneNumber);
-                    newSms.setId(0);
+                    SMSData newSms = createSms(phoneNumber, message);
 
-                    Purchase p = SmsParser.parseSms(newSms);
-                    if (p != null) {
-                        Log.d(TAG, "SMS:" + newSms.getBody());
-                        Log.d(TAG, "Adding new purchase:" + p.toString());
-                        p.save();
-                    }
+                    Purchase p = createPurchase(newSms);
 
+                    new Gps(context).setLocationWhenAvailable(p);
+                    printToast(context, senderNum, message);
 
-                    // Show Alert
-                    int duration = Toast.LENGTH_LONG;
-                    Toast toast = Toast.makeText(context,
-                            "Sms Recebido de " + senderNum + ":[" + message + "]", duration);
-                    toast.show();
 
                 } // end for loop
             } // bundle is null
 
         } catch (Exception e) {
-            Log.e("SmsReceiver", "Exception smsReceiver" + e);
+            Log.e(TAG, "Exception smsReceiver" + e);
 
         }
+    }
+
+    private void printToast(Context context, String senderNum, String message) {
+        // Show Alert
+        int duration = Toast.LENGTH_LONG;
+        Toast toast = Toast.makeText(context,
+                "Sms Recebido de " + senderNum + ":[" + message + "]", duration);
+        toast.show();
+    }
+
+    @Nullable
+    private Purchase createPurchase(SMSData newSms) {
+        Purchase p = SmsParser.parseSms(newSms);
+        if (p != null) {
+            Log.d(TAG, "SMS:" + newSms.getBody());
+            Log.d(TAG, "Adding new purchase:" + p.toString());
+            p.save();
+        }
+        return p;
+    }
+
+    @NonNull
+    private SMSData createSms(String phoneNumber, String message) {
+        SMSData newSms = new SMSData();
+        newSms.setDate(DateFormat.getDateTimeInstance().format(new Date()));
+        newSms.setBody(message);
+        newSms.setNumber(phoneNumber);
+        newSms.setId(0);
+        return newSms;
     }
 }

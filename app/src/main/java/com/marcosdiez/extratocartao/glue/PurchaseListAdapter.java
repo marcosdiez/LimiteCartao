@@ -34,7 +34,7 @@ public class PurchaseListAdapter extends BaseAdapter
     }
 
     @Override
-    public Object getItem(int position) {
+    public Purchase getItem(int position) {
         return list.get(position);
     }
 
