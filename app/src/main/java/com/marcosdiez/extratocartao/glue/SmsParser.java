@@ -21,7 +21,7 @@ sms send +1111 Compra aprovada no seu PERSON MUL VISA PLAT final 4242 - teste de
 
  */
     private static final String TAG = "EC-SmsParser";
-    private static final String bradescoRegEx = "(\\w+)\\s+CARTOES:\\s+COMPRA\\s+APROVADA\\s+NO\\s+CARTAO\\s+FINAL\\s+(\\d+)\\s+EM\\s+(\\d+/\\d+/\\d+\\s+\\d+:\\d+)\\.\\s+VALOR\\s+DE\\s+\\$?\\s+(\\d+,\\d+)\\s+NO\\(A\\)\\s+(.+)\\.";
+    private static final String bradescoRegEx = "(\\w+)\\s+CARTOES:\\s+COMPRA\\s+APROVADA\\s+NO\\s+CARTAO\\s+FINAL\\s+(\\d+)\\s+EM\\s+(\\d+/\\d+/\\d+\\s+\\d+:\\d+)\\.?\\s*(NO)?\\s+VALOR\\s+DE\\s+\\$?\\s+(\\d+,\\d+)\\s+(EM\\s+\\d+\\s*X\\s*)?NO\\(A\\)\\s+(.+)\\.";
     private static final String itauRegEx = "Compra\\s+aprovada\\s+no\\s+seu\\s+([\\w\\s]+)\\s+final\\s+(\\d+)\\s+-\\s+(.+)\\s+valor\\s+RS\\s+(\\d+,\\d+)\\s+em\\s+(\\d+/\\d+),\\s+as\\s+(\\d+h\\d+)";
     private static final Pattern bradescoPattern = Pattern.compile(bradescoRegEx, Pattern.CASE_INSENSITIVE);
     private static final Pattern itauPattern = Pattern.compile(itauRegEx, Pattern.CASE_INSENSITIVE);
@@ -70,8 +70,11 @@ sms send +1111 Compra aprovada no seu PERSON MUL VISA PLAT final 4242 - teste de
         String nomeBanco = m.group(1);
         String nomeCartao = m.group(2);
         String data = m.group(3);
-        String valor = m.group(4);
-        String estabelecimentoAndCidade = m.group(5);
+        // NO = m.group(4) // "no" de "NO" VALOR DE
+        String valor = m.group(5);
+        // (EM 10 X)
+
+        String estabelecimentoAndCidade = m.group(7);
         int pos = estabelecimentoAndCidade.indexOf("  ");
         if (pos > 0) {
             estabelecimentoAndCidade = estabelecimentoAndCidade.substring(0, pos);
