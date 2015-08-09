@@ -34,7 +34,6 @@ public class MainActivityV3 extends AppCompatActivity {
 
     private void initListView() {
         purchaseListView = (ListView) findViewById(R.id.purchase_list);
-//        List<Purchase> pList = Purchase.listAll(Purchase.class);
 
         List<Purchase> pList = Purchase.find(Purchase.class, null, null, null, "id desc", null);
         double total = 0;
@@ -75,7 +74,7 @@ public class MainActivityV3 extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_about) {
             return true;
         }
 
