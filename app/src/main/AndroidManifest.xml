@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    package="com.marcosdiez.extratocartao"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    >
+<manifest package="com.marcosdiez.extratocartao"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.READ_SMS"/>
     <uses-permission android:name="android.permission.RECEIVE_SMS"/>
@@ -16,21 +14,22 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
-
         <activity
             android:name=".activities.GpsActivity"
             android:label="Gps Activity"
             android:screenOrientation="portrait">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
 
 
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".activities.MainActivityV3"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -59,6 +58,8 @@
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="com.marcosdiez.extratocartao.datamodel"/>
+
+
 
     </application>
 

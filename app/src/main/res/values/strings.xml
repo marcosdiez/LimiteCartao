@@ -3,4 +3,7 @@
 
     <string name="hello_world">Hello world!zzw</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_main22">Main22Activity</string>
+    <string name="title_activity_main_activity_v3">MainActivityV3</string>
 </resources>
