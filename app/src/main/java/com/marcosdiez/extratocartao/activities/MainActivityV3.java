@@ -1,5 +1,6 @@
 package com.marcosdiez.extratocartao.activities;
 
+import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -75,9 +76,18 @@ public class MainActivityV3 extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_about) {
+            showDialog();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+    void showDialog() {
+        DialogFragment newFragment = AboutDialogFragment.newInstance(
+                R.string.action_about);
+        newFragment.show(getFragmentManager(), "dialog");
+    }
+
+
 }
