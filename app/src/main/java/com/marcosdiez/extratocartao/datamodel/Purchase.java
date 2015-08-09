@@ -3,6 +3,7 @@ package com.marcosdiez.extratocartao.datamodel;
 import android.location.Location;
 
 import com.orm.SugarRecord;
+import com.orm.dsl.Ignore;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,7 +15,8 @@ import java.util.Date;
  */
 public class Purchase extends SugarRecord<Purchase> {
     public static final String TAG = "EC-Purchase";
-    static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+    final static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+    final static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     Card card;
     Store store;
     long timestamp;
@@ -23,6 +25,8 @@ public class Purchase extends SugarRecord<Purchase> {
     double latitude = 0;
     double longitude = 0;
     float accuracy = 0;
+    @Ignore
+    double totalAmount = 0;
 
     public Purchase() {
 
@@ -40,6 +44,13 @@ public class Purchase extends SugarRecord<Purchase> {
         init(card, store, timestamp, amount);
     }
 
+    public double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
 
     private double fixAmount(String amount) {
         return Double.parseDouble(amount.replace(",", "."));
@@ -73,16 +84,26 @@ public class Purchase extends SugarRecord<Purchase> {
 
     public String getTimeStampString() {
         Date theDate = new Date(this.timestamp);
+        return dateTimeFormat.format(theDate);
+    }
+
+    public String getDateStampString() {
+        Date theDate = new Date(this.timestamp);
         return dateFormat.format(theDate);
     }
 
-
     @Override
     public String toString() {
-        return "Purchase: id: " + getId() + " amount: [" + amount + "] pos: ["
-                + latitude + "," + longitude + " precision: " + accuracy
-                + "m], timestamp: " + getTimeStampString() + " "
-                + store.getName() + " " + card.getName() + "/" + card.getBank().getName();
+        String forma;
+
+        if (hasMap()) {
+            forma = "Compra %d, banco: %s. Posição: %f/%f, precisão: %.1fm";
+        } else {
+            forma = "Compra %d, banco: %s. Posição da compra não disponível.";
+        }
+
+        return String.format(forma,
+                getId(), card.getBank().getName(), latitude, longitude, accuracy);
     }
 
     public Card getCard() {

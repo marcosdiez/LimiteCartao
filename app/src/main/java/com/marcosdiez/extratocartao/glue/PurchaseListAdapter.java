@@ -52,10 +52,13 @@ public class PurchaseListAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.item_purchase, null);
             holder = new ViewHolder();
-            holder.txtSixth = (TextView) convertView.findViewById(R.id.purchase_id);
+            // holder.txtSixth = (TextView) convertView.findViewById(R.id.purchase_id);
+
             holder.txtFirst = (TextView) convertView.findViewById(R.id.Card);
+
             holder.txtSecond = (TextView) convertView.findViewById(R.id.Store);
             holder.txtThird = (TextView) convertView.findViewById(R.id.Amount);
+            holder.total = (TextView) convertView.findViewById(R.id.Total);
             holder.txtFourth = (TextView) convertView.findViewById(R.id.When);
 //            holder.txtFifth = (TextView) convertView.findViewById(R.id.Map);
             convertView.setTag(holder);
@@ -64,23 +67,27 @@ public class PurchaseListAdapter extends BaseAdapter {
         }
 
         Purchase thePurchase = list.get(position);
-        holder.txtSixth.setText(thePurchase.getId().toString());
+//         holder.txtSixth.setText(thePurchase.getId().toString());
         holder.txtFirst.setText(thePurchase.getCard().toString());
         holder.txtSecond.setText(thePurchase.getStore().toString());
         holder.txtThird.setText(String.format("%1$,.2f", thePurchase.getAmount()));
+        holder.total.setText(String.format("%1$,.2f", thePurchase.getTotalAmount()));
+//        holder.txtFourth.setText(thePurchase.getDateStampString());
         holder.txtFourth.setText(thePurchase.getTimeStampString());
+
 //        holder.txtFifth.setText(thePurchase.hasMap() ? "Mapa" : "");
 
         return convertView;
     }
 
     private class ViewHolder {
-        TextView txtFirst;
-        TextView txtSecond;
-        TextView txtThird;
-        TextView txtFourth;
+        TextView txtFirst = null;
+        TextView txtSecond = null;
+        TextView txtThird = null;
+        TextView txtFourth = null;
         //        TextView txtFifth;
-        TextView txtSixth;
+        TextView txtSixth = null;
+        TextView total = null;
     }
 
 }

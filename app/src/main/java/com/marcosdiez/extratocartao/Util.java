@@ -33,6 +33,10 @@ public class Util {
         return theURL;
     }
 
+    public static void calcualteTotal(Context context) {
+
+    }
+
     public static void loadStoredSmsData(Context context) {
         if (!Settings.getFirstTime()) {
             return;

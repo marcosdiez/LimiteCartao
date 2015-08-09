@@ -1,42 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
+              android:layout_height="wrap_content"
               android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/purchase_id"
-        android:layout_width="0dip"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.2"
-        android:gravity="center"
-        />
-
-    <TextView
         android:id="@+id/Card"
+        android:text="CC"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_weight="0.4"/>
+        android:layout_weight="0.2"/>
 
     <TextView
         android:id="@+id/Store"
+        android:text="Loja"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_weight="0.6"/>
+        android:layout_weight=".5"
+        android:gravity="left"
+        />
 
     <TextView
         android:id="@+id/Amount"
+        android:text="Valor"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_weight="0.4"
+        android:layout_weight="0.3"
+        android:gravity="right"
+        />
+
+    <TextView
+        android:id="@+id/Total"
+        android:text="Soma"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3"
         android:gravity="right"
         />
 
     <TextView
         android:id="@+id/When"
+        android:text="Data"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_weight="0.6"
-        android:gravity="center"
+        android:layout_weight=".5"
+        android:gravity="right"
         />
+
 </LinearLayout>
