@@ -2,6 +2,7 @@ package com.marcosdiez.extratocartao.datamodel;
 
 import android.location.Location;
 
+import com.marcosdiez.extratocartao.sms.BankSms;
 import com.orm.SugarRecord;
 import com.orm.dsl.Ignore;
 
@@ -31,6 +32,14 @@ public class Purchase extends SugarRecord<Purchase> {
     public Purchase() {
 
     }
+    public Purchase(BankSms bankSms){
+        Bank theBank = Bank.getOrCreate(bankSms.nomeBanco);
+        Card theCard = Card.getOrCreate(bankSms.nomeCartao, theBank);
+        Store theStore = Store.getOrCreate(bankSms.estabelecimentoAndCidade);
+        double theAmount = fixAmount(bankSms.amount);
+        init(theCard, theStore, bankSms.timestamp, theAmount);
+    }
+
 
     public Purchase(String nomeBanco, String nomeCartao, String timestamp, String amount, String estabelecimentoAndCidade) {
         Bank theBank = Bank.getOrCreate(nomeBanco);

@@ -43,7 +43,7 @@ public class Util {
         }
         Log.d(TAG, "Loading stored SMS data...");
         for (SMSData sms : SmsReader.readSms(context)) {
-            Purchase p = SmsParser.parseSms(sms);
+            Purchase p = SmsParser.parseSmsPurchase(sms);
             if (p != null) {
                 Log.d(TAG, "SMS:" + sms.getBody());
                 Log.d(TAG, "Adding new purchase:" + p.toString());

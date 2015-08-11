@@ -86,7 +86,7 @@ public class IncomingSms extends BroadcastReceiver {
 
     @Nullable
     private Purchase createPurchase(SMSData newSms) {
-        Purchase p = SmsParser.parseSms(newSms);
+        Purchase p = SmsParser.parseSmsPurchase(newSms);
         if (p != null) {
             Log.d(TAG, "SMS:" + newSms.getBody());
             Log.d(TAG, "Adding new purchase:" + p.toString());
