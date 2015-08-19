@@ -16,7 +16,7 @@ public class ParseSmsTest {
         assertEquals(10, 10);
     }
 
-    SMSData prepareSms(String message) throws java.text.ParseException {
+    SMSData mockSms(String message) throws java.text.ParseException {
         SMSData output = new SMSData();
 
         output.setId(42);
@@ -32,7 +32,7 @@ public class ParseSmsTest {
     @Test
     public void testBradesco() throws Exception {
         String msg = "BRADESCO CARTOES: COMPRA APROVADA NO CARTAO FINAL 5761 EM 30/07/2015 21:02. VALOR DE $ 41,00 NO(A) PANINI PIZZA.             SAO PAULO.";
-        BankSms parsedSms = SmsParser.parseSms(prepareSms(msg));
+        BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
 
         assertEquals(parsedSms.nomeBanco, "BRADESCO");
         assertEquals(parsedSms.nomeCartao, "5761");
@@ -44,7 +44,7 @@ public class ParseSmsTest {
     @Test
     public void testBradescoParcelado() throws Exception {
         String msg = "BRADESCO CARTOES: COMPRA APROVADA NO CARTAO FINAL 5761 EM 05/08/2015 06:46 NO VALOR DE $ 427,00 EM 10 X NO(A) LAVOISIER ANGELICA  SAO PAULO.";
-        BankSms parsedSms = SmsParser.parseSms(prepareSms(msg));
+        BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
 
         assertEquals(parsedSms.nomeBanco, "BRADESCO");
         assertEquals(parsedSms.nomeCartao, "5761");
@@ -56,7 +56,7 @@ public class ParseSmsTest {
     @Test
     public void testItau() throws Exception {
         String msg = "Compra aprovada no seu PERSON MUL VISA PLAT final 1976 - PALETERIA CAMPO BELO valor RS 9,00 em 01/08, as 13h59.";
-        BankSms parsedSms = SmsParser.parseSms(prepareSms(msg));
+        BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
 
         assertEquals(parsedSms.nomeBanco, "ITAU");
         assertEquals(parsedSms.nomeCartao, "1976");
@@ -72,7 +72,7 @@ public class ParseSmsTest {
     public void testBancoDoBrasil() throws Exception {
         String msg = "BB informa: compra no(a) LOJA DO CENTRO cartao de credito final 1234, valor RS 56,78, em 20/10/14, as 12:33.";
 
-        BankSms parsedSms = SmsParser.parseSms(prepareSms(msg));
+        BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
 
         assertEquals(parsedSms.nomeBanco, "BANCO DO BRASIL");
         assertEquals(parsedSms.nomeCartao, "1234");
@@ -85,7 +85,7 @@ public class ParseSmsTest {
     public void testSantanderA() throws Exception {
         String msg = "Santander Informa: Transacao Cartao Mastercard final 3031 de R$ 16,90 aprovada em 05/08/15 as 16:13 SMARTCOOKING COM DE";
 
-        BankSms parsedSms = SmsParser.parseSms(prepareSms(msg));
+        BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
 
         assertEquals(parsedSms.nomeBanco, "SANTANDER");
         assertEquals(parsedSms.nomeCartao, "3031");
@@ -99,7 +99,7 @@ public class ParseSmsTest {
     public void testSantanderB() throws Exception {
         String msg = "Santander Informa: Transacao Cartao VISA final 8304 de R$ 24,59 aprovada em 01/08/15 as 22:36 APL* ITUNES.COM/BILL";
 
-        BankSms parsedSms = SmsParser.parseSms(prepareSms(msg));
+        BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
 
         assertEquals(parsedSms.nomeBanco, "SANTANDER");
         assertEquals(parsedSms.nomeCartao, "8304");
@@ -113,7 +113,7 @@ public class ParseSmsTest {
     public void testSantanderC() throws Exception {
         String msg = "Santander Informa: Transacao Visa Electron cartao final 0211 de R$ 33,00 aprovada em 03/08/15 as 17:42 AUTO POSTO NOVA V";
 
-        BankSms parsedSms = SmsParser.parseSms(prepareSms(msg));
+        BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
 
         assertEquals(parsedSms.nomeBanco, "SANTANDER");
         assertEquals(parsedSms.nomeCartao, "0211");

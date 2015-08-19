@@ -4,7 +4,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_about">Sobre</string>
     <string name="alert_dialog_ok">OK</string>
-    <string name="text_about">Este app interpreta os SMS que seu banco te envia cada vez que você usa seu cartão de crédito.\n\nQuando o SMS é recebido ele anota a posição de GPS que seu telefone está e com isso é possível você saber onde a compra foi efetuada.\n\nPor último, ele também mostra a soma dos seus gastos para você ter um melhor controle orçamentário.\n\n\nAtualmente o app entende SMSs do Bradesco e Itau. Mande uma mensagem para marcos@webdanfe.com.br com exemplos de SMSs de outros bancos para que eu os cadastre também.</string>
+    <string name="text_about">Aviso: para o App funcionar é necessário que o seu banco te envie os SMSs. Se você não os recebe, entre em contato com o seu gerente.\n\nEste app interpreta os SMS que seu banco te envia cada vez que você usa seu cartão de crédito.\n\nQuando o SMS é recebido, ele anota a posição de GPS que seu telefone está e com isso é possível você saber onde a compra foi efetuada.\n\nPor último, ele também mostra a soma dos seus gastos para você ter um melhor controle orçamentário.\n\nAtualmente o app entende SMSs dos seguintes bancos:\n\nBradesco\nItau (contribuição do Arthur)\nSantander (contribuição do Hugo O. e Guilherme Gama).\n\nSe o meu programa ainda não entende o SMS do seu banco, mande uma mensagem para marcos@webdanfe.com.br com a foto do SMS. Com isso eu consigo cadastrar o formato do SMS no meu aplicativo.\n\nEste programa é codigo livre e seu código fonte está disponível em https://github.com/marcosdiez/LimiteCartao\n\n</string>
 
 
 

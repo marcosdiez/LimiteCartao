@@ -6,11 +6,11 @@ package com.marcosdiez.extratocartao.sms;
 public class BankSms {
     // this data structure is only necessary because of unit tests
 
-    public String nomeBanco;
-    public String nomeCartao;
-    public String timestamp;
-    public String amount;
-    public String estabelecimentoAndCidade;
+    public String nomeBanco="????";
+    public String nomeCartao="????";
+    public String timestamp="01/01/2000 00:00";
+    public String amount="0,00";
+    public String estabelecimentoAndCidade="????";
 
     public BankSms(String nomeBanco, String nomeCartao, String timestamp, String amount, String estabelecimentoAndCidade) {
         this.nomeBanco = nomeBanco;
