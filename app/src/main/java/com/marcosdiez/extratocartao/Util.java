@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.marcosdiez.extratocartao.datamodel.Purchase;
 import com.marcosdiez.extratocartao.datamodel.Settings;
-import com.marcosdiez.extratocartao.glue.SmsParser;
+import com.marcosdiez.extratocartao.sms.IncomingSms;
 import com.marcosdiez.extratocartao.sms.SMSData;
 import com.marcosdiez.extratocartao.sms.SmsReader;
 
@@ -33,22 +33,13 @@ public class Util {
         return theURL;
     }
 
-    public static void calcualteTotal(Context context) {
-
-    }
-
     public static void loadStoredSmsData(Context context) {
         if (!Settings.getFirstTime()) {
             return;
         }
         Log.d(TAG, "Loading stored SMS data...");
         for (SMSData sms : SmsReader.readSms(context)) {
-            Purchase p = SmsParser.parseSmsPurchase(sms);
-            if (p != null) {
-                Log.d(TAG, "SMS:" + sms.getBody());
-                Log.d(TAG, "Adding new purchase:" + p.toString());
-                p.save();
-            }
+            IncomingSms.createPurchaseIfTheSmsIsFromABank(sms);
         }
         Settings.setFirstTimeFalse();
     }

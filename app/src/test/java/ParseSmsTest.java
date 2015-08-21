@@ -69,6 +69,21 @@ public class ParseSmsTest {
     }
 
     @Test
+    public void testItauB() throws Exception {
+        String msg = "compra aprovada no seu PERSON MULT MC PLAT final 1383 - DROGA RAIA F45 valor RS 3030,87 em 19/08, as 08h31.";
+
+        BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "ITAU");
+        assertEquals(parsedSms.nomeCartao, "1383");
+        assertEquals(parsedSms.timestamp, "19/08/2015 08:31");
+        assertEquals(parsedSms.amount, "3030,87");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "DROGA RAIA F45");
+
+
+    }
+
+    @Test
     public void testBancoDoBrasil() throws Exception {
         String msg = "BB informa: compra no(a) LOJA DO CENTRO cartao de credito final 1234, valor RS 56,78, em 20/10/14, as 12:33.";
 

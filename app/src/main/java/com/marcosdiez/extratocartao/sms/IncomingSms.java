@@ -24,50 +24,55 @@ import java.util.List;
  */
 // http://androidexample.com/Incomming_SMS_Broadcast_Receiver_-_Android_Example/index.php?view=article_discription&aid=62&aaid=87
 public class IncomingSms extends BroadcastReceiver {
-    private static List<Gps> gpsList = new ArrayList<Gps>();
-
-    final SmsManager sms = SmsManager.getDefault();
     // Get the object of SmsManager
-    private final String TAG = "EC-IncomingSms";
+    private final static String TAG = "EC-IncomingSms";
+    private static List<Gps> gpsList = new ArrayList<Gps>();
+    final SmsManager sms = SmsManager.getDefault();
+
+    @Nullable
+    public static Purchase createPurchaseIfTheSmsIsFromABank(SMSData newSms) {
+        Purchase p = SmsParser.parseSmsPurchase(newSms);
+        if (p != null) {
+            Log.d(TAG, "SMS:" + newSms.getBody());
+            Log.d(TAG, "Adding new purchase:" + p.toString());
+            p.save();
+        }
+        return p;
+    }
 
     public void onReceive(Context context, Intent intent) {
-
         // Retrieves a map of extended data from the intent.
         final Bundle bundle = intent.getExtras();
-
         try {
-
             if (bundle != null) {
-
                 final Object[] pdusObj = (Object[]) bundle.get("pdus");
+                if (pdusObj != null) {
+                    for (int i = 0; i < pdusObj.length; i++) {
 
-                for (int i = 0; i < pdusObj.length; i++) {
+                        SmsMessage currentMessage = SmsMessage.createFromPdu((byte[]) pdusObj[i]);
+                        if (currentMessage != null) {
+                            String senderPhoneNumber = currentMessage.getDisplayOriginatingAddress();
+                            String message = currentMessage.getDisplayMessageBody();
 
-                    SmsMessage currentMessage = SmsMessage.createFromPdu((byte[]) pdusObj[i]);
-                    String phoneNumber = currentMessage.getDisplayOriginatingAddress();
+                            Log.i(TAG, "SMS Received! senderNum: " + senderPhoneNumber + "; message: " + message);
 
-                    String senderNum = phoneNumber;
-                    String message = currentMessage.getDisplayMessageBody();
+                            SMSData newSms = createSms(senderPhoneNumber, message);
 
-                    Log.i(TAG, "SMS Received! senderNum: " + senderNum + "; message: " + message);
-
-                    SMSData newSms = createSms(phoneNumber, message);
-
-                    Purchase p = createPurchase(newSms);
-                    if (p != null) {
-                        Log.d(TAG, "SMS belongs to a bank");
-                        Gps gps = new Gps(context, this);
-                        gps.setLocationWhenAvailable(p);
-                        printToast(context, senderNum, message);
-                        gpsList.add(gps);
-                    }
-
-                } // end for loop
+                            Purchase p = createPurchaseIfTheSmsIsFromABank(newSms);
+                            if (p != null) {
+                                Log.d(TAG, "SMS belongs to a bank");
+                                Gps gps = new Gps(context, this);
+                                gps.setLocationWhenAvailable(p);
+                                printToast(context, senderPhoneNumber, message);
+                                gpsList.add(gps);
+                            }
+                        }
+                    } // end for loop
+                } // pdusObj is null
             } // bundle is null
 
         } catch (Exception e) {
             Log.e(TAG, "Exception smsReceiver" + e);
-
         }
     }
 
@@ -82,17 +87,6 @@ public class IncomingSms extends BroadcastReceiver {
         Toast toast = Toast.makeText(context,
                 "Sms de Banco:[" + message + "]", duration);
         toast.show();
-    }
-
-    @Nullable
-    private Purchase createPurchase(SMSData newSms) {
-        Purchase p = SmsParser.parseSmsPurchase(newSms);
-        if (p != null) {
-            Log.d(TAG, "SMS:" + newSms.getBody());
-            Log.d(TAG, "Adding new purchase:" + p.toString());
-            p.save();
-        }
-        return p;
     }
 
     @NonNull

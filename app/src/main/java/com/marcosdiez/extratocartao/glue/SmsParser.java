@@ -59,11 +59,15 @@ public class SmsParser {
 
 
     public static Purchase parseSmsPurchase(SMSData theSms) {
-        return new Purchase(parseSms(theSms));
+        BankSms theBankSms = parseSms(theSms);
+        if (theBankSms != null) {
+            return new Purchase(theBankSms);
+        }
+        return null;
     }
 
 
-    public static BankSms parseSms(SMSData theSms){
+    public static BankSms parseSms(SMSData theSms) {
         String myBody = theSms.getBody();
         Matcher m;
 
@@ -96,7 +100,7 @@ public class SmsParser {
     }
 
 
-    private static BankSms santanderMatcher(Matcher m){
+    private static BankSms santanderMatcher(Matcher m) {
         String nomeBanco = "SANTANDER";
         // String nomePomposoDoCartao = m.group(1)
         String nomeCartao = m.group(1);
