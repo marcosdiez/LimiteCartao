@@ -42,13 +42,11 @@ public class SmsParser {
 
      */
     private static final String TAG = "EC-SmsParser";
-    private static final String bradescoRegEx = "(\\w+)\\s+CARTOES:\\s+COMPRA\\s+APROVADA\\s+NO\\s+CARTAO\\s+FINAL\\s+(\\d+)\\s+EM\\s+(\\d+/\\d+/\\d+\\s+\\d+:\\d+)\\.?\\s*(NO)?\\s+VALOR\\s+DE\\s+\\$?\\s+(\\d+,\\d+)\\s+(EM\\s+\\d+\\s*X\\s*)?NO\\(A\\)\\s+(.+)\\.";
-    private static final String itauRegEx = "Compra\\s+aprovada\\s+no\\s+seu\\s+([\\w\\s]+)\\s+final\\s+(\\d+)\\s+-\\s+(.+)\\s+valor\\s+RS\\s+(\\d+,\\d+)\\s+em\\s+(\\d+/\\d+),\\s+as\\s+(\\d+h\\d+)";
-    private static final String bancoBrasilRegEx = "BB\\s+informa:\\s+compra\\s+no\\(a\\)\\s+(.*)\\s+cartao\\s+de\\s+credito\\s+final\\s+(\\d+),\\s+valor\\s+RS\\s+(\\d+,\\d+),\\s+em\\s+(\\d+/\\d+)/(\\d+),\\s+as\\s+(\\d+:\\d+)";
-
+    private static final String bradescoRegEx = "(\\w+)\\s+CARTOES:\\s+COMPRA\\s+APROVADA\\s+NO\\s+CARTAO\\s+FINAL\\s+(\\d+)\\s+EM\\s+(\\d+/\\d+/\\d+\\s+\\d+:\\d+)\\.?\\s*(NO)?\\s+VALOR\\s+DE\\s+\\$?\\s+(\\d+[\\.\\d]?\\d*,\\d+)\\s+(EM\\s+\\d+\\s*X\\s*)?NO\\(A\\)\\s+(.+)\\.";
+    private static final String itauRegEx = "Compra\\s+aprovada\\s+no\\s+seu\\s+([\\w\\s]+)\\s+final\\s+(\\d+)\\s+-\\s+(.+)\\s+valor\\s+RS\\s+(\\d+[\\.\\d]?\\d*,\\d+)\\s+em\\s+(\\d+/\\d+),\\s+as\\s+(\\d+h\\d+)";
+    private static final String bancoBrasilRegEx = "BB\\s+informa:\\s+compra\\s+no\\(a\\)\\s+(.*)\\s+cartao\\s+de\\s+credito\\s+final\\s+(\\d+),\\s+valor\\s+RS\\s+(\\d+[\\.\\d]?\\d*,\\d+),\\s+em\\s+(\\d+/\\d+)/(\\d+),\\s+as\\s+(\\d+:\\d+)";
+    private static final String santanderRegEx = "Santander\\s+Informa:\\s+Transacao\\s+.+\\s+final\\s+(\\d+)\\s+de\\s+R\\$\\s+(\\d+[\\.\\d]?\\d*,\\d+)\\s+aprovada\\s+em\\s+(\\d+/\\d+)/(\\d+)\\s+as\\s+(\\d+:\\d+)\\s+(.+)";
     // String msg = "Santander Informa: Transacao Cartao Mastercard final 3031 de R$ 16,90 aprovada em 05/08/15 as 16:13 SMARTCOOKING COM DE";
-    private static final String santanderRegEx = "Santander\\s+Informa:\\s+Transacao\\s+.+\\s+final\\s+(\\d+)\\s+de\\s+R\\$\\s+(\\d+,\\d+)\\s+aprovada\\s+em\\s+(\\d+/\\d+)/(\\d+)\\s+as\\s+(\\d+:\\d+)\\s+(.+)";
-
 
 //    private static final String
 
