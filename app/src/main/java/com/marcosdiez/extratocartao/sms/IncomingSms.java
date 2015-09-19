@@ -12,6 +12,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.marcosdiez.extratocartao.Gps;
+import com.marcosdiez.extratocartao.ParsingSmsException;
 import com.marcosdiez.extratocartao.datamodel.Purchase;
 import com.marcosdiez.extratocartao.glue.SmsParser;
 
@@ -30,7 +31,7 @@ public class IncomingSms extends BroadcastReceiver {
     final SmsManager sms = SmsManager.getDefault();
 
     @Nullable
-    public static Purchase createPurchaseIfTheSmsIsFromABank(SMSData newSms) {
+    public static Purchase createPurchaseIfTheSmsIsFromABank(SMSData newSms)  throws ParsingSmsException {
         Purchase p = SmsParser.parseSmsPurchase(newSms);
         if (p != null) {
             Log.d(TAG, "SMS:" + newSms.getBody());

@@ -13,7 +13,7 @@ public class Bradesco extends BaseBank {
         return "(\\w+)\\s+CARTOES:\\s+COMPRA\\s+APROVADA\\s+NO\\s+CARTAO\\s+FINAL\\s+(\\d+)\\s+EM\\s+(\\d+/\\d+/\\d+\\s+\\d+:\\d+)\\.?\\s*(NO)?\\s+VALOR\\s+DE\\s+\\$?\\s+(\\d+[\\.\\d]?\\d*,\\d+)\\s+(EM\\s+\\d+\\s*X\\s*)?NO\\(A\\)\\s+(.+)\\.";
     }
 
-    public BankSms getBankSms() {
+    public BankSms getBankSmsHelper() {
         String nomeBanco = lastMatch.group(1);
         String nomeCartao = lastMatch.group(2);
         String data = lastMatch.group(3);

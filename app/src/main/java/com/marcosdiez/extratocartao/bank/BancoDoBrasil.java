@@ -14,7 +14,7 @@ public class BancoDoBrasil extends BaseBank {
         return "BB\\s+informa:\\s+compra\\s+no\\(a\\)\\s+(.*)\\s+cartao\\s+de\\s+credito\\s+final\\s+(\\d+),\\s+valor\\s+RS\\s+(\\d+[\\.\\d]?\\d*,\\d+),\\s+em\\s+(\\d+/\\d+)/(\\d+),\\s+as\\s+(\\d+:\\d+)";
     }
 
-    public BankSms getBankSms() {
+    public BankSms getBankSmsHelper() {
         String nomeBanco = "BANCO DO BRASIL";
         // String nomePomposoDoCartao = m.group(1)
         String nomeCartao = lastMatch.group(2);

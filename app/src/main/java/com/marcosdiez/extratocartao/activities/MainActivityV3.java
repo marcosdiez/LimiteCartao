@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.marcosdiez.extratocartao.ParsingSmsException;
 import com.marcosdiez.extratocartao.R;
 import com.marcosdiez.extratocartao.Util;
 import com.marcosdiez.extratocartao.datamodel.Purchase;
@@ -39,9 +40,21 @@ public class MainActivityV3 extends AppCompatActivity {
         setContentView(R.layout.activity_main_activity_v3);
         mySelf = this;
 
-        Util.loadStoredSmsData(this);
+        loadSmsAndSendErrorIfNecessary();
         initListView();
     }
+
+    private void loadSmsAndSendErrorIfNecessary() {
+        try {
+            Util.loadStoredSmsData(this);
+        } catch (ParsingSmsException e) {
+            String baseMsg = "Olá ! Este é o SMS que travou meu programa. Por favor envie ele por email para mim para que eu o conserte!\n\nSMS: %s\n\nException: %s\n\n%s\n\nInner Exception: %s\n\n%s\n\n";
+            String msg = String.format(baseMsg, e.msg, e.innerException.toString(), Util.stackTraceToString(e.innerException), e.toString(), Util.stackTraceToString(e));
+            Log.d(TAG, msg);
+            sendErrorPerMail(msg);
+        }
+    }
+
 
     private void initListView() {
         purchaseListView = (ListView) findViewById(R.id.purchase_list);
@@ -95,6 +108,17 @@ public class MainActivityV3 extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+
+    private void sendErrorPerMail(String msg) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Erro lendo SMS do Cartão de Crédito");
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"erros_extrato_cartao@webdanfe.com.br"});
+        intent.putExtra(Intent.EXTRA_TEXT, msg);
+
+        this.startActivityForResult(Intent.createChooser(intent, "Erro lendo um SMS. Por favor envie para o autor!"), 42);
     }
 
 

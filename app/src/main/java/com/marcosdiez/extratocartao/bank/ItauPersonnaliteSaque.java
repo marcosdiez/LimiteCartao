@@ -7,9 +7,9 @@ import java.text.SimpleDateFormat;
 /**
  * Created by Marcos on 2015-09-19.
  */
-public class ItauPersonnalite extends BaseBank {
+public class ItauPersonnaliteSaque extends BaseBank {
     protected String getRegEx() {
-        return "ITAU\\s+PERSONNALITE:\\s+Cartao\\s+final\\s+(\\d\\d\\d\\d)\\s+COMPRA\\s+APROVADA\\s+(\\d+/\\d+)\\s+(\\d+:\\d+:\\d+)\\s+R\\$\\s+(\\d+[\\.\\d]?\\d*,\\d+)\\s+Local:\\s+(.+)\\.";
+        return "ITAU\\s+PERSONNALITE:\\s+Cartao\\s+final\\s+(\\d\\d\\d\\d)\\s+SAQUE\\s+APROVADO\\s+(\\d+/\\d+)\\s+(\\d+:\\d+:\\d+)\\s+R\\$\\s+(\\d+[\\.\\d]?\\d*,\\d+)\\s+Local:\\s+(.+)\\.";
     }
 
     public BankSms getBankSmsHelper() {

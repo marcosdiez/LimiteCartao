@@ -70,7 +70,7 @@ public class Purchase extends SugarRecord<Purchase> {
     }
 
     private double fixAmount(String amount) {
-        return Double.parseDouble(amount.replace(",", "."));
+        return Double.parseDouble(amount.replace(".","").replace(",", "."));
     }
 
     private void init(Card card, Store store, String timestamp, double amount) {

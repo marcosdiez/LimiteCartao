@@ -1,5 +1,6 @@
 package com.marcosdiez.extratocartao.bank;
 
+import com.marcosdiez.extratocartao.ParsingSmsException;
 import com.marcosdiez.extratocartao.sms.BankSms;
 import com.marcosdiez.extratocartao.sms.SMSData;
 
@@ -14,7 +15,8 @@ public abstract class BaseBank {
 
     protected SMSData lastSms;
     protected Matcher lastMatch;
-    private Pattern pattern = Pattern.compile(getRegEx(), Pattern.CASE_INSENSITIVE);;
+    private Pattern pattern = Pattern.compile(getRegEx(), Pattern.CASE_INSENSITIVE);
+    ;
 
     public boolean isSmsFromBank(SMSData theSms) {
         lastSms = theSms;
@@ -22,6 +24,17 @@ public abstract class BaseBank {
         return lastMatch.find();
 
     }
+
     protected abstract String getRegEx();
-    public abstract BankSms getBankSms();
+
+    protected abstract BankSms getBankSmsHelper();
+
+    public BankSms getBankSms() throws ParsingSmsException {
+        try {
+            return getBankSmsHelper();
+        } catch (Exception e) {
+            throw new ParsingSmsException(lastSms.getBody(), e);
+        }
+
+    }
 }

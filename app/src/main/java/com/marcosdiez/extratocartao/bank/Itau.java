@@ -18,7 +18,7 @@ public class Itau extends BaseBank {
         return "Compra\\s+aprovada\\s+no\\s+seu\\s+([\\w\\s]+)\\s+final\\s+(\\d+)\\s+-\\s+(.+)\\s+valor\\s+RS\\s+(\\d+[\\.\\d]?\\d*,\\d+)\\s+em\\s+(\\d+/\\d+),\\s+as\\s+(\\d+h\\d+)";
     }
 
-    public BankSms getBankSms() {
+    public BankSms getBankSmsHelper() {
         String nomeBanco = "ITAU";
         // String nomePomposoDoCartao = m.group(1)
         String nomeCartao = lastMatch.group(2);

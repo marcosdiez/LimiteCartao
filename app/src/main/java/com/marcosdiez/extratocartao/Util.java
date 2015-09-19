@@ -51,7 +51,7 @@ public class Util {
         return banks.size() > 0;
     }
 
-    public static void loadStoredSmsData(Context context) {
+    public static void loadStoredSmsData(Context context)  throws ParsingSmsException {
         if (hasData()) {
             return;
         }
@@ -60,5 +60,14 @@ public class Util {
             IncomingSms.createPurchaseIfTheSmsIsFromABank(sms);
         }
         Settings.setFirstTimeFalse();
+    }
+
+    public static String stackTraceToString(Throwable e) {
+        StringBuilder sb = new StringBuilder();
+        for (StackTraceElement element : e.getStackTrace()) {
+            sb.append(element.toString());
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 }
