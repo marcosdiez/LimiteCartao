@@ -42,7 +42,7 @@ public class ParseSmsTest {
     }
 
     @Test
-    public void testBradescoMilReailsA() throws  Exception{
+    public void testBradescoMilReailsA() throws Exception {
         String msg = "BRADESCO CARTOES: COMPRA APROVADA NO CARTAO FINAL 5761 EM 28/08/2015 17:02. VALOR DE $ 1,00 NO(A) SPECIAL CAR   SAO PAULO.";
         BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
 
@@ -54,7 +54,7 @@ public class ParseSmsTest {
     }
 
     @Test
-    public void testBradescoMilReailsB() throws  Exception{
+    public void testBradescoMilReailsB() throws Exception {
         String msg = "BRADESCO CARTOES: COMPRA APROVADA NO CARTAO FINAL 5761 EM 28/08/2015 17:02. VALOR DE $ 13,00 NO(A) SPECIAL CAR   SAO PAULO.";
         BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
 
@@ -64,8 +64,9 @@ public class ParseSmsTest {
         assertEquals(parsedSms.amount, "13,00");
         assertEquals(parsedSms.estabelecimentoAndCidade, "SPECIAL CAR");
     }
+
     @Test
-    public void testBradescoMilReailsC() throws  Exception{
+    public void testBradescoMilReailsC() throws Exception {
         String msg = "BRADESCO CARTOES: COMPRA APROVADA NO CARTAO FINAL 5761 EM 28/08/2015 17:02. VALOR DE $ 130,00 NO(A) SPECIAL CAR   SAO PAULO.";
         BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
 
@@ -77,7 +78,7 @@ public class ParseSmsTest {
     }
 
     @Test
-    public void testBradescoMilReailsD() throws  Exception{
+    public void testBradescoMilReailsD() throws Exception {
         String msg = "BRADESCO CARTOES: COMPRA APROVADA NO CARTAO FINAL 5761 EM 28/08/2015 17:02. VALOR DE $ 1.300,00 NO(A) SPECIAL CAR   SAO PAULO.";
         BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
 
@@ -89,7 +90,7 @@ public class ParseSmsTest {
     }
 
     @Test
-    public void testBradescoMilReails() throws  Exception{
+    public void testBradescoMilReails() throws Exception {
         String msg = "BRADESCO CARTOES: COMPRA APROVADA NO CARTAO FINAL 5761 EM 28/08/2015 17:02. VALOR DE $ 10.300,00 NO(A) SPECIAL CAR   SAO PAULO.";
         BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
 
@@ -101,7 +102,7 @@ public class ParseSmsTest {
     }
 
     @Test
-    public void testBradescoMilReailsE() throws  Exception{
+    public void testBradescoMilReailsE() throws Exception {
         String msg = "BRADESCO CARTOES: COMPRA APROVADA NO CARTAO FINAL 5761 EM 28/08/2015 17:02. VALOR DE $ 100.300,00 NO(A) SPECIAL CAR   SAO PAULO.";
         BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
 
@@ -111,7 +112,6 @@ public class ParseSmsTest {
         assertEquals(parsedSms.amount, "100.300,00");
         assertEquals(parsedSms.estabelecimentoAndCidade, "SPECIAL CAR");
     }
-
 
 
     @Test
@@ -179,6 +179,20 @@ public class ParseSmsTest {
         assertEquals(parsedSms.timestamp, "18/09/2015 07:52:59");
         assertEquals(parsedSms.amount, "149,08");
         assertEquals(parsedSms.estabelecimentoAndCidade, "AUTO POST");
+    }
+
+
+    @Test
+    public void testItauPersonanaliteC() throws Exception {
+        String msg = "ITAU PERSONNALITE: Cartao final 4965 COMPRA APROVADA 25/07 13:23:58 R$ 1.000,00 Local: PINGUIMGA.";
+
+        BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "ITAU");
+        assertEquals(parsedSms.nomeCartao, "4965");
+        assertEquals(parsedSms.timestamp, "25/07/2015 13:23:58");
+        assertEquals(parsedSms.amount, "1.000,00");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "PINGUIMGA");
     }
 
 
