@@ -20,8 +20,8 @@ android {
         applicationId "com.marcosdiez.extratocartao"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 8
-        versionName "1.07"
+        versionCode 9
+        versionName "1.08"
     }
     buildTypes {
         release {

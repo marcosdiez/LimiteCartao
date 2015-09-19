@@ -48,12 +48,17 @@ public class SmsParser {
     private static final String santanderRegEx = "Santander\\s+Informa:\\s+Transacao\\s+.+\\s+final\\s+(\\d+)\\s+de\\s+R\\$\\s+(\\d+[\\.\\d]?\\d*,\\d+)\\s+aprovada\\s+em\\s+(\\d+/\\d+)/(\\d+)\\s+as\\s+(\\d+:\\d+)\\s+(.+)";
     // String msg = "Santander Informa: Transacao Cartao Mastercard final 3031 de R$ 16,90 aprovada em 05/08/15 as 16:13 SMARTCOOKING COM DE";
 
+    private static final String itauPersonnaliteRegEx = "ITAU\\s+PERSONNALITE:\\s+Cartao\\s+final\\s+(\\d\\d\\d\\d)\\s+COMPRA\\s+APROVADA\\s+(\\d+/\\d+)\\s+(\\d+:\\d+:\\d+)\\s+R\\$\\s+(\\d+[\\.\\d]?\\d*,\\d+)\\s+Local:\\s+(.+)\\.";
+    // "ITAU PERSONNALITE: Cartao final 4965 COMPRA APROVADA 18/09 22:50:19 R$ 86,00 Local: BETO COM.";
+
+
 //    private static final String
 
     private static final Pattern bradescoPattern = Pattern.compile(bradescoRegEx, Pattern.CASE_INSENSITIVE);
     private static final Pattern itauPattern = Pattern.compile(itauRegEx, Pattern.CASE_INSENSITIVE);
     private static final Pattern bancoDoBrasilPattern = Pattern.compile(bancoBrasilRegEx, Pattern.CASE_INSENSITIVE);
     private static final Pattern santanderPattern = Pattern.compile(santanderRegEx, Pattern.CASE_INSENSITIVE);
+    private static final Pattern itauPersonnalitePattern = Pattern.compile(itauPersonnaliteRegEx, Pattern.CASE_INSENSITIVE);
 
 
     public static Purchase parseSmsPurchase(SMSData theSms) {
@@ -79,6 +84,11 @@ public class SmsParser {
         m = itauPattern.matcher(myBody);
         if (m.find()) {
             return itauMatcher(m, theSms);
+        }
+        Log.d(TAG, "Checking if SMS is from Itau Personnalite");
+        m = itauPersonnalitePattern.matcher(myBody);
+        if (m.find()) {
+            return itauPersonalliteMatcher(m, theSms);
         }
 
         Log.d(TAG, "Checking if SMS is from Banco do Brasil");
@@ -128,6 +138,24 @@ public class SmsParser {
         String horaMinuto = m.group(6);
         String data = diaMesAno + "/20" + year + " " + horaMinuto;
 
+        return new BankSms(nomeBanco, nomeCartao, data, valor, estabelecimento);
+    }
+
+    private static BankSms itauPersonalliteMatcher(Matcher m, SMSData theSms) {
+        String nomeBanco = "ITAU";
+        // String nomePomposoDoCartao = m.group(1)
+        String nomeCartao = m.group(1);
+        String estabelecimento = m.group(5);
+        String valor = m.group(4);
+
+
+        String year = new SimpleDateFormat("yyyy").format(theSms.getDate());
+        String diaMes = m.group(2);
+        String horaMinutoSegundo = m.group(3);
+        String data = diaMes + "/" + year + " " + horaMinutoSegundo;
+
+
+//        Log.d(TAG, "B----");
         return new BankSms(nomeBanco, nomeCartao, data, valor, estabelecimento);
     }
 

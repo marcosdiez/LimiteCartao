@@ -152,9 +152,35 @@ public class ParseSmsTest {
         assertEquals(parsedSms.timestamp, "19/08/2015 08:31");
         assertEquals(parsedSms.amount, "3030,87");
         assertEquals(parsedSms.estabelecimentoAndCidade, "DROGA RAIA F45");
-
-
     }
+
+
+    @Test
+    public void testItauPersonanaliteA() throws Exception {
+        String msg = "ITAU PERSONNALITE: Cartao final 4965 COMPRA APROVADA 18/09 22:50:19 R$ 86,00 Local: BETO COM.";
+
+        BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "ITAU");
+        assertEquals(parsedSms.nomeCartao, "4965");
+        assertEquals(parsedSms.timestamp, "18/09/2015 22:50:19");
+        assertEquals(parsedSms.amount, "86,00");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "BETO COM");
+    }
+
+    @Test
+    public void testItauPersonanaliteB() throws Exception {
+        String msg = "ITAU PERSONNALITE: Cartao final 4965 COMPRA APROVADA 18/09 07:52:59 R$ 149,08 Local: AUTO POST.";
+
+        BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "ITAU");
+        assertEquals(parsedSms.nomeCartao, "4965");
+        assertEquals(parsedSms.timestamp, "18/09/2015 07:52:59");
+        assertEquals(parsedSms.amount, "149,08");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "AUTO POST");
+    }
+
 
     @Test
     public void testBancoDoBrasil() throws Exception {
