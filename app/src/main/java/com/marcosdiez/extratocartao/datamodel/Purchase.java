@@ -2,6 +2,7 @@ package com.marcosdiez.extratocartao.datamodel;
 
 import android.location.Location;
 
+import com.marcosdiez.extratocartao.Util;
 import com.marcosdiez.extratocartao.sms.BankSms;
 import com.orm.SugarRecord;
 import com.orm.dsl.Ignore;
@@ -18,11 +19,12 @@ public class Purchase extends SugarRecord<Purchase> {
     public static final String TAG = "EC-Purchase";
     final static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
     final static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    final static SimpleDateFormat isoDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    private static String sep = ",";
     Card card;
     Store store;
     long timestamp;
     double amount;
-
     double latitude = 0;
     double longitude = 0;
     float accuracy = 0;
@@ -32,14 +34,15 @@ public class Purchase extends SugarRecord<Purchase> {
     public Purchase() {
 
     }
-    public Purchase(BankSms bankSms){
+
+
+    public Purchase(BankSms bankSms) {
         Bank theBank = Bank.getOrCreate(bankSms.nomeBanco);
         Card theCard = Card.getOrCreate(bankSms.nomeCartao, theBank);
         Store theStore = Store.getOrCreate(bankSms.estabelecimentoAndCidade);
         double theAmount = fixAmount(bankSms.amount);
         init(theCard, theStore, bankSms.timestamp, theAmount);
     }
-
 
     public Purchase(String nomeBanco, String nomeCartao, String timestamp, String amount, String estabelecimentoAndCidade) {
         Bank theBank = Bank.getOrCreate(nomeBanco);
@@ -51,6 +54,11 @@ public class Purchase extends SugarRecord<Purchase> {
 
     public Purchase(Card card, Store store, String timestamp, double amount) {
         init(card, store, timestamp, amount);
+    }
+
+    public static String getCsvHeader() {
+
+        return "ID" + sep + "Banco" + sep + "Cartão" + sep + "Estabelecimento" + sep + "Valor" + sep + "Data" + sep + "Latitude" + sep + "Longitude" + sep + "Precisão (m)" + sep + "Mapa\n";
     }
 
     public double getTotalAmount() {
@@ -92,13 +100,19 @@ public class Purchase extends SugarRecord<Purchase> {
     }
 
     public String getTimeStampString() {
-        Date theDate = new Date(this.timestamp);
-        return dateTimeFormat.format(theDate);
+        return dateTimeFormat.format(getDate());
     }
 
     public String getDateStampString() {
-        Date theDate = new Date(this.timestamp);
-        return dateFormat.format(theDate);
+        return dateFormat.format(getDate());
+    }
+
+    public String getDateIso() {
+        return isoDateFormat.format(getDate());
+    }
+
+    public Date getDate() {
+        return new Date(this.timestamp);
     }
 
     @Override
@@ -150,10 +164,29 @@ public class Purchase extends SugarRecord<Purchase> {
         save();
     }
 
-
     public boolean hasMap() {
         return latitude != 0 || longitude != 0;
     }
 
+    public String toCsvLine() {
+        String quote = "\"";
+
+        String googleMapsUrl = "";
+        if (getLatitude() != 0 || getLongitude() != 0) {
+            googleMapsUrl = quote + "=HYPERLINK(" + quote + quote + Util.buildGoogleMapsUrl(getLatitude(), getLongitude()) + quote + quote + ")" + quote;
+        }
+
+        return getId() + sep +
+                quote + getCard().getBank().getName() + quote + sep +
+                quote + getCard().getName() + quote + sep +
+                quote + getStore().getName() + quote + sep +
+                getAmount() + sep +
+                getDateIso() + sep +
+                getLatitude() + sep +
+                getLongitude() + sep +
+                getAccuracy() + sep +
+                googleMapsUrl
+                + "\n";
+    }
 
 }

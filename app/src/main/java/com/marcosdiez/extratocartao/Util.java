@@ -3,6 +3,7 @@ package com.marcosdiez.extratocartao;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Environment;
 import android.util.Log;
 
 import com.marcosdiez.extratocartao.datamodel.Bank;
@@ -31,11 +32,19 @@ public class Util {
         context.startActivity(intent);
     }
 
+    public static String buildGoogleMapsUrl(double latitude, double longitude) {
+        return "https://maps.google.com/maps?q=" + latitude + "," + longitude;
+    }
+
     static String buildAndroidMapsUri(double latitude, double longitude) {
         String theURL = "geo:0,0?q=" + latitude + "," + longitude;
         return theURL;
     }
 
+    public static String getPublicWritableFolder(){
+        return Environment.getExternalStorageDirectory() + "/Android/data/" +
+                BuildConfig.APPLICATION_ID;
+    }
 
     private static boolean hasData(){
         List<Bank> banks = Bank.listAll(Bank.class);
