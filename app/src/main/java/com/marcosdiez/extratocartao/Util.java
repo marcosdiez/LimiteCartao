@@ -5,11 +5,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 
+import com.marcosdiez.extratocartao.datamodel.Bank;
 import com.marcosdiez.extratocartao.datamodel.Purchase;
 import com.marcosdiez.extratocartao.datamodel.Settings;
 import com.marcosdiez.extratocartao.sms.IncomingSms;
 import com.marcosdiez.extratocartao.sms.SMSData;
 import com.marcosdiez.extratocartao.sms.SmsReader;
+
+import java.util.List;
 
 /**
  * Created by Marcos on 2015-08-09.
@@ -33,8 +36,14 @@ public class Util {
         return theURL;
     }
 
+
+    private static boolean hasData(){
+        List<Bank> banks = Bank.listAll(Bank.class);
+        return banks.size() > 0;
+    }
+
     public static void loadStoredSmsData(Context context) {
-        if (!Settings.getFirstTime()) {
+        if (hasData()) {
             return;
         }
         Log.d(TAG, "Loading stored SMS data...");
