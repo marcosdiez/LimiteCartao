@@ -265,4 +265,49 @@ public class ParseSmsTest {
         assertEquals(parsedSms.estabelecimentoAndCidade, "AUTO POSTO NOVA V");
     }
 
+
+
+
+    @Test
+    public void testBradescoDebitoA() throws Exception {
+        String msg = "25/09/15 11:53 BRADESCO Maikon: Compra cartao deb. final 8108 de 1,50 realizada no estab. FAMILIA PEPERON.";
+
+        BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "BRADESCO");
+        assertEquals(parsedSms.nomeCartao, "8108");
+        assertEquals(parsedSms.timestamp, "25/09/15 11:53");
+        assertEquals(parsedSms.amount, "1,50");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "FAMILIA PEPERON");
+    }
+
+
+    @Test
+    public void testBradescoDebitoB() throws Exception {
+        String msg = "24/09/15 21:02 BRADESCO Maikon: Compra cartao deb. final 8108 de 69,00 realizada no estab. REPLAY LANCH E.";
+
+        BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "BRADESCO");
+        assertEquals(parsedSms.nomeCartao, "8108");
+        assertEquals(parsedSms.timestamp, "24/09/15 21:02");
+        assertEquals(parsedSms.amount, "69,00");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "REPLAY LANCH E");
+    }
+
+    @Test
+    public void testBradescoDebitoC() throws Exception {
+        String msg = "25/09/15 09:39 BRADESCO Maikon: Compra cartao deb. final 8108 de 4,30 realizada no estab. FAMILIA PEPERON.";
+
+        BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "BRADESCO");
+        assertEquals(parsedSms.nomeCartao, "8108");
+        assertEquals(parsedSms.timestamp, "25/09/15 09:39");
+        assertEquals(parsedSms.amount, "4,30");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "FAMILIA PEPERON");
+    }
+
+
+
 }

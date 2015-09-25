@@ -5,7 +5,7 @@ import com.marcosdiez.extratocartao.sms.BankSms;
 /**
  * Created by Marcos on 2015-09-19.
  */
-public class Bradesco extends BaseBank {
+public class BradescoCredito extends BaseBank {
 
     // BRADESCO CARTOES: COMPRA APROVADA NO CARTAO FINAL 5761 EM 30/07/2015 21:02. VALOR DE $ 41,00 NO(A) PANINI PIZZA.             SAO PAULO.
 
