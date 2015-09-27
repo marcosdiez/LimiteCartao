@@ -3,7 +3,6 @@ package com.marcosdiez.extratocartao.activities;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,13 +17,9 @@ import com.marcosdiez.extratocartao.ParsingSmsException;
 import com.marcosdiez.extratocartao.R;
 import com.marcosdiez.extratocartao.Util;
 import com.marcosdiez.extratocartao.datamodel.Purchase;
+import com.marcosdiez.extratocartao.export.MainExporter;
 import com.marcosdiez.extratocartao.glue.PurchaseListAdapter;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 
@@ -123,42 +118,7 @@ public class MainActivityV3 extends AppCompatActivity {
 
 
     private void exportCsv() {
-        File outputFile = createCsvOfPurchases();
-        if (outputFile == null) {
-            Toast.makeText(this, "Error gerando o arquivo CSV", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/csv");
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Extrato do Cartão de Crédito");
-        Uri extratoURI = Uri.fromFile(outputFile);
-        intent.putExtra(Intent.EXTRA_STREAM, extratoURI);
-        this.startActivityForResult(Intent.createChooser(intent, "Enviar Arquivo CSV"), 42);
-    }
-
-    private File createCsvOfPurchases() {
-        Log.d(TAG, "Export CSV");
-        List<Purchase> pList = Purchase.find(Purchase.class, null, null, null, "id", null);
-        try {
-
-            String sufix = (new SimpleDateFormat("yyyy-MM-dd-HH-mm")).format(new Date());
-
-            File outputFile = File.createTempFile("extrato_cartao_" + sufix + "_", ".csv");
-            outputFile.setReadable(true, false);
-            FileWriter out = new FileWriter(outputFile);
-            out.write('\ufeff');
-            out.write(Purchase.getCsvHeader());
-            for (Purchase p : pList) {
-                out.write(p.toCsvLine());
-            }
-            out.close();
-            Log.d(TAG, "File Created: " + outputFile);
-            return outputFile;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+        new MainExporter(this).execute();
     }
 
 

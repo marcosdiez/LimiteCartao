@@ -20,6 +20,8 @@ public class Purchase extends SugarRecord<Purchase> {
     final static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
     final static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     final static SimpleDateFormat isoDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    public final static SimpleDateFormat ofxDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+
     private static String sep = ",";
     Card card;
     Store store;
@@ -70,7 +72,7 @@ public class Purchase extends SugarRecord<Purchase> {
     }
 
     private double fixAmount(String amount) {
-        return Double.parseDouble(amount.replace(".","").replace(",", "."));
+        return Double.parseDouble(amount.replace(".", "").replace(",", "."));
     }
 
     private void init(Card card, Store store, String timestamp, double amount) {
@@ -114,6 +116,11 @@ public class Purchase extends SugarRecord<Purchase> {
     public Date getDate() {
         return new Date(this.timestamp);
     }
+
+    public String getOfxTimeStampString() {
+        return ofxDateFormat.format(getDate());
+    }
+
 
     @Override
     public String toString() {
@@ -187,6 +194,22 @@ public class Purchase extends SugarRecord<Purchase> {
                 getAccuracy() + sep +
                 googleMapsUrl
                 + "\n";
+    }
+
+
+    public String toOfxLine() {
+
+        String model = "<STMTTRN>\n\t<TRNTYPE>CREDIT\n\t<DTPOSTED>%s\n\t<TRNAMT>%f\n\t<FITID>%d\n\t<CHECKNUM>%d\n\t<MEMO>%s\n</STMTTRN>\n";
+        String output = String.format(model,
+                getOfxTimeStampString(),
+                -1.0 * getAmount(),
+                getId(),
+                getId(),
+                getStore()
+        );
+
+
+        return output;
     }
 
 }
