@@ -48,7 +48,7 @@ public class MainExporter extends AsyncTask<Void, Void, Intent> {
 
     protected void onPostExecute(Intent intent) {
         progress.dismiss();
-        callerActivity.startActivityForResult(Intent.createChooser(intent, "Enviar Arquivo CSV/OFX"), 42);
+        callerActivity.startActivityForResult(Intent.createChooser(intent, "Enviar Arquivo CSV e OFX"), 42);
     }
 
 }

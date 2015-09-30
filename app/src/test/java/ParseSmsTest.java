@@ -209,6 +209,17 @@ public class ParseSmsTest {
         assertEquals(parsedSms.estabelecimentoAndCidade, "CX ITAU AV NACOES UN");
     }
 
+    @Test
+    public void testItauPersonnaliteSaqueSemCartao() throws Exception {
+        String msg = "ITAU PERSONNALITE: SAQUE APROVADO 29/09 21:08:22 R$ 150,00 Local: CX ITAU AV NACOES UN.";
+        BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "ITAU");
+        assertEquals(parsedSms.nomeCartao, "0000"); // o certo seria DIGITAL, mas iria acabar com o layout
+        assertEquals(parsedSms.timestamp, "29/09/2015 21:08:22");
+        assertEquals(parsedSms.amount, "150,00");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "CX ITAU AV NACOES UN");
+    }
 
 
     @Test

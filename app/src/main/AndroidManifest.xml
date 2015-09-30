@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.marcosdiez.extratocartao"
-          xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools">
+<manifest
+    package="com.marcosdiez.extratocartao"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.READ_SMS"/>
     <uses-permission android:name="android.permission.RECEIVE_SMS"/>
@@ -15,6 +16,9 @@
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
 
+        <meta-data
+            android:name="com.google.android.backup.api_key"
+            android:value="AEdPqrEAAAAIzKvX5nPE6E7rZNr3vGQ5HC1GWfTquoblv7mwGw"/>
 
         <activity
             android:name=".activities.MainActivityV3"
@@ -46,7 +50,6 @@
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="com.marcosdiez.extratocartao.datamodel"/>
-
 
 
     </application>
