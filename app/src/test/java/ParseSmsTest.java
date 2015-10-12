@@ -224,15 +224,16 @@ public class ParseSmsTest {
 
     @Test
     public void testBancoDoBrasil() throws Exception {
-        String msg = "BB informa: compra no(a) LOJA DO CENTRO cartao de credito final 1234, valor RS 56,78, em 20/10/14, as 12:33.";
+        // String msg = "BB informa: compra no(a) LOJA DO CENTRO cartao de credito final 1234, valor RS 56,78, em 20/10/14, as 12:33.";
+        String msg = "BB avisa: compra PANIFICACAO URC, cartao final 5597, RS 39,94 - 11/10-16:18. Responda BL5597 se quiser bloquear cartao. Lim disp RS 9.534";
 
         BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
 
         assertEquals(parsedSms.nomeBanco, "BANCO DO BRASIL");
-        assertEquals(parsedSms.nomeCartao, "1234");
-        assertEquals(parsedSms.timestamp, "20/10/2014 12:33");
-        assertEquals(parsedSms.amount, "56,78");
-        assertEquals(parsedSms.estabelecimentoAndCidade, "LOJA DO CENTRO");
+        assertEquals(parsedSms.nomeCartao, "5597");
+        assertEquals(parsedSms.timestamp, "11/10/2015 16:18");
+        assertEquals(parsedSms.amount, "39,94");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "PANIFICACAO URC");
     }
 
     @Test
@@ -318,6 +319,7 @@ public class ParseSmsTest {
         assertEquals(parsedSms.amount, "4,30");
         assertEquals(parsedSms.estabelecimentoAndCidade, "FAMILIA PEPERON");
     }
+
 
 
 
