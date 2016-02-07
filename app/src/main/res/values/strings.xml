@@ -5,4 +5,11 @@
     <string name="action_about">Sobre</string>
     <string name="alert_dialog_ok">OK</string>
     <string name="action_export_csv">Exportar CSV e OFX</string>
+
+    <string name="action_open_in_map">Abrir no mapa</string>
+    <string name="action_show_only_this_card">Mostrar apenas esta cartão</string>
+    <string name="action_show_only_this_store">Mostrar apenas esta loja</string>
+    <string name="action_show_only_this_bank">Mostrar apenas este banco</string>
+
+
 </resources>
