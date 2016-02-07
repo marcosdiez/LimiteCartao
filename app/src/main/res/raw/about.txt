@@ -1,0 +1,22 @@
+Aviso: para o App funcionar é necessário que o seu banco te envie os SMSs. Se você não os recebe, entre em contato com o seu gerente ou a central de atendimnto.
+
+Este app interpreta os SMS que seu banco te envia cada vez que você usa seu cartão de crédito.
+
+Quando o SMS é recebido, ele anota a posição de GPS que seu telefone está e com isso é possível você saber onde a compra foi efetuada.
+
+Por último, ele também mostra a soma dos seus gastos para você ter um melhor controle orçamentário.
+
+Atualmente o app entende SMSs dos seguintes bancos:
+
+Banco do Brasil (contribuição do Tibério)
+Bradesco Crédito
+Bradesco Débito (contribuição do dahora)
+Itau (contribuição do Arthur)
+Itau Personnalite (contribuição do Paulo Breim)
+Santander (contribuição do Hugo O. e Guilherme Gama)
+Sicredi          (contribuição da Loagda Aryadna)
+
+Se o meu programa ainda não entende o SMS do seu banco, mande uma mensagem para marcos@webdanfe.com.br com a foto do SMS. Com isso eu consigo cadastrar o formato do SMS no meu aplicativo.
+
+Este programa é codigo livre e seu código fonte está disponível em https://github.com/marcosdiez/LimiteCartao
+
