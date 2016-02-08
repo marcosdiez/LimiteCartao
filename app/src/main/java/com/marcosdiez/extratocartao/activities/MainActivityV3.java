@@ -19,8 +19,10 @@ import com.marcosdiez.extratocartao.ParsingSmsException;
 import com.marcosdiez.extratocartao.R;
 import com.marcosdiez.extratocartao.Util;
 import com.marcosdiez.extratocartao.datamodel.Purchase;
+import com.marcosdiez.extratocartao.datamodel.StoreJoin;
 import com.marcosdiez.extratocartao.export.MainExporter;
 import com.marcosdiez.extratocartao.glue.PurchaseListAdapter;
+import com.marcosdiez.extratocartao.glue.StoreJoinListAdapter;
 
 import java.util.List;
 
@@ -138,13 +140,19 @@ public class MainActivityV3 extends AppCompatActivity {
     }
 
     private void show_expenses_per_store(){
-        String query = "select store.name, sum(amount) as total\n" +
-                "from purchase \n" +
-                "join store on store.id = purchase.store\n" +
-                "group by store\n" +
-                "order by total desc";
-        List<Purchase> pList3 = Purchase.findWithQuery(Purchase.class, query, null);
-        populatListView(pList3);
+        List<StoreJoin> pList = StoreJoin.getList();
+
+        StoreJoinListAdapter storeJoinListAdapter = new StoreJoinListAdapter(this, pList);
+        purchaseListView.setAdapter(storeJoinListAdapter);
+//        purchaseListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+//                Purchase p = (Purchase) purchaseListView.getAdapter().getItem(position);
+//                openPurchaseUrlIfPossible(p);
+//
+//            }
+//        });
+
     }
 
     private void show_only_this_store(Purchase thePurchase) {
@@ -186,6 +194,9 @@ public class MainActivityV3 extends AppCompatActivity {
                 return true;
             case R.id.action_export_csv:
                 exportCsv();
+                return true;
+            case R.id.action_show_expenses_per_store:
+                show_expenses_per_store();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -17,7 +17,7 @@ import java.util.Date;
  */
 public class Purchase extends SugarRecord<Purchase> {
     public static final String TAG = "EC-Purchase";
-    final static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+    public final static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
     final static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     final static SimpleDateFormat isoDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     public final static SimpleDateFormat ofxDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");

@@ -17,7 +17,7 @@
         android:text="Loja"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_weight=".5"
+        android:layout_weight="0.5"
         android:gravity="left"
         />
 
@@ -35,7 +35,7 @@
         android:text="Soma"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_weight="0.3"
+        android:layout_weight="0.35"
         android:gravity="right"
         />
 
@@ -44,7 +44,7 @@
         android:text="Data"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_weight=".5"
+        android:layout_weight=".45"
         android:gravity="right"
         />
 
