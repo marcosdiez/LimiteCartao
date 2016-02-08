@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout android:id="@+id/list_header_group_purchase"
+              xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+    >
+
+    <TextView
+        android:id="@+id/Store"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.6"
+        android:gravity="left"
+        android:text="Loja"
+        />
+
+    <TextView
+        android:id="@+id/NumPurchases"
+        android:layout_width="1dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.1"
+        android:text="#"/>
+
+    <TextView
+        android:id="@+id/Amount"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3"
+        android:gravity="right"
+        android:text="Total"
+        />
+
+    <TextView
+        android:id="@+id/Total"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.35"
+        android:gravity="right"
+        android:text="Soma"
+        />
+
+    <TextView
+        android:id="@+id/When"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight=".45"
+        android:gravity="right"
+        android:text="Última Compra"
+        />
+
+</LinearLayout>
