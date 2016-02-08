@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.marcosdiez.extratocartao.BuildConfig;
 import com.marcosdiez.extratocartao.ParsingSmsException;
 import com.marcosdiez.extratocartao.R;
 import com.marcosdiez.extratocartao.Util;
@@ -136,6 +137,16 @@ public class MainActivityV3 extends AppCompatActivity {
         populatListView(pList3);
     }
 
+    private void show_expenses_per_store(){
+        String query = "select store.name, sum(amount) as total\n" +
+                "from purchase \n" +
+                "join store on store.id = purchase.store\n" +
+                "group by store\n" +
+                "order by total desc";
+        List<Purchase> pList3 = Purchase.findWithQuery(Purchase.class, query, null);
+        populatListView(pList3);
+    }
+
     private void show_only_this_store(Purchase thePurchase) {
         String[] parameters2 = {thePurchase.getStore().getId().toString()};
         List<Purchase> pList2 = Purchase.find(Purchase.class,
@@ -199,7 +210,9 @@ public class MainActivityV3 extends AppCompatActivity {
 
 
     void showDialog() {
-        DialogFragment newFragment = AboutDialogFragment.newInstance(R.string.action_about);
+        String app_name = getResources().getString(R.string.app_name);
+        String title = String.format("%s %s", app_name, BuildConfig.VERSION_NAME);
+        DialogFragment newFragment = AboutDialogFragment.newInstance(title);
         newFragment.show(getFragmentManager(), "dialog");
     }
 

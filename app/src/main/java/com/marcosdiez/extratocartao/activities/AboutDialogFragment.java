@@ -20,10 +20,10 @@ import java.io.InputStreamReader;
 
 public class AboutDialogFragment extends DialogFragment {
 
-    public static AboutDialogFragment newInstance(int title) {
+    public static AboutDialogFragment newInstance(String title) {
         AboutDialogFragment frag = new AboutDialogFragment();
         Bundle args = new Bundle();
-        args.putInt("title", title);
+        args.putString("title", title);
         frag.setArguments(args);
         return frag;
     }
@@ -61,7 +61,7 @@ public class AboutDialogFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        int title = getArguments().getInt("title");
+        String title = getArguments().getString("title");
 
         String msg = readRawTextFile(getActivity(), R.raw.about);
 

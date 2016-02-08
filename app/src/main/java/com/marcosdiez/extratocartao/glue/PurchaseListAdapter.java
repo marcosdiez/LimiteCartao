@@ -86,7 +86,7 @@ public class PurchaseListAdapter extends BaseAdapter {
         TextView txtThird = null;
         TextView txtFourth = null;
         //        TextView txtFifth;
-        TextView txtSixth = null;
+        // TextView txtSixth = null;
         TextView total = null;
     }
 

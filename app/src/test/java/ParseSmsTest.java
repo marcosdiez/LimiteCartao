@@ -349,7 +349,7 @@ public class ParseSmsTest {
 
     @Test
     public void testSicredi() throws Exception {
-        String msg = "TRANSACAO APROVADA CARTAO FINAL 0110 PARC=102MERCADOPAGO*MLIVR, 199,00, 28/01/2016 AS 13:58:16.";
+        String msg = "TRANSACAO APROVADA CARTAO FINAL 0110, PARC=102MERCADOPAGO*MLIVR, 199,00, 28/01/2016 AS 13:58:16.";
 
         BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
 
@@ -359,6 +359,21 @@ public class ParseSmsTest {
         assertEquals(parsedSms.amount, "199,00");
         assertEquals(parsedSms.estabelecimentoAndCidade, "PARC=102MERCADOPAGO*MLIVR");
     }
+
+    @Test
+    public void testSicredi2() throws Exception {
+        String msg = "SEGURANCA: TRANSACAO APROVADA CARTAO FINAL 0110, PARC=102PagSegro Propag, 362,34, 07/02/2016 AS 18:13:21.DUVIDAS CONTATAR A CENTRAL DE ATENDIMENTO";
+
+        BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "SICREDI");
+        assertEquals(parsedSms.nomeCartao, "0110");
+        assertEquals(parsedSms.timestamp, "07/02/2016 18:13");
+        assertEquals(parsedSms.amount, "362,34");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "PARC=102PagSegro Propag");
+    }
+
+
 
 
 }
