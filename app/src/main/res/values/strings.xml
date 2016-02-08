@@ -6,6 +6,7 @@
     <string name="alert_dialog_ok">OK</string>
     <string name="action_export_csv">Exportar CSV e OFX</string>
     <string name="action_show_expenses_per_store">Mostrar compras por Loja</string>
+    <string name="action_show_all_expenses">Mostrar todas as compras</string>
 
     <string name="action_open_in_map">Abrir no mapa</string>
     <string name="action_show_only_this_card">Mostrar apenas esta cartão</string>

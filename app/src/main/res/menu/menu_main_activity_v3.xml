@@ -4,6 +4,12 @@
       tools:context="com.marcosdiez.extratocartao.activities.MainActivityV3">
 
     <item
+        android:id="@+id/action_show_all_expenses"
+        android:orderInCategory="25"
+        android:title="@string/action_show_all_expenses"
+        app:showAsAction="never"/>
+
+    <item
         android:id="@+id/action_show_expenses_per_store"
         android:orderInCategory="50"
         android:title="@string/action_show_expenses_per_store"

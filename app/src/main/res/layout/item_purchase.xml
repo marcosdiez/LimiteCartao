@@ -1,51 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout android:id="@+id/list_header_item_purchase"
+              xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
-              android:orientation="horizontal">
+              android:orientation="horizontal"
+    >
 
     <TextView
         android:id="@+id/Card"
-        android:text="CC"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_weight="0.2"/>
+        android:layout_weight="0.2"
+        android:text="CC"/>
 
     <TextView
         android:id="@+id/Store"
-        android:text="Loja"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="0.5"
         android:gravity="left"
+        android:text="Loja"
         />
 
     <TextView
         android:id="@+id/Amount"
-        android:text="Valor"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="0.3"
         android:gravity="right"
+        android:text="Valor"
         />
 
     <TextView
         android:id="@+id/Total"
-        android:text="Soma"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="0.35"
         android:gravity="right"
+        android:text="Soma"
         />
 
     <TextView
         android:id="@+id/When"
-        android:text="Data"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight=".45"
         android:gravity="right"
+        android:text="Data"
         />
 
 </LinearLayout>

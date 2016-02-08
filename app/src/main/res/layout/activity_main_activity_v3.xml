@@ -6,6 +6,7 @@
               tools:context="com.marcosdiez.extratocartao.activities.MainActivityV3">
 
     <include layout="@layout/item_purchase"/>
+    <include layout="@layout/group_purchase"/>
 
     <ListView
         android:id="@+id/purchase_list"

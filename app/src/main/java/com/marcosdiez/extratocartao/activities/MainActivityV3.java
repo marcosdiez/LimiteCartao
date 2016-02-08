@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -31,7 +32,11 @@ public class MainActivityV3 extends AppCompatActivity {
 
     private static String TAG = "EC-Main";
     ListView purchaseListView;
+    LinearLayout listHeaderGroupPurhcase;
+    LinearLayout listHeaderItemPurhcase;
     Context mySelf;
+
+    boolean showing_expenses_per_store = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +45,10 @@ public class MainActivityV3 extends AppCompatActivity {
         mySelf = this;
 
         loadSmsAndSendErrorIfNecessary();
+
+        listHeaderGroupPurhcase = (LinearLayout) findViewById(R.id.list_header_group_purchase);
+        listHeaderItemPurhcase = (LinearLayout) findViewById(R.id.list_header_item_purchase);
+
         initListView();
     }
 
@@ -59,12 +68,17 @@ public class MainActivityV3 extends AppCompatActivity {
         purchaseListView = (ListView) findViewById(R.id.purchase_list);
         registerForContextMenu(purchaseListView);
 
-        List<Purchase> pList = Purchase.find(Purchase.class, null, null, null, "id desc", null);
-        populatListView(pList);
+        show_all_purchases();
 
     }
 
+    private void show_all_purchases() {
+        List<Purchase> pList = Purchase.find(Purchase.class, null, null, null, "id desc", null);
+        populatListView(pList);
+    }
+
     private void populatListView(List<Purchase> pList) {
+        showing_expenses_per_store = false;
         double total = 0;
         for (Purchase p : pList) {
             total += p.getAmount();
@@ -78,9 +92,10 @@ public class MainActivityV3 extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Purchase p = (Purchase) purchaseListView.getAdapter().getItem(position);
                 openPurchaseUrlIfPossible(p);
-
             }
         });
+        listHeaderGroupPurhcase.setVisibility(View.GONE);
+        listHeaderItemPurhcase.setVisibility(View.VISIBLE);
     }
 
     private void openPurchaseUrlIfPossible(Purchase p) {
@@ -94,13 +109,35 @@ public class MainActivityV3 extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View theView,
                                     ContextMenu.ContextMenuInfo menuInfo) {
-        if (theView.getId() == R.id.purchase_list) {
+        if (!showing_expenses_per_store) {
+            if (theView.getId() == R.id.purchase_list) {
 //            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-  //          Purchase p = (Purchase) purchaseListView.getAdapter().getItem(info.position);
-            getMenuInflater().inflate(R.menu.context_menu, menu);
+                //          Purchase p = (Purchase) purchaseListView.getAdapter().getItem(info.position);
+                getMenuInflater().inflate(R.menu.context_menu, menu);
+            }
         }
     }
 
+
+    private void show_expenses_per_store() {
+        showing_expenses_per_store = true;
+        List<StoreJoin> pList = StoreJoin.getList();
+
+        StoreJoinListAdapter storeJoinListAdapter = new StoreJoinListAdapter(this, pList);
+        purchaseListView.setAdapter(storeJoinListAdapter);
+        purchaseListView.setOnItemClickListener(null);
+        listHeaderGroupPurhcase.setVisibility(View.VISIBLE);
+        listHeaderItemPurhcase.setVisibility(View.GONE);
+
+        purchaseListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                StoreJoin storeJoin = (StoreJoin) purchaseListView.getAdapter().getItem(position);
+                show_only_this_store(storeJoin.getId());
+            }
+        });
+
+    }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
@@ -137,26 +174,16 @@ public class MainActivityV3 extends AppCompatActivity {
         String[] parameters = {thePurchase.getCard().getBank().getId().toString()};
         List<Purchase> pList3 = Purchase.findWithQuery(Purchase.class, theQuery, parameters);
         populatListView(pList3);
-    }
 
-    private void show_expenses_per_store(){
-        List<StoreJoin> pList = StoreJoin.getList();
-
-        StoreJoinListAdapter storeJoinListAdapter = new StoreJoinListAdapter(this, pList);
-        purchaseListView.setAdapter(storeJoinListAdapter);
-//        purchaseListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-//                Purchase p = (Purchase) purchaseListView.getAdapter().getItem(position);
-//                openPurchaseUrlIfPossible(p);
-//
-//            }
-//        });
 
     }
 
     private void show_only_this_store(Purchase thePurchase) {
-        String[] parameters2 = {thePurchase.getStore().getId().toString()};
+        show_only_this_store(thePurchase.getStore().getId());
+    }
+
+    private void show_only_this_store(long storeId) {
+        String[] parameters2 = {storeId + ""};
         List<Purchase> pList2 = Purchase.find(Purchase.class,
                 "store = ?", parameters2,
                 null, "id desc", null);
@@ -174,10 +201,11 @@ public class MainActivityV3 extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main_activity_v3, menu);
+        getMenuInflater().inflate(
+                R.menu.menu_main_activity_v3
+                , menu);
         return true;
     }
-
 
 
     @Override
@@ -197,6 +225,9 @@ public class MainActivityV3 extends AppCompatActivity {
                 return true;
             case R.id.action_show_expenses_per_store:
                 show_expenses_per_store();
+                return true;
+            case R.id.action_show_all_expenses:
+                show_all_purchases();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

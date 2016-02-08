@@ -49,7 +49,7 @@ public class StoreJoinListAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.group_purchase, null);
             holder = new ViewHolder();
-            holder.txtFirst = (TextView) convertView.findViewById(R.id.Card);
+            holder.txtFirst = (TextView) convertView.findViewById(R.id.NumPurchases);
             holder.txtSecond = (TextView) convertView.findViewById(R.id.Store);
             holder.txtThird = (TextView) convertView.findViewById(R.id.Amount);
             holder.total = (TextView) convertView.findViewById(R.id.Total);
