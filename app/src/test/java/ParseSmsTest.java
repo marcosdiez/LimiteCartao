@@ -373,6 +373,19 @@ public class ParseSmsTest {
         assertEquals(parsedSms.estabelecimentoAndCidade, "PARC=102PagSegro Propag");
     }
 
+    @Test
+    public void testSicoob() throws Exception {
+        String msg = "SICOOB informa, compra Credito aprovada com seu cartao MasterCard - DAFITI, em 10/02 as 07:10h, valor R$107,99";
+
+        BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "SICOOB");
+        assertEquals(parsedSms.nomeCartao, "MasterCard");
+        assertEquals(parsedSms.timestamp, "10/02/2015 07:10");
+        assertEquals(parsedSms.amount, "107,99");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "DAFITI");
+
+    }
 
 
 

@@ -14,7 +14,9 @@ Bradesco Débito    (contribuição do dahora)
 Itau               (contribuição do Arthur)
 Itau Personnalite  (contribuição do Paulo Breim)
 Santander          (contribuição do Hugo O. e Guilherme Gama)
+Sicoob             (contribuição anônima)
 Sicredi            (contribuição da Loagda Aryadna)
+
 
 Se o meu programa ainda não entende o SMS do seu banco, mande uma mensagem para marcos@webdanfe.com.br com a foto do SMS. Com isso eu consigo cadastrar o formato do SMS no meu aplicativo.
 
