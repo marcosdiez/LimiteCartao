@@ -68,13 +68,16 @@ public class MainActivityV3 extends AppCompatActivity {
         purchaseListView = (ListView) findViewById(R.id.purchase_list);
         registerForContextMenu(purchaseListView);
 
-        show_all_purchases();
-
+        int num_purchases = show_all_purchases();
+        if(num_purchases == 0){
+            showAboutDialog();
+        }
     }
 
-    private void show_all_purchases() {
+    private int show_all_purchases() {
         List<Purchase> pList = Purchase.find(Purchase.class, null, null, null, "id desc", null);
         populatListView(pList);
+        return pList.size();
     }
 
     private void populatListView(List<Purchase> pList) {
@@ -218,7 +221,7 @@ public class MainActivityV3 extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         switch (id) {
             case R.id.action_about:
-                showDialog();
+                showAboutDialog();
                 return true;
             case R.id.action_export_csv:
                 exportCsv();
@@ -251,7 +254,7 @@ public class MainActivityV3 extends AppCompatActivity {
     }
 
 
-    void showDialog() {
+    void showAboutDialog() {
         String app_name = getResources().getString(R.string.app_name);
         String title = String.format("%s %s", app_name, BuildConfig.VERSION_NAME);
         DialogFragment newFragment = AboutDialogFragment.newInstance(title);

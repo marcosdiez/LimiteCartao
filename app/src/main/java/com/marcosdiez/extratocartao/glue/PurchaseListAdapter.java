@@ -68,7 +68,7 @@ public class PurchaseListAdapter extends BaseAdapter {
 
         Purchase thePurchase = list.get(position);
 //         holder.txtSixth.setText(thePurchase.getId().toString());
-        holder.txtFirst.setText(thePurchase.getCard().toString());
+        holder.txtFirst.setText(thePurchase.getCard().toShortString());
         holder.txtSecond.setText(thePurchase.getStore().toString());
         holder.txtThird.setText(String.format("%1$,.2f", thePurchase.getAmount()));
         holder.total.setText(String.format("%1$,.2f", thePurchase.getTotalAmount()));

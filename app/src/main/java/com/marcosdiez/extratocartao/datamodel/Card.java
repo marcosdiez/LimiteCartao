@@ -40,7 +40,33 @@ public class Card extends SugarRecord<Card> {
     @Override
     public String toString() {
         return name;
+    }
 
-//        return "Card: [" + name + "] " + bank.toString();
+    public String toShortString(){
+        return getInitials(name);
+    }
+
+    private static String getInitials(String input){
+        // returns the initials of a string with more then 5 chars, the whole string otherwise
+
+        if(input == null){
+            return input;
+        }
+        int len = input.length();
+        if(len < 5){
+            return input;
+        }
+        String output = "";
+        for(int i = -1 ; i < len ; i++ ){
+            if(i == -1 || input.charAt(i) == ' '){
+                if(i+1 < len){
+                    char nextChar = input.charAt(i+1);
+                    if(nextChar != ' '){
+                        output += nextChar;
+                    }
+                }
+            }
+        }
+        return output;
     }
 }
