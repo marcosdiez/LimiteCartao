@@ -12,6 +12,7 @@ Banco do Brasil    (contribuição do Tibério)
 Bradesco Crédito
 Bradesco Débito    (contribuição do dahora)
 Itau               (contribuição do Arthur)
+Itau Cartoes Adicionais (contribuição do Diego Queiroz)
 Itau Personnalite  (contribuição do Paulo Breim)
 Santander          (contribuição do Hugo O. e Guilherme Gama)
 Sicoob             (contribuição anônima)
