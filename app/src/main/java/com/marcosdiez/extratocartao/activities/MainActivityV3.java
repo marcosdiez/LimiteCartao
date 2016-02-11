@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.marcosdiez.extratocartao.BuildConfig;
@@ -70,6 +71,7 @@ public class MainActivityV3 extends AppCompatActivity {
 
         int num_purchases = show_all_purchases();
         if(num_purchases == 0){
+            ((TextView) findViewById(R.id.warning_no_sms)).setVisibility(View.VISIBLE);
             showAboutDialog();
         }
     }

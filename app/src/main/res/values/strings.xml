@@ -12,6 +12,7 @@
     <string name="action_show_only_this_card">Mostrar apenas esta cartão</string>
     <string name="action_show_only_this_store">Mostrar apenas esta loja</string>
     <string name="action_show_only_this_bank">Mostrar apenas este banco</string>
+    <string name="no_sms_warning">AVISO:\nPor favor ligue para o seu gerente ou para a central de atendimento e peça para receber um SMS para cada compra efetuadada com o cartão de crédito.\n\nSem esses SMSs o aplicativo não funciona.\n\nMas tome cuidado, alguns bancos cobram por este serviço.</string>
 
 
 </resources>
