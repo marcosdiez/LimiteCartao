@@ -127,13 +127,15 @@ public class Purchase extends SugarRecord<Purchase> {
         String forma;
 
         if (hasMap()) {
-            forma = "Compra %d, banco: %s. Posição: %f/%f, precisão: %.1fm";
+            forma = "Compra %d, Cartão: %s, banco: %s. Posição: %f/%f, precisão: %.1fm";
         } else {
-            forma = "Compra %d, banco: %s. Posição da compra não disponível.";
+            forma = "Compra %d, Cartão: %s, banco: %s. Posição da compra não disponível.";
         }
 
+        // the card name is important because some cards have long names and we only show initials
+
         return String.format(forma,
-                getId(), card.getBank().getName(), latitude, longitude, accuracy);
+                getId(), card.getName(), card.getBank().getName(), latitude, longitude, accuracy);
     }
 
     public Card getCard() {
