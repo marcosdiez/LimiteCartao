@@ -9,6 +9,7 @@ import com.marcosdiez.extratocartao.bank.BradescoCredito;
 import com.marcosdiez.extratocartao.bank.BradescoDebito;
 import com.marcosdiez.extratocartao.bank.Itau;
 import com.marcosdiez.extratocartao.bank.ItauCartaoAdicional;
+import com.marcosdiez.extratocartao.bank.ItauDebito;
 import com.marcosdiez.extratocartao.bank.ItauPersonnalite;
 import com.marcosdiez.extratocartao.bank.ItauPersonnaliteSaque;
 import com.marcosdiez.extratocartao.bank.ItauPersonnaliteSaqueSemCartao;
@@ -30,6 +31,7 @@ public class SmsParser {
             new BradescoCredito(),
             new BradescoDebito(),
             new Itau(),
+            new ItauDebito(),
             new ItauCartaoAdicional(),
             new ItauPersonnalite(),
             new ItauPersonnaliteSaque(),

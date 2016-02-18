@@ -481,4 +481,48 @@ public class ParseSmsTest {
         assertEquals(parsedSms.estabelecimentoAndCidade, "SALAO DA PATRICIA");
     }
 
+
+    @Test
+    public void testCredicard7() throws Exception {
+        String msg = "Compra aprovada no seu CREDICARD EXLCUS MC final 4897 - AUTO VIACAO BRAGANCA valor RS 25,70 em 06/02, as 10h03.";
+
+        BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "ITAU");
+        assertEquals(parsedSms.nomeCartao, "4897");
+        assertEquals(parsedSms.timestamp, "06/02/2015 10:03");
+        assertEquals(parsedSms.amount, "25,70");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "AUTO VIACAO BRAGANCA");
+    }
+
+
+
+    @Test
+    public void testItauDebito() throws Exception {
+        String msg = "ITAU DEBITO: Cartao final 4607 COMPRA APROVADA 16/02 18:21:18 R$ 8,25 Local: DENTNHO&apos;.";
+
+        BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "ITAU");
+        assertEquals(parsedSms.nomeCartao, "4607");
+        assertEquals(parsedSms.timestamp, "16/02/2015 18:21");
+        assertEquals(parsedSms.amount, "8,25");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "DENTNHO&apos;");
+    }
+
+
+    @Test
+    public void testItauDebitoB() throws Exception {
+        String msg = "ITAU DEBITO: Cartao final 2929 COMPRA APROVADA 28/02 21:48:56 R$ 15,00 Local: PAGSEGURO.";
+
+        BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "ITAU");
+        assertEquals(parsedSms.nomeCartao, "2929");
+        assertEquals(parsedSms.timestamp, "28/02/2015 21:48");
+        assertEquals(parsedSms.amount, "15,00");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "PAGSEGURO");
+    }
+
+
 }
