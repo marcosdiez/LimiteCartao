@@ -524,5 +524,30 @@ public class ParseSmsTest {
         assertEquals(parsedSms.estabelecimentoAndCidade, "PAGSEGURO");
     }
 
+    @Test
+    public void testPortoSeguroA() throws Exception {
+        String msg = "Porto Cartoes: Compra aprovada no cartao VISA final 1110 no valor de R$ 96,00 em 06/03 as 20h05. E C S H LTDA";
 
+        BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "Porto Seguro");
+        assertEquals(parsedSms.nomeCartao, "1110");
+        assertEquals(parsedSms.timestamp, "06/03/2015 20:05");
+        assertEquals(parsedSms.amount, "96,00");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "E C S H LTDA");
+    }
+
+
+    @Test
+    public void testPortoSeguroB() throws Exception {
+        String msg = "Porto Cartoes: Compra aprovada no cartao VISA final 1110 no valor de R$ 89,00 em 08/03 as 15h23. P STATION";
+
+        BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "Porto Seguro");
+        assertEquals(parsedSms.nomeCartao, "1110");
+        assertEquals(parsedSms.timestamp, "08/03/2015 15:23");
+        assertEquals(parsedSms.amount, "89,00");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "P STATION");
+    }
 }
