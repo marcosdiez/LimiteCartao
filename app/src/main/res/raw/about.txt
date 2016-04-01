@@ -11,11 +11,12 @@ Atualmente o app entende SMSs dos seguintes bancos:
 Banco do Brasil         (contribuição do Tibério)
 Bradesco Crédito
 Bradesco Débito         (contribuição do dahora)
+Caixa                   (contribuição do williancypel)
 Itau                    (contribuição do Arthur)
 Itau Cartoes Adicionais (contribuição do Diego Queiroz)
 Itau Débito             (contribuição do Diego Queiroz)
 Itau Personnalite       (contribuição do Paulo Breim)
-Portu Seguro Cartoes    (contribuição do Wilson Souza)
+Porco Inseguro Cartões  (contribuição do Wilson Souza)
 Santander               (contribuição do Hugo O. e Guilherme Gama)
 Sicoob                  (contribuição de F. M. Caruso)
 Sicredi                 (contribuição da Loagda Aryadna)
@@ -27,4 +28,3 @@ Se o meu programa ainda não entende o SMS do seu banco, mande uma mensagem para
 Para obter mais informações sobre uma compra, de um toque longo em cima da mesma.
 
 Este programa é codigo livre e seu código fonte está disponível em https://github.com/marcosdiez/LimiteCartao
-

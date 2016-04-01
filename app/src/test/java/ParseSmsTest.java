@@ -550,4 +550,19 @@ public class ParseSmsTest {
         assertEquals(parsedSms.amount, "89,00");
         assertEquals(parsedSms.estabelecimentoAndCidade, "P STATION");
     }
+
+    @Test
+    public void testCaixa() throws Exception {
+        String msg = "CAIXA Informa: Compra aprovada no(a) RAFAELA SUELEN, R$ 25,00, 01/04 as 17:55, cartao MASTERCARD final 1549.";
+
+        BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "CAIXA");
+        assertEquals(parsedSms.nomeCartao, "1549");
+        assertEquals(parsedSms.timestamp, "01/04/2015 17:55");
+        assertEquals(parsedSms.amount, "25,00");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "RAFAELA SUELEN");
+    }
+
+
 }
