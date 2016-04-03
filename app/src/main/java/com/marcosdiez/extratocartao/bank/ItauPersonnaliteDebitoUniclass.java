@@ -7,9 +7,12 @@ import java.text.SimpleDateFormat;
 /**
  * Created by Marcos on 2015-09-19.
  */
-public class ItauPersonnalite extends BaseBank {
+public class ItauPersonnaliteDebitoUniclass extends BaseBank {
     protected String getRegEx() {
-        return "ITAU\\s+PERSONNALITE:\\s+Cartao\\s+final\\s+(\\d\\d\\d\\d)\\s+COMPRA\\s+APROVADA\\s+(\\d+/\\d+)\\s+(\\d+:\\d+:\\d+)\\s+R\\$\\s+(\\d+[\\.\\d]?\\d*,\\d+)\\s+Local:\\s+(.+)\\.";
+        // ITAU PERSONNALITE
+        // ITAU DEBITO
+        // ITAU UNICLASS
+        return "ITAU\\s+.+:\\s+Cartao\\s+final\\s+(\\d\\d\\d\\d)\\s+COMPRA\\s+APROVADA\\s+(\\d+/\\d+)\\s+(\\d+:\\d+:\\d+)\\s+R\\$\\s+(\\d+[\\.\\d]?\\d*,\\d+)\\s+Local:\\s+(.+)\\.";
     }
 
     public BankSms getBankSmsHelper() {

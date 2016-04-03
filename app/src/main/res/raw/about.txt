@@ -11,11 +11,12 @@ Atualmente o app entende SMSs dos seguintes bancos:
 Banco do Brasil         (contribuição do Tibério)
 Bradesco Crédito
 Bradesco Débito         (contribuição do dahora)
-Caixa                   (contribuição do williancypel)
+Caixa Débito e Crédito  (contribuição do williancypel)
 Itau                    (contribuição do Arthur)
 Itau Cartoes Adicionais (contribuição do Diego Queiroz)
 Itau Débito             (contribuição do Diego Queiroz)
 Itau Personnalite       (contribuição do Paulo Breim)
+Itau Uniclass           (contribuição do Leonadro A. de Araujo)
 Porco Inseguro Cartões  (contribuição do Wilson Souza)
 Santander               (contribuição do Hugo O. e Guilherme Gama)
 Sicoob                  (contribuição de F. M. Caruso)

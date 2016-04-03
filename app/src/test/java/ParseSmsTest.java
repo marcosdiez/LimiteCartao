@@ -505,7 +505,7 @@ public class ParseSmsTest {
 
         assertEquals(parsedSms.nomeBanco, "ITAU");
         assertEquals(parsedSms.nomeCartao, "4607");
-        assertEquals(parsedSms.timestamp, "16/02/2015 18:21");
+        assertEquals(parsedSms.timestamp, "16/02/2015 18:21:18");
         assertEquals(parsedSms.amount, "8,25");
         assertEquals(parsedSms.estabelecimentoAndCidade, "DENTNHO&apos;");
     }
@@ -519,7 +519,7 @@ public class ParseSmsTest {
 
         assertEquals(parsedSms.nomeBanco, "ITAU");
         assertEquals(parsedSms.nomeCartao, "2929");
-        assertEquals(parsedSms.timestamp, "28/02/2015 21:48");
+        assertEquals(parsedSms.timestamp, "28/02/2015 21:48:56");
         assertEquals(parsedSms.amount, "15,00");
         assertEquals(parsedSms.estabelecimentoAndCidade, "PAGSEGURO");
     }
@@ -564,5 +564,43 @@ public class ParseSmsTest {
         assertEquals(parsedSms.estabelecimentoAndCidade, "RAFAELA SUELEN");
     }
 
+    @Test
+    public void testItauUniclassA() throws Exception {
+        String msg = "ITAU UNICLASS: Cartao final 2681 COMPRA APROVADA 01/04 20:38:42 R$ 50,00 Local: Centro Au. Consulte tambem pelo celular";
+
+        BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "ITAU");
+        assertEquals(parsedSms.nomeCartao, "2681");
+        assertEquals(parsedSms.timestamp, "01/04/2015 20:38:42");
+        assertEquals(parsedSms.amount, "50,00");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "Centro Au");
+    }
+
+    @Test
+    public void testItauUniclassB() throws Exception {
+        String msg = "ITAU UNICLASS: Cartao final 2681 COMPRA APROVADA 01/04 22:12:47 R$ 31,00 Local: SHOCK POI. Consulta tambem pelo celular";
+
+        BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "ITAU");
+        assertEquals(parsedSms.nomeCartao, "2681");
+        assertEquals(parsedSms.timestamp, "01/04/2015 22:12:47");
+        assertEquals(parsedSms.amount, "31,00");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "SHOCK POI");
+    }
+
+    @Test
+    public void testItauUniclassC() throws Exception {
+        String msg = "ITAU UNICLASS: Cartao final 2681 COMPRA APROVADA 02/04 21:31:51 R$ 29,00 Local: PIZZARIA. Consulte tambm pelo celular";
+
+        BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "ITAU");
+        assertEquals(parsedSms.nomeCartao, "2681");
+        assertEquals(parsedSms.timestamp, "02/04/2015 21:31:51");
+        assertEquals(parsedSms.amount, "29,00");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "PIZZARIA");
+    }
 
 }
