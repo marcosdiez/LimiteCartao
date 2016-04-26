@@ -17,6 +17,7 @@ import com.marcosdiez.extratocartao.bank.PortoSeguro;
 import com.marcosdiez.extratocartao.bank.Santander;
 import com.marcosdiez.extratocartao.bank.Sicoob;
 import com.marcosdiez.extratocartao.bank.Sicredi;
+import com.marcosdiez.extratocartao.bank.UniCred;
 import com.marcosdiez.extratocartao.datamodel.Purchase;
 import com.marcosdiez.extratocartao.sms.BankSms;
 import com.marcosdiez.extratocartao.sms.SMSData;
@@ -40,7 +41,8 @@ public class SmsParser {
             new PortoSeguro(),
             new Santander(),
             new Sicoob(),
-            new Sicredi()
+            new Sicredi(),
+            new UniCred()
     };
 
     public static BankSms parseSms(SMSData theSMS) throws ParsingSmsException {

@@ -603,4 +603,46 @@ public class ParseSmsTest {
         assertEquals(parsedSms.estabelecimentoAndCidade, "PIZZARIA");
     }
 
+    @Test
+    public void testUniCred1() throws Exception {
+        String msg = "Unicred informa: compra credito aprovada no cartao MasterCard em 02/04, 13:57, de R$94,32. Local: BIG CAMBORIU 200.";
+
+        BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "Unicred");
+        assertEquals(parsedSms.nomeCartao, "MasterCard");
+        assertEquals(parsedSms.timestamp, "02/04/2015 13:57");
+        assertEquals(parsedSms.amount, "94,32");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "BIG CAMBORIU 200");
+
+    }
+
+    @Test
+    public void testUniCredB() throws Exception {
+        String msg = "Unicred informa: compra credito aprovada no cartao MasterCard em 02/04, 17:51, de R$358,80. Local: PAGSEGURO*PagSegu.";
+
+        BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "Unicred");
+        assertEquals(parsedSms.nomeCartao, "MasterCard");
+        assertEquals(parsedSms.timestamp, "02/04/2015 17:51");
+        assertEquals(parsedSms.amount, "358,80");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "PAGSEGURO*PagSegu");
+
+    }
+
+    @Test
+    public void testItauDebito2() throws Exception {
+        String msg = "ITAU DEBITO: Cartao final XXXX COMPRA APROVADA 25/04 19:22:08 R$ 142,70 Local: FARMA NIL. Consulte tambem pelo celular www.itau.com.br";
+
+        BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "ITAU");
+        assertEquals(parsedSms.nomeCartao, "XXXX");
+        assertEquals(parsedSms.timestamp, "25/04/2015 19:22:08");
+        assertEquals(parsedSms.amount, "142,70");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "FARMA NIL");
+
+    }
+
 }

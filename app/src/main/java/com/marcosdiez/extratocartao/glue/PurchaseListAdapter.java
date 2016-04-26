@@ -43,9 +43,6 @@ public class PurchaseListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
-
-        // TODO Auto-generated method stub
         ViewHolder holder;
         LayoutInflater inflater = activity.getLayoutInflater();
 
