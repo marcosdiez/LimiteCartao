@@ -201,13 +201,20 @@ public class Purchase extends SugarRecord<Purchase> {
 
     public String toOfxLine() {
 
-        String model = "<STMTTRN>\n\t<TRNTYPE>CREDIT\n\t<DTPOSTED>%s\n\t<TRNAMT>%f\n\t<FITID>%d\n\t<CHECKNUM>%d\n\t<MEMO>%s\n</STMTTRN>\n";
+        String model = "\t\t\t<STMTTRN>\n" +
+                "\t\t\t\t<TRNTYPE>CREDIT\n" +
+                "\t\t\t\t<DTPOSTED>%s\n" +
+                "\t\t\t\t<TRNAMT>%f\n" +
+                "\t\t\t\t<FITID>%d\n" +
+                "\t\t\t\t<CHECKNUM>%d\n" +
+                "\t\t\t\t<MEMO>%s\n" +
+                "\t\t\t</STMTTRN>\n";
         String output = String.format(model,
                 getOfxTimeStampString(),
                 -1.0 * getAmount(),
                 getId(),
                 getId(),
-                getStore()
+                getStore().toString().replace("&","")
         );
 
 

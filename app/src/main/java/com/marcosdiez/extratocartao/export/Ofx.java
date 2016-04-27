@@ -60,8 +60,8 @@ public class Ofx {
                 "\t\t\t\t<CODE>0\n" +
                 "\t\t\t\t<SEVERITY>INFO\n" +
                 "\t\t\t</STATUS>\n" +
-                "\t\t<DTSERVER>" + now + "\n" +
-                "\t\t<LANGUAGE>POR\n" +
+                "\t\t\t<DTSERVER>" + now + "\n" +
+                "\t\t\t<LANGUAGE>POR\n" +
                 "\t\t</SONRS>\n" +
                 "\t</SIGNONMSGSRSV1>\n");
 
@@ -73,7 +73,7 @@ public class Ofx {
     }
 
     private static void addCards(FileWriter out) throws IOException {
-        out.write("<CREDITCARDMSGSRSV1>\n");
+        out.write("\t<CREDITCARDMSGSRSV1>\n");
         List<Card> cList = Card.find(Card.class, null, null, null, "id", null);
         for (Card aCard : cList) {
             List<Purchase> pList = Purchase.find(Purchase.class, "card = ?", new String[]{aCard.getId().toString()}, null, "id", null);
@@ -87,8 +87,9 @@ public class Ofx {
                             "\t\t\t<CCSTMTRS>\n" +
                             "\t\t\t\t<CURDEF>BRL\n" +
                             "\t\t\t\t<CCACCTFROM>\n" +
-                            "\t\t\t\t<ACCTID>\n" + aCard.getBank() + "-" + aCard.getName() + "\n</CCACCTFROM>\n" +
-                            "<BANKTRANLIST>\n" +
+                            "\t\t\t\t\t<ACCTID>" + aCard.getBank() + "-" + aCard.getName() + "\n" +
+                            "\t\t\t\t</CCACCTFROM>\n" +
+                            "\t\t\t<BANKTRANLIST>\n" +
                             "\t\t\t\t<DTSTART>19900101000001\n" +
                             "\t\t\t\t<DTEND>" + now() + "\n");
 
@@ -99,7 +100,7 @@ public class Ofx {
             }
 
 
-            out.write(String.format("</BANKTRANLIST>\n" +
+            out.write(String.format("\t\t</BANKTRANLIST>\n" +
                     "\t\t\t<LEDGERBAL>\n" +
                     "\t\t\t\t<BALAMT>-%.2f\n" +
                     "\t\t\t\t<DTASOF>00000000\n" +
