@@ -207,14 +207,19 @@ public class Purchase extends SugarRecord<Purchase> {
                 "\t\t\t\t<TRNAMT>%f\n" +
                 "\t\t\t\t<FITID>%d\n" +
                 "\t\t\t\t<CHECKNUM>%d\n" +
-                "\t\t\t\t<MEMO>%s\n" +
+                "\t\t\t\t<NAME>%s\n" +
+//                "\t\t\t\t<MEMO>%s\n" +
                 "\t\t\t</STMTTRN>\n";
+
+        String storeName = getStore().toString().replace("&", "");
+
         String output = String.format(model,
                 getOfxTimeStampString(),
                 -1.0 * getAmount(),
                 getId(),
                 getId(),
-                getStore().toString().replace("&","")
+                storeName,
+                storeName
         );
 
 
