@@ -127,6 +127,19 @@ public class ParseSmsTest {
     }
 
     @Test
+    public void testBradescoDoisReais() throws Exception {
+        String msg = "BRADESCO CARTOES: COMPRA APROVADA NO CARTAO FINAL 5761 EM 28/04/2016 18:26. VALOR DE $ 2,00 NO(A) SATADIUM CAFE BARUERI.";
+        BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "BRADESCO");
+        assertEquals(parsedSms.nomeCartao, "5761");
+        assertEquals(parsedSms.timestamp, "28/04/2016 18:26");
+        assertEquals(parsedSms.amount, "2,00");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "SATADIUM CAFE BARUERI");
+    }
+
+
+    @Test
     public void testItau() throws Exception {
         String msg = "Compra aprovada no seu PERSON MUL VISA PLAT final 1976 - PALETERIA CAMPO BELO valor RS 9,00 em 01/08, as 13h59.";
         BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
