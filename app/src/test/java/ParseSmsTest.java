@@ -658,4 +658,21 @@ public class ParseSmsTest {
 
     }
 
+
+    @Test
+    public void testBanrisul() throws Exception {
+        // Banrisul informa:
+        String msg = "Banrisul informa: APROVADA TRANSACAO CARTAO DE CREDITO DE 150,00 AS 13:19:31 DE 05/05/2016 CARTAO FINAL 2123 FARMA LEVES";
+
+        BankSms parsedSms = SmsParser.parseSms(mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "BANRISUL");
+        assertEquals(parsedSms.nomeCartao, "2123");
+        assertEquals(parsedSms.timestamp, "05/05/2016 13:19:31");
+        assertEquals(parsedSms.amount, "150,00");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "FARMA LEVES");
+
+    }
+
+
 }

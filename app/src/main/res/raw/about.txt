@@ -9,6 +9,7 @@ Por último, ele também mostra a soma dos seus gastos para você ter um melhor 
 Atualmente o app entende SMSs dos seguintes bancos:
 
 Banco do Brasil         (contribuição do Tibério)
+Banrisul                (contribuição da Sulamita dos Anjos)
 Bradesco Crédito
 Bradesco Débito         (contribuição do dahora)
 Caixa Débito e Crédito  (contribuição do williancypel)
