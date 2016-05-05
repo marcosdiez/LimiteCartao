@@ -29,5 +29,12 @@
         android:title="@string/action_show_only_this_bank"
         app:showAsAction="never"/>
 
+
+    <item
+        android:id="@+id/action_edit_entry"
+        android:orderInCategory="500"
+        android:title="@string/action_edit_entry"
+        app:showAsAction="never"/>
+
 </menu>
 

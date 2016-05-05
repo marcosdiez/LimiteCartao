@@ -197,13 +197,23 @@ public class MainActivityV3 extends AppCompatActivity {
             case R.id.action_show_only_this_store:
                 show_only_this_store(thePurchase);
                 return true;
-
             case R.id.action_show_only_this_bank:
                 show_only_this_bank(thePurchase);
+                return true;
+            case R.id.action_edit_entry:
+                loadPurchaseEditScreen(thePurchase);
                 return true;
             default:
                 return super.onContextItemSelected(item);
         }
+    }
+
+    private void loadPurchaseEditScreen(Purchase thePurchase) {
+        Intent intent = new Intent(this, AddEditPurchase.class);
+        Bundle b = new Bundle();
+        b.putLong("thePurchaseId", thePurchase.getId()); //Your id
+        intent.putExtras(b); //Put your id to your next Intent
+        startActivity(intent);
     }
 
     private void show_only_this_bank(Purchase thePurchase) {

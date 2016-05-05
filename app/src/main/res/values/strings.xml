@@ -12,8 +12,10 @@
     <string name="action_show_only_this_card">Mostrar apenas este cartão</string>
     <string name="action_show_only_this_store">Mostrar apenas esta loja</string>
     <string name="action_show_only_this_bank">Mostrar apenas este banco</string>
+
     <string name="no_sms_warning">AVISO:\nPor favor ligue o número de telefone atrás do seu cartão e peça para receber um SMS para cada compra efetuadada com o cartão de crédito.\n\nSem esses SMSs o aplicativo não funciona.\n\nMas tome cuidado, alguns bancos cobram por este serviço. Não adianta mandar email para mim sobre este assunto.</string>
 
     <string name="menu_search">Procurar Loja</string>
+    <string name="action_edit_entry">Editar</string>
 
 </resources>
