@@ -17,7 +17,6 @@ import com.marcosdiez.extratocartao.datamodel.Store;
 import com.marcosdiez.extratocartao.fragments.DatePickerFragment;
 import com.marcosdiez.extratocartao.fragments.TimePickerFragment;
 
-import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -45,10 +44,10 @@ public class AddEditPurchase extends AppCompatActivity {
 
         long thePurchaseId = getIntent().getExtras().getLong("thePurchaseId");
         thePurchase = Purchase.findById(Purchase.class, thePurchaseId);
-        populateWidgetValues(thePurchaseId);
+        populateWidgetValues();
     }
 
-    private void populateWidgetValues(long purchaseId) {
+    private void populateWidgetValues() {
         Log.d(TAG, thePurchase.toString());
         Log.d(TAG, thePurchase.toCsvLine());
 
@@ -59,15 +58,14 @@ public class AddEditPurchase extends AppCompatActivity {
 
         double x = thePurchase.getAmount();
 
-        DecimalFormat REAL_FORMATTER = new DecimalFormat("0.##");
-        editTextAmount.setText(REAL_FORMATTER.format(x));
+        editTextAmount.setText(String.format("%.2f", x));
 
 
         //editTextAmount.setText(fixNumberFormat(String.valueOf((p.getAmount()))));
 
         Date theDate = thePurchase.getDate();
-        buttonPickPurchaseDate.setText(theDate.toString());
-        buttonPickPurchaseTime.setText(theDate.getHours() + ":" + theDate.getMinutes());
+        buttonPickPurchaseDate.setText(Purchase.dateFormat.format(theDate));
+        buttonPickPurchaseTime.setText(Purchase.hourFormat.format(theDate));
     }
 
 
