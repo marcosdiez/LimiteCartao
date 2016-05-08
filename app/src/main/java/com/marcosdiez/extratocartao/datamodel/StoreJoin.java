@@ -1,5 +1,6 @@
 package com.marcosdiez.extratocartao.datamodel;
 
+import com.marcosdiez.extratocartao.Util;
 import com.orm.SugarRecord;
 import com.orm.dsl.Ignore;
 
@@ -69,7 +70,7 @@ public class StoreJoin extends SugarRecord<StoreJoin> {
     }
 
     public String getLastPurchaseTimestampString() {
-        return Purchase.dateTimeFormat.format(getDate());
+        return Util.dateTimeFormat.format(getDate());
     }
 
     public Date getDate() {

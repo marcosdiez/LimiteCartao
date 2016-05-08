@@ -13,6 +13,7 @@ import com.marcosdiez.extratocartao.sms.IncomingSms;
 import com.marcosdiez.extratocartao.sms.SMSData;
 import com.marcosdiez.extratocartao.sms.SmsReader;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -20,6 +21,12 @@ import java.util.List;
  */
 public class Util {
     private final static String TAG = "EC-Util";
+
+    public final static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+    public final static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    public final static SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm");
+    public final static SimpleDateFormat isoDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    public final static SimpleDateFormat ofxDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
 
     public static void openUrl(Purchase p, Context context){
          openUrl(buildAndroidMapsUri(p.getLatitude(), p.getLongitude()), context);

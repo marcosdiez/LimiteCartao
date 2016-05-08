@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.marcosdiez.extratocartao.R;
+import com.marcosdiez.extratocartao.Util;
 import com.marcosdiez.extratocartao.datamodel.Card;
 import com.marcosdiez.extratocartao.datamodel.Purchase;
 import com.marcosdiez.extratocartao.datamodel.Store;
@@ -64,8 +65,8 @@ public class AddEditPurchase extends AppCompatActivity {
         //editTextAmount.setText(fixNumberFormat(String.valueOf((p.getAmount()))));
 
         Date theDate = thePurchase.getDate();
-        buttonPickPurchaseDate.setText(Purchase.dateFormat.format(theDate));
-        buttonPickPurchaseTime.setText(Purchase.hourFormat.format(theDate));
+        buttonPickPurchaseDate.setText(Util.dateFormat.format(theDate));
+        buttonPickPurchaseTime.setText(Util.hourFormat.format(theDate));
     }
 
 

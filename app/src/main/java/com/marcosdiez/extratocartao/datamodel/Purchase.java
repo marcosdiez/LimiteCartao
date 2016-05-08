@@ -17,12 +17,6 @@ import java.util.Date;
  */
 public class Purchase extends SugarRecord<Purchase> {
     public static final String TAG = "EC-Purchase";
-    public final static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-    public final static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    public final static SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm");
-
-    final static SimpleDateFormat isoDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-    public final static SimpleDateFormat ofxDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
 
     private static String sep = ",";
     Card card;
@@ -104,15 +98,15 @@ public class Purchase extends SugarRecord<Purchase> {
     }
 
     public String getTimeStampString() {
-        return dateTimeFormat.format(getDate());
+        return Util.dateTimeFormat.format(getDate());
     }
 
     public String getDateStampString() {
-        return dateFormat.format(getDate());
+        return Util.dateFormat.format(getDate());
     }
 
     public String getDateIso() {
-        return isoDateFormat.format(getDate());
+        return Util.isoDateFormat.format(getDate());
     }
 
     public Date getDate() {
@@ -120,7 +114,7 @@ public class Purchase extends SugarRecord<Purchase> {
     }
 
     public String getOfxTimeStampString() {
-        return ofxDateFormat.format(getDate());
+        return Util.ofxDateFormat.format(getDate());
     }
 
 

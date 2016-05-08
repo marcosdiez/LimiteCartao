@@ -3,6 +3,7 @@ package com.marcosdiez.extratocartao.export;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.marcosdiez.extratocartao.Util;
 import com.marcosdiez.extratocartao.datamodel.Card;
 import com.marcosdiez.extratocartao.datamodel.Purchase;
 
@@ -69,7 +70,7 @@ public class Ofx {
 
     @NonNull
     private static String now() {
-        return Purchase.ofxDateFormat.format(new Date());
+        return Util.ofxDateFormat.format(new Date());
     }
 
     private static void addCards(FileWriter out) throws IOException {
