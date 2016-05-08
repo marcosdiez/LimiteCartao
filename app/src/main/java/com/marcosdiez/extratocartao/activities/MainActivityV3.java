@@ -1,6 +1,7 @@
 package com.marcosdiez.extratocartao.activities;
 
 import android.app.DialogFragment;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -51,6 +52,35 @@ public class MainActivityV3 extends AppCompatActivity {
         listHeaderItemPurhcase = (LinearLayout) findViewById(R.id.list_header_item_purchase);
 
         initListView();
+
+
+        Intent intent = getIntent();
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            doMySearch(query);
+        } else {
+            populateAllPurchases();
+        }
+    }
+
+    private void doMySearch(String query_arg) {
+        Log.d(TAG, "doMySearch(" + query_arg + ")");
+
+        if (query_arg == null || query_arg == "") {
+            populateAllPurchases();
+            return;
+        }
+        query_arg = "%" + query_arg + "%";
+
+        String query = "SELECT purchase.* FROM purchase\n" +
+                "join store on store.id = purchase.store\n" +
+                "where store.name like ? \n" +
+                "order by purchase.id";
+
+        List<Purchase> pList =
+                Purchase.findWithQuery(Purchase.class, query, query_arg);
+        //Purchase.find(Purchase.class, null, query, null, "id desc", null);
+        populatListView(pList);
     }
 
     private void loadSmsAndSendErrorIfNecessary() {
@@ -69,8 +99,16 @@ public class MainActivityV3 extends AppCompatActivity {
         purchaseListView = (ListView) findViewById(R.id.purchase_list);
         registerForContextMenu(purchaseListView);
 
+
+    }
+
+    private void populateAllPurchases() {
         int num_purchases = show_all_purchases();
-        if(num_purchases == 0){
+        showWarningMessageIfNecessary(num_purchases);
+    }
+
+    private void showWarningMessageIfNecessary(int num_purchases) {
+        if (num_purchases == 0) {
             ((TextView) findViewById(R.id.warning_no_sms)).setVisibility(View.VISIBLE);
             showAboutDialog();
         }
@@ -209,6 +247,7 @@ public class MainActivityV3 extends AppCompatActivity {
         getMenuInflater().inflate(
                 R.menu.menu_main_activity_v3
                 , menu);
+
         return true;
     }
 
@@ -233,6 +272,9 @@ public class MainActivityV3 extends AppCompatActivity {
                 return true;
             case R.id.action_show_all_expenses:
                 show_all_purchases();
+                return true;
+            case R.id.action_search:
+                onSearchRequested();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
