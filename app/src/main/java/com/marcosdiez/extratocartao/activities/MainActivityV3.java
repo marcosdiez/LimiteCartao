@@ -5,6 +5,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -24,6 +25,7 @@ import com.marcosdiez.extratocartao.Util;
 import com.marcosdiez.extratocartao.datamodel.Purchase;
 import com.marcosdiez.extratocartao.datamodel.StoreJoin;
 import com.marcosdiez.extratocartao.export.MainExporter;
+import com.marcosdiez.extratocartao.fragments.ManualSmsInputFragment;
 import com.marcosdiez.extratocartao.glue.PurchaseListAdapter;
 import com.marcosdiez.extratocartao.glue.StoreJoinListAdapter;
 
@@ -53,7 +55,6 @@ public class MainActivityV3 extends AppCompatActivity {
 
         initListView();
 
-
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
@@ -62,6 +63,7 @@ public class MainActivityV3 extends AppCompatActivity {
             populateAllPurchases();
         }
     }
+
 
     private void doMySearch(String query_arg) {
         Log.d(TAG, "doMySearch(" + query_arg + ")");
@@ -75,7 +77,7 @@ public class MainActivityV3 extends AppCompatActivity {
         String query = "SELECT purchase.* FROM purchase\n" +
                 "join store on store.id = purchase.store\n" +
                 "where store.name like ? \n" +
-                "order by purchase.id";
+                "order by purchase.timestamp desc";
 
         List<Purchase> pList =
                 Purchase.findWithQuery(Purchase.class, query, query_arg);
@@ -85,6 +87,7 @@ public class MainActivityV3 extends AppCompatActivity {
 
     private void loadSmsAndSendErrorIfNecessary() {
         try {
+            Util.parseSmsAndList(this);
             Util.loadStoredSmsData(this);
         } catch (ParsingSmsException e) {
             String baseMsg = "Olá ! Este é o SMS que travou meu programa. Por favor envie ele por email para mim para que eu o conserte!\n\nSMS: %s\n\nException: %s\n\n%s\n\nInner Exception: %s\n\n%s\n\n";
@@ -115,7 +118,7 @@ public class MainActivityV3 extends AppCompatActivity {
     }
 
     private int show_all_purchases() {
-        List<Purchase> pList = Purchase.find(Purchase.class, null, null, null, "id desc", null);
+        List<Purchase> pList = Purchase.find(Purchase.class, null, null, null, "timestamp desc", null);
         populatListView(pList);
         return pList.size();
     }
@@ -203,10 +206,14 @@ public class MainActivityV3 extends AppCompatActivity {
             case R.id.action_edit_entry:
                 loadPurchaseEditScreen(thePurchase);
                 return true;
+            case R.id.action_share:
+                sharePurchaseInfo(thePurchase);
+                return true;
             default:
                 return super.onContextItemSelected(item);
         }
     }
+
 
     private void loadPurchaseEditScreen(Purchase thePurchase) {
         Intent intent = new Intent(this, AddEditPurchase.class);
@@ -285,12 +292,26 @@ public class MainActivityV3 extends AppCompatActivity {
                 return true;
             case R.id.action_search:
                 onSearchRequested();
+            case R.id.action_manual_sms_entry:
+                showManualSmsInputDialog();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    private void sharePurchaseInfo(Purchase thePurchase) {
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, thePurchase.getStringToShare());
+        startActivity(Intent.createChooser(sharingIntent, "Compartilhar Localização da Loja"));
+    }
+
+    private void showManualSmsInputDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        ManualSmsInputFragment editNameDialog = new ManualSmsInputFragment();
+        editNameDialog.show(fm, "fragment_manual_sms_input");
+    }
 
     private void sendErrorPerMail(String msg) {
         Intent intent = new Intent(Intent.ACTION_SEND);
