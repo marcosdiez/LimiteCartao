@@ -31,12 +31,14 @@ public class IncomingSms extends BroadcastReceiver {
     final SmsManager sms = SmsManager.getDefault();
 
     @Nullable
-    public static Purchase createPurchaseIfTheSmsIsFromABank(SMSData newSms)  throws ParsingSmsException {
+    public static Purchase createPurchaseIfTheSmsIsFromABank(SMSData newSms, Boolean saveToDb)  throws ParsingSmsException {
         Purchase p = SmsParser.parseSmsPurchase(newSms);
         if (p != null) {
             Log.d(TAG, "SMS:" + newSms.getBody());
             Log.d(TAG, "Adding new purchase:" + p.toString());
-            p.save();
+            if(saveToDb) {
+                p.save();
+            }
         }
         return p;
     }
@@ -59,7 +61,7 @@ public class IncomingSms extends BroadcastReceiver {
 
                             SMSData newSms = createSms(senderPhoneNumber, message);
 
-                            Purchase p = createPurchaseIfTheSmsIsFromABank(newSms);
+                            Purchase p = createPurchaseIfTheSmsIsFromABank(newSms, true);
                             if (p != null) {
                                 Log.d(TAG, "SMS belongs to a bank");
                                 Gps gps = new Gps(context, this);

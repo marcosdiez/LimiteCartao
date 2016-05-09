@@ -118,20 +118,27 @@ public class Purchase extends SugarRecord<Purchase> {
     }
 
 
+    public String getStringToShare() {
+        // no point is sharing the date nor the amount spent. that's useless info being shared.
+        // it could be a privacy issue
+        return String.format("Loja: %s. Localização: https://maps.google.com/maps?q=%f,%f",
+                store.getName(), latitude, longitude);
+    }
+
     @Override
     public String toString() {
         String forma;
 
         if (hasMap()) {
-            forma = "Compra %d, Cartão: %s, banco: %s. Posição: %f/%f, precisão: %.1fm";
+            forma = "Compra %d, Cartão: %s, Banco: %s Loja: %s Valor: %.2f. Posição: %f/%f, precisão: %.1fm";
         } else {
-            forma = "Compra %d, Cartão: %s, banco: %s. Posição da compra não disponível.";
+            forma = "Compra %d, Cartão: %s, banco: %s loja: %s Valor: %.2f. Posição da compra não disponível.";
         }
 
         // the card name is important because some cards have long names and we only show initials
 
         return String.format(forma,
-                getId(), card.getName(), card.getBank().getName(), latitude, longitude, accuracy);
+                getId(), card.getName(), card.getBank().getName(), store.getName(), amount, latitude, longitude, accuracy);
     }
 
     public Card getCard() {

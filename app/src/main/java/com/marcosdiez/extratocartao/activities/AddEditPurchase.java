@@ -30,12 +30,11 @@ public class AddEditPurchase extends AppCompatActivity {
     private EditText editTextAmount;
     private Button buttonPickPurchaseTime;
     private Button buttonPickPurchaseDate;
+    private Purchase thePurchase;
 
     public Date getDate() {
         return thePurchase.getDate();
     }
-
-    private Purchase thePurchase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,12 +126,20 @@ public class AddEditPurchase extends AppCompatActivity {
 
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment();
+
+        Bundle datebundle = new Bundle();
+        Date theDate = thePurchase.getDate();
+        datebundle.putInt("YEAR", 1900 + theDate.getYear());
+        datebundle.putInt("MONTH", theDate.getMonth());
+        datebundle.putInt("DAY", theDate.getDate());
+        newFragment.setArguments(datebundle);
+
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
     public void onDateSet(int year, int month, int day) {
-      //  activity.onDateSet(year, month,day );
-        // Do something with the date chosen by the user
+//        activity.onDateSet(year, month,day );
+//         Do something with the date chosen by the user
     }
 
     public void onTimeSet(int hourOfDay, int minute) {

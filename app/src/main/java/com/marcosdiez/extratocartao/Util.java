@@ -14,6 +14,7 @@ import com.marcosdiez.extratocartao.sms.SMSData;
 import com.marcosdiez.extratocartao.sms.SmsReader;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -58,13 +59,19 @@ public class Util {
         return banks.size() > 0;
     }
 
+    public static void parseSmsAndList(Context context) throws ParsingSmsException {
+        for (SMSData sms : SmsReader.readSms(context)) {
+            IncomingSms.createPurchaseIfTheSmsIsFromABank(sms, false);
+        }
+    }
+
     public static void loadStoredSmsData(Context context)  throws ParsingSmsException {
         if (hasData()) {
             return;
         }
         Log.d(TAG, "Loading stored SMS data...");
         for (SMSData sms : SmsReader.readSms(context)) {
-            IncomingSms.createPurchaseIfTheSmsIsFromABank(sms);
+            IncomingSms.createPurchaseIfTheSmsIsFromABank(sms, true);
         }
         Settings.setFirstTimeFalse();
     }
@@ -76,5 +83,18 @@ public class Util {
             sb.append("\n");
         }
         return sb.toString();
+    }
+
+    public static SMSData mockSms(String message) throws java.text.ParseException {
+        SMSData output = new SMSData();
+
+        output.setId(42);
+        output.setNumber("+1234");
+        output.setBody(message);
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        Date date = df.parse("15/03/2015 14:28");
+        output.setDate(date);
+
+        return output;
     }
 }

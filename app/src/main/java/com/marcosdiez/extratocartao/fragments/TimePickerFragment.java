@@ -18,9 +18,9 @@ public  class TimePickerFragment extends DialogFragment
         implements TimePickerDialog.OnTimeSetListener {
 
     AddEditPurchase activity;
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Use the current time as the default values for the picker
 
         activity = (AddEditPurchase) getActivity();
         Date theDate = activity.getDate();

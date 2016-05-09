@@ -28,6 +28,17 @@
         android:title="@string/action_export_csv"
         app:showAsAction="never"/>
 
+
+
+    <item
+        android:id="@+id/action_manual_sms_entry"
+        android:orderInCategory="190"
+        android:title="Digitar SMS"
+        app:showAsAction="never"/>
+
+
+
+
     <item
         android:id="@+id/action_about"
         android:orderInCategory="200"
