@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- this is a free open source app. We can share everything -->
+    <paths>
+        <files-path
+            name="mydatabases"
+            path="../databases/"/>
+
+        <files-path
+            name="migrations"
+            path=""/>
+
+        <external-path
+            name="external"
+            path=""/>
+    </paths>
+</paths>

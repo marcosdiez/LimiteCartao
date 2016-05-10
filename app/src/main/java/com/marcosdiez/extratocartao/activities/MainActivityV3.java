@@ -87,7 +87,7 @@ public class MainActivityV3 extends AppCompatActivity {
 
     private void loadSmsAndSendErrorIfNecessary() {
         try {
-            Util.parseSmsAndList(this);
+            // Util.parseSmsAndList(this);
             Util.loadStoredSmsData(this);
         } catch (ParsingSmsException e) {
             String baseMsg = "Olá ! Este é o SMS que travou meu programa. Por favor envie ele por email para mim para que eu o conserte!\n\nSMS: %s\n\nException: %s\n\n%s\n\nInner Exception: %s\n\n%s\n\n";
@@ -282,7 +282,7 @@ public class MainActivityV3 extends AppCompatActivity {
                 showAboutDialog();
                 return true;
             case R.id.action_export_csv:
-                exportCsv();
+                exportCsvOfxAndDb();
                 return true;
             case R.id.action_show_expenses_per_store:
                 show_expenses_per_store();
@@ -292,6 +292,7 @@ public class MainActivityV3 extends AppCompatActivity {
                 return true;
             case R.id.action_search:
                 onSearchRequested();
+                return true;
             case R.id.action_manual_sms_entry:
                 showManualSmsInputDialog();
                 return true;
@@ -324,7 +325,7 @@ public class MainActivityV3 extends AppCompatActivity {
     }
 
 
-    private void exportCsv() {
+    private void exportCsvOfxAndDb() {
         new MainExporter(this).execute();
     }
 

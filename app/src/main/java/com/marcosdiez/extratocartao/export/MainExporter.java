@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 public class MainExporter extends AsyncTask<Void, Void, Intent> {
 
+    public static String TAG = "MainExporter";
     ProgressDialog progress;
     Activity callerActivity;
 
@@ -32,10 +33,15 @@ public class MainExporter extends AsyncTask<Void, Void, Intent> {
         ArrayList<Uri> uris = new ArrayList<>();
         uris.add(Uri.fromFile(Csv.createCsvOfPurchases()));
         uris.add(Uri.fromFile(Ofx.createOfxOfPurchases()));
+
+        Uri dbUri = new DbFileProvider().getDatabaseURI(callerActivity);
+        uris.add(dbUri);
+
         intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
 
         return intent;
     }
+
 
     protected void onPreExecute() {
         progress = new ProgressDialog(callerActivity);
@@ -48,7 +54,7 @@ public class MainExporter extends AsyncTask<Void, Void, Intent> {
 
     protected void onPostExecute(Intent intent) {
         progress.dismiss();
-        callerActivity.startActivityForResult(Intent.createChooser(intent, "Enviar Arquivo CSV e OFX"), 42);
+        callerActivity.startActivityForResult(Intent.createChooser(intent, "Enviar Arquivo CSV e OFX e SQLITE"), 42);
     }
 
 }
