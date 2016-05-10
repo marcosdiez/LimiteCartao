@@ -32,11 +32,18 @@
 
     <item
         android:id="@+id/action_manual_sms_entry"
-        android:orderInCategory="190"
         android:title="Digitar SMS"
-        app:showAsAction="never"/>
+        android:orderInCategory="190"
+        app:showAsAction="never"
+        />
 
-
+    <item
+        android:id="@+id/action_show_maps"
+        android:orderInCategory="200"
+        app:showAsAction="ifRoom|collapseActionView"
+        android:icon="@mipmap/location_map"
+        android:title="Mapa Das Compras"
+        />
 
 
     <item

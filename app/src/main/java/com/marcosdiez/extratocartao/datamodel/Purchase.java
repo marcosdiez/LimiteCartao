@@ -125,14 +125,21 @@ public class Purchase extends SugarRecord<Purchase> {
                 store.getName(), latitude, longitude);
     }
 
+    public String toMapString() {
+        String forma = "Compra: %d\nCartão: %s\nBanco: %s\nData: %s\nPrecisão: %.1fm\n" +
+                "Valor: %.2f";
+        return String.format(forma,
+                getId(), card.getName(), card.getBank().getName(), getTimeStampString(), accuracy, amount);
+    }
+
     @Override
     public String toString() {
         String forma;
 
         if (hasMap()) {
-            forma = "Compra %d, Cartão: %s, Banco: %s Loja: %s Valor: %.2f. Posição: %f/%f, precisão: %.1fm";
+            forma = "Compra %d, Cartão: %s, Banco: %s Loja: %s Valor: %.2f. Posição: %f/%f, Precisão: %.1fm";
         } else {
-            forma = "Compra %d, Cartão: %s, banco: %s loja: %s Valor: %.2f. Posição da compra não disponível.";
+            forma = "Compra %d, Cartão: %s, banco: %s Loja: %s Valor: %.2f. Posição da compra não disponível.";
         }
 
         // the card name is important because some cards have long names and we only show initials

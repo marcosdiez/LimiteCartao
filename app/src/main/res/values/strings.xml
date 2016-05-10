@@ -17,5 +17,6 @@
 
     <string name="menu_search">Procurar Loja</string>
     <string name="action_edit_entry">Editar</string>
+    <string name="title_activity_show_stores">Mapa das Compras</string>
 
 </resources>

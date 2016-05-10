@@ -66,8 +66,12 @@ public class Util {
     }
 
     public static void loadStoredSmsData(Context context)  throws ParsingSmsException {
-        if (hasData()) {
-            return;
+        try {
+            if (hasData()) {
+                return;
+            }
+        }catch(android.database.sqlite.SQLiteException e){
+            return; // this mean the DB does not yet exist.
         }
         Log.d(TAG, "Loading stored SMS data...");
         for (SMSData sms : SmsReader.readSms(context)) {

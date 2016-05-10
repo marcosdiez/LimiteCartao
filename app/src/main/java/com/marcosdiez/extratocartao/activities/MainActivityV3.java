@@ -101,8 +101,6 @@ public class MainActivityV3 extends AppCompatActivity {
     private void initListView() {
         purchaseListView = (ListView) findViewById(R.id.purchase_list);
         registerForContextMenu(purchaseListView);
-
-
     }
 
     private void populateAllPurchases() {
@@ -203,9 +201,9 @@ public class MainActivityV3 extends AppCompatActivity {
             case R.id.action_show_only_this_bank:
                 show_only_this_bank(thePurchase);
                 return true;
-            case R.id.action_edit_entry:
-                loadPurchaseEditScreen(thePurchase);
-                return true;
+//            case R.id.action_edit_entry:
+//                loadPurchaseEditScreen(thePurchase);
+//                return true;
             case R.id.action_share:
                 sharePurchaseInfo(thePurchase);
                 return true;
@@ -296,10 +294,20 @@ public class MainActivityV3 extends AppCompatActivity {
             case R.id.action_manual_sms_entry:
                 showManualSmsInputDialog();
                 return true;
+            case R.id.action_show_maps:
+                showMaps();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
+    private void showMaps() {
+        Intent intent = new Intent(this, ShowStores.class);
+        startActivity(intent);
+    }
+
 
     private void sharePurchaseInfo(Purchase thePurchase) {
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
