@@ -37,13 +37,6 @@
         <!--app:showAsAction="never"-->
         <!--/>-->
 
-    <item
-        android:id="@+id/action_monthly_statement"
-        android:title="Fatura Mensal"
-        android:orderInCategory="195"
-        app:showAsAction="never"
-        />
-
 
     <item
         android:id="@+id/action_show_maps"

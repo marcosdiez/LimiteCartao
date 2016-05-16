@@ -22,7 +22,7 @@ public class MonthlyPurchaseHelper extends SugarRecord<MonthlyPurchaseHelper> {
     public MonthlyPurchaseHelper() {
     }
 
-    public static List<MonthlyPurchase> getList(int first_day_of_the_credit_card_statement) {
+    public static List<MonthlyPurchase> getList(int first_day_of_the_credit_card_statement, Card card) {
         ArrayList<MonthlyPurchase> output = new ArrayList<>();
         MonthlyPurchase theMonthlyPurchase = null;
 
@@ -30,7 +30,7 @@ public class MonthlyPurchaseHelper extends SugarRecord<MonthlyPurchaseHelper> {
 
         long statementDate = getNextStatmentDate(first_day_of_the_credit_card_statement);
 
-        for (MonthlyPurchaseHelper mph : getMontlyPurchaseHelperList()) {
+        for (MonthlyPurchaseHelper mph : getMontlyPurchaseHelperList(card)) {
             if (mph.getDate().getTime() < statementDate) {
                 theMonthlyPurchase = new MonthlyPurchase(mph.getName(), statementDate, totalAmount);
                 output.add(theMonthlyPurchase);
@@ -49,12 +49,15 @@ public class MonthlyPurchaseHelper extends SugarRecord<MonthlyPurchaseHelper> {
         return cal.getTime().getTime();
     }
 
-    private static List<MonthlyPurchaseHelper> getMontlyPurchaseHelperList() {
+    private static List<MonthlyPurchaseHelper> getMontlyPurchaseHelperList(Card card) {
         String query = "select " +
                 "purchase.id, card.name, amount, timestamp \n" +
                 "from purchase\n" +
                 "join card on card.id = purchase.card\n" +
+                "where purchase.card = %d\n" +
                 "order by timestamp desc";
+
+        query = String.format(query, card.getId());
 
         List<MonthlyPurchaseHelper> pList = MonthlyPurchaseHelper.findWithQuery(MonthlyPurchaseHelper.class, query);
 

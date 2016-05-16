@@ -169,9 +169,12 @@ public class MainActivityV3 extends AppCompatActivity {
     }
 
 
-    private void showMontlyStatement() {
+    private void showMontlyStatement(Purchase thePurchase) {
         int first_day_of_the_credit_card_statement = 20;
-        List<MonthlyPurchase> pList = MonthlyPurchaseHelper.getList(first_day_of_the_credit_card_statement);
+        List<MonthlyPurchase> pList = MonthlyPurchaseHelper.getList(
+                first_day_of_the_credit_card_statement,
+                thePurchase.getCard()
+        );
 
         MonthlyPurchaseListAdapter monthlyPurchaseListAdapter = new MonthlyPurchaseListAdapter(this, pList);
         purchaseListView.setAdapter(monthlyPurchaseListAdapter);
@@ -179,14 +182,6 @@ public class MainActivityV3 extends AppCompatActivity {
         listHeaderGroupPurchase.setVisibility(View.GONE);
         listHeaderItemPurchase.setVisibility(View.GONE);
         listHeaderMonthlyPurchase.setVisibility(View.VISIBLE);
-
-//        purchaseListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-//                StoreJoin storeJoin = (StoreJoin) purchaseListView.getAdapter().getItem(position);
-//                show_only_this_store(storeJoin.getId());
-//            }
-//        });
 
 
     }
@@ -215,6 +210,10 @@ public class MainActivityV3 extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = ((AdapterView.AdapterContextMenuInfo) item.getMenuInfo());
+        Object selectedItem = purchaseListView.getAdapter().getItem(info.position);
+        if (!(selectedItem instanceof Purchase)) {
+            return super.onContextItemSelected(item);
+        }
         Purchase thePurchase = (Purchase) purchaseListView.getAdapter().getItem(info.position);
         switch (item.getItemId()) {
             case R.id.action_open_in_map:
@@ -233,12 +232,16 @@ public class MainActivityV3 extends AppCompatActivity {
 //            case R.id.action_edit_entry:
 //                loadPurchaseEditScreen(thePurchase);
 //                return true;
+            case R.id.action_monthly_statement:
+                showMontlyStatement(thePurchase);
+                return true;
             case R.id.action_share:
                 sharePurchaseInfo(thePurchase);
                 return true;
             default:
                 return super.onContextItemSelected(item);
         }
+
     }
 
 
@@ -323,9 +326,9 @@ public class MainActivityV3 extends AppCompatActivity {
 //            case R.id.action_manual_sms_entry:
 //                showManualSmsInputDialog();
 //                return true;
-            case R.id.action_monthly_statement:
-                showMontlyStatement();
-                return true;
+//            case R.id.action_monthly_statement:
+//                showMontlyStatement();
+//                return true;
             case R.id.action_show_maps:
                 showMaps();
                 return true;

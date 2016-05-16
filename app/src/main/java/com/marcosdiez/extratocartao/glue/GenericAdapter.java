@@ -13,12 +13,12 @@ import java.util.List;
 /**
  * Created by Marcos on 2016-05-15.
  */
-public abstract class SugarRecordAdapter<T extends SugarRecord> extends BaseAdapter {
+public abstract class GenericAdapter<T> extends BaseAdapter {
     public List<T> list;
     Activity activity;
     int resource;
 
-    public SugarRecordAdapter(Activity activity, List<T> list, int resource) {
+    public GenericAdapter(Activity activity, List<T> list, int resource) {
         super();
         this.activity = activity;
         this.list = list;
@@ -37,7 +37,11 @@ public abstract class SugarRecordAdapter<T extends SugarRecord> extends BaseAdap
 
     @Override
     public long getItemId(int position) {
-        return getItem(position).getId();
+        T theObj = getItem(position);
+        if(theObj instanceof SugarRecord){
+            return ((SugarRecord) theObj).getId();
+        }
+        return position;
     }
 
     @Override
