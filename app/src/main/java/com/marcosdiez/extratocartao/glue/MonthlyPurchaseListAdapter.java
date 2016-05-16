@@ -9,18 +9,18 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.marcosdiez.extratocartao.R;
-import com.marcosdiez.extratocartao.datamodel.Purchase;
+import com.marcosdiez.extratocartao.datamodel.MonthlyPurchase;
 
 import java.util.List;
 
 /**
  * @author Paresh N. Mayani
  */
-public class PurchaseListAdapter extends BaseAdapter {
-    public List<Purchase> list;
+public class MonthlyPurchaseListAdapter extends BaseAdapter {
+    public List<MonthlyPurchase> list;
     Activity activity;
 
-    public PurchaseListAdapter(Activity activity, List<Purchase> list) {
+    public MonthlyPurchaseListAdapter(Activity activity, List<MonthlyPurchase> list) {
         super();
         this.activity = activity;
         this.list = list;
@@ -32,13 +32,13 @@ public class PurchaseListAdapter extends BaseAdapter {
     }
 
     @Override
-    public Purchase getItem(int position) {
+    public MonthlyPurchase getItem(int position) {
         return list.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return (getItem(position)).getId();
+        return position; // do we need this ?
     }
 
     @Override
@@ -47,25 +47,24 @@ public class PurchaseListAdapter extends BaseAdapter {
         LayoutInflater inflater = activity.getLayoutInflater();
 
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.item_purchase, null);
+            convertView = inflater.inflate(R.layout.monthly_purchase, null);
             holder = new ViewHolder();
             holder.txtFirst = (TextView) convertView.findViewById(R.id.Card);
-            holder.txtSecond = (TextView) convertView.findViewById(R.id.Store);
-            holder.txtThird = (TextView) convertView.findViewById(R.id.Amount);
-            holder.txtFourth = (TextView) convertView.findViewById(R.id.Total);
-            holder.txtFifth = (TextView) convertView.findViewById(R.id.When);
+            holder.txtSecond = (TextView) convertView.findViewById(R.id.NumPurchases);
+            holder.txtThird = (TextView) convertView.findViewById(R.id.When);
+            holder.txtFourth = (TextView) convertView.findViewById(R.id.Amount);
+            holder.txtFifth = (TextView) convertView.findViewById(R.id.Total);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        Purchase thePurchase = list.get(position);
-        holder.txtFirst.setText(thePurchase.getCard().toShortString());
-        holder.txtSecond.setText(thePurchase.getStore().toString());
-        holder.txtThird.setText(String.format("%1$,.2f", thePurchase.getAmount()));
-        holder.txtFourth.setText(String.format("%1$,.2f", thePurchase.getTotalAmount()));
-        holder.txtFifth.setText(thePurchase.getTimeStampString());
-
+        MonthlyPurchase theMonthlyPurchase = list.get(position);
+        holder.txtFirst.setText(theMonthlyPurchase.getCard());
+        holder.txtSecond.setText(String.format("%d", theMonthlyPurchase.getNumPurchases()));
+        holder.txtThird.setText(theMonthlyPurchase.getTimestampString());
+        holder.txtFourth.setText(String.format("%1$,.2f", theMonthlyPurchase.getAmount()));
+        holder.txtFifth.setText(String.format("%1$,.2f", theMonthlyPurchase.getTotalAmount()));
 
         return convertView;
     }
@@ -74,8 +73,8 @@ public class PurchaseListAdapter extends BaseAdapter {
         TextView txtFirst = null;
         TextView txtSecond = null;
         TextView txtThird = null;
-        TextView txtFifth = null;
         TextView txtFourth = null;
+        TextView txtFifth = null;
     }
 
 }

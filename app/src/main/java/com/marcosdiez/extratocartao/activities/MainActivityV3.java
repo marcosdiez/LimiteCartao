@@ -22,10 +22,13 @@ import com.marcosdiez.extratocartao.BuildConfig;
 import com.marcosdiez.extratocartao.ParsingSmsException;
 import com.marcosdiez.extratocartao.R;
 import com.marcosdiez.extratocartao.Util;
+import com.marcosdiez.extratocartao.datamodel.MonthlyPurchase;
+import com.marcosdiez.extratocartao.datamodel.MonthlyPurchaseHelper;
 import com.marcosdiez.extratocartao.datamodel.Purchase;
 import com.marcosdiez.extratocartao.datamodel.StoreJoin;
 import com.marcosdiez.extratocartao.export.MainExporter;
 import com.marcosdiez.extratocartao.fragments.ManualSmsInputFragment;
+import com.marcosdiez.extratocartao.glue.MonthlyPurchaseListAdapter;
 import com.marcosdiez.extratocartao.glue.PurchaseListAdapter;
 import com.marcosdiez.extratocartao.glue.StoreJoinListAdapter;
 
@@ -36,8 +39,9 @@ public class MainActivityV3 extends AppCompatActivity {
 
     private static String TAG = "EC-Main";
     ListView purchaseListView;
-    LinearLayout listHeaderGroupPurhcase;
-    LinearLayout listHeaderItemPurhcase;
+    LinearLayout listHeaderGroupPurchase;
+    LinearLayout listHeaderItemPurchase;
+    LinearLayout listHeaderMonthlyPurchase;
     Context mySelf;
 
     boolean showing_expenses_per_store = false;
@@ -48,10 +52,11 @@ public class MainActivityV3 extends AppCompatActivity {
         setContentView(R.layout.activity_main_activity_v3);
         mySelf = this;
 
-        loadSmsAndSendErrorIfNecessary();
+        listHeaderGroupPurchase = (LinearLayout) findViewById(R.id.list_header_group_purchase);
+        listHeaderItemPurchase = (LinearLayout) findViewById(R.id.list_header_item_purchase);
+        listHeaderMonthlyPurchase = (LinearLayout) findViewById(R.id.list_header_monthly_purchase);
 
-        listHeaderGroupPurhcase = (LinearLayout) findViewById(R.id.list_header_group_purchase);
-        listHeaderItemPurhcase = (LinearLayout) findViewById(R.id.list_header_item_purchase);
+        loadSmsAndSendErrorIfNecessary();
 
         initListView();
 
@@ -138,8 +143,9 @@ public class MainActivityV3 extends AppCompatActivity {
                 openPurchaseUrlIfPossible(p);
             }
         });
-        listHeaderGroupPurhcase.setVisibility(View.GONE);
-        listHeaderItemPurhcase.setVisibility(View.VISIBLE);
+        listHeaderGroupPurchase.setVisibility(View.GONE);
+        listHeaderItemPurchase.setVisibility(View.VISIBLE);
+        listHeaderMonthlyPurchase.setVisibility(View.GONE);
     }
 
     private void openPurchaseUrlIfPossible(Purchase p) {
@@ -163,6 +169,28 @@ public class MainActivityV3 extends AppCompatActivity {
     }
 
 
+    private void showMontlyStatement() {
+        int first_day_of_the_credit_card_statement = 20;
+        List<MonthlyPurchase> pList = MonthlyPurchaseHelper.getList(first_day_of_the_credit_card_statement);
+
+        MonthlyPurchaseListAdapter monthlyPurchaseListAdapter = new MonthlyPurchaseListAdapter(this, pList);
+        purchaseListView.setAdapter(monthlyPurchaseListAdapter);
+        purchaseListView.setOnItemClickListener(null);
+        listHeaderGroupPurchase.setVisibility(View.GONE);
+        listHeaderItemPurchase.setVisibility(View.GONE);
+        listHeaderMonthlyPurchase.setVisibility(View.VISIBLE);
+
+//        purchaseListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+//                StoreJoin storeJoin = (StoreJoin) purchaseListView.getAdapter().getItem(position);
+//                show_only_this_store(storeJoin.getId());
+//            }
+//        });
+
+
+    }
+
     private void show_expenses_per_store() {
         showing_expenses_per_store = true;
         List<StoreJoin> pList = StoreJoin.getList();
@@ -170,8 +198,9 @@ public class MainActivityV3 extends AppCompatActivity {
         StoreJoinListAdapter storeJoinListAdapter = new StoreJoinListAdapter(this, pList);
         purchaseListView.setAdapter(storeJoinListAdapter);
         purchaseListView.setOnItemClickListener(null);
-        listHeaderGroupPurhcase.setVisibility(View.VISIBLE);
-        listHeaderItemPurhcase.setVisibility(View.GONE);
+        listHeaderGroupPurchase.setVisibility(View.VISIBLE);
+        listHeaderItemPurchase.setVisibility(View.GONE);
+        listHeaderMonthlyPurchase.setVisibility(View.GONE);
 
         purchaseListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -291,8 +320,11 @@ public class MainActivityV3 extends AppCompatActivity {
             case R.id.action_search:
                 onSearchRequested();
                 return true;
-            case R.id.action_manual_sms_entry:
-                showManualSmsInputDialog();
+//            case R.id.action_manual_sms_entry:
+//                showManualSmsInputDialog();
+//                return true;
+            case R.id.action_monthly_statement:
+                showMontlyStatement();
                 return true;
             case R.id.action_show_maps:
                 showMaps();

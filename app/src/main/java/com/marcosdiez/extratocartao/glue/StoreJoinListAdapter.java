@@ -52,8 +52,8 @@ public class StoreJoinListAdapter extends BaseAdapter {
             holder.txtFirst = (TextView) convertView.findViewById(R.id.NumPurchases);
             holder.txtSecond = (TextView) convertView.findViewById(R.id.Store);
             holder.txtThird = (TextView) convertView.findViewById(R.id.Amount);
-            holder.total = (TextView) convertView.findViewById(R.id.Total);
-            holder.txtFourth = (TextView) convertView.findViewById(R.id.When);
+            holder.txtFourth = (TextView) convertView.findViewById(R.id.Total);
+            holder.txtFifth = (TextView) convertView.findViewById(R.id.When);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -63,8 +63,8 @@ public class StoreJoinListAdapter extends BaseAdapter {
         holder.txtFirst.setText(String.format("%d", theStoreJoin.getNumPurchases()));
         holder.txtSecond.setText(theStoreJoin.getName().toString());
         holder.txtThird.setText(String.format("%1$,.2f", theStoreJoin.getTotal()));
-        holder.total.setText(String.format("%1$,.2f", theStoreJoin.getTotalAmount()));
-        holder.txtFourth.setText(theStoreJoin.getLastPurchaseTimestampString());
+        holder.txtFourth.setText(String.format("%1$,.2f", theStoreJoin.getTotalAmount()));
+        holder.txtFifth.setText(theStoreJoin.getLastPurchaseTimestampString());
 
         return convertView;
     }
@@ -74,9 +74,7 @@ public class StoreJoinListAdapter extends BaseAdapter {
         TextView txtSecond = null;
         TextView txtThird = null;
         TextView txtFourth = null;
-        //        TextView txtFifth;
-        // TextView txtSixth = null;
-        TextView total = null;
+        TextView txtFifth = null;
     }
 
 }

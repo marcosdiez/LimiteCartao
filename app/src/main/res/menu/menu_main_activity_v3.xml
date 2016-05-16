@@ -30,12 +30,20 @@
 
 
 
+    <!--<item-->
+        <!--android:id="@+id/action_manual_sms_entry"-->
+        <!--android:title="Digitar SMS"-->
+        <!--android:orderInCategory="190"-->
+        <!--app:showAsAction="never"-->
+        <!--/>-->
+
     <item
-        android:id="@+id/action_manual_sms_entry"
-        android:title="Digitar SMS"
-        android:orderInCategory="190"
+        android:id="@+id/action_monthly_statement"
+        android:title="Fatura Mensal"
+        android:orderInCategory="195"
         app:showAsAction="never"
         />
+
 
     <item
         android:id="@+id/action_show_maps"
