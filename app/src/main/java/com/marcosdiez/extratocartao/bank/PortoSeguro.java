@@ -9,9 +9,10 @@ import java.text.SimpleDateFormat;
  */
 public class PortoSeguro extends BaseBank {
     // Porto Cartoes: Compra aprovada no cartao VISA final 1110 no valor de R$ 96,00 em 06/03 as 20h05. E C S H LTDA
+    // Porto Cartoes: Compra aprovada no cartao VISA final 4117 no valor de R$ 161,52 em 20/05 as 20:07 DALEN SUPERMERCADOS.";
 
     protected String getRegEx() {
-        return "Porto\\s+Cartoes:\\s+Compra\\s+aprovada\\s+no\\s+cartao\\s+(\\w+)\\s+final\\s+(\\d+)\\s+no\\s+valor\\s+de\\s+R\\$\\s+(\\d+[\\.\\d]?\\d*,\\d+)\\s+em\\s+(\\d+/\\d+)\\s+AS\\s+(\\d+h\\d+).\\s+(.+)";
+        return "Porto\\s+Cartoes:\\s+Compra\\s+aprovada\\s+no\\s+cartao\\s+(\\w+)\\s+final\\s+(\\d+)\\s+no\\s+valor\\s+de\\s+R\\$\\s+(\\d+[\\.\\d]?\\d*,\\d+)\\s+em\\s+(\\d+/\\d+)\\s+AS\\s+(\\d+[h:]\\d+)\\.?\\s+(.+)\\.?";
     }
 
     public BankSms getBankSmsHelper() {
@@ -24,6 +25,10 @@ public class PortoSeguro extends BaseBank {
         String diaMes = lastMatch.group(4);
         String horaMinuto = lastMatch.group(5).replace("h", ":");
         String estabelecimentoAndCidade = lastMatch.group(6);
+        int estabelecimentoAndCidadeLen = estabelecimentoAndCidade.length();
+        if (estabelecimentoAndCidade.charAt(estabelecimentoAndCidadeLen - 1) == '.') {
+            estabelecimentoAndCidade = estabelecimentoAndCidade.substring(0, estabelecimentoAndCidadeLen - 1);
+        }
 
 
         String year = new SimpleDateFormat("yyyy").format(lastSms.getDate());
