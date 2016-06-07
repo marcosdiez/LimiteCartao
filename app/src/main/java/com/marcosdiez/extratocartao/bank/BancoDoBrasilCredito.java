@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 /**
  * Created by Marcos on 2015-09-19.
  */
-public class BancoDoBrasil extends BaseBank {
+public class BancoDoBrasilCredito extends BaseBank {
 
     // banco do brasil
     // BB informa: compra no(a) xxxxx cartao de credito final 1234, valor RS 56,78, em 20/10/14, as 12:33.
