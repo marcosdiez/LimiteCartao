@@ -29,6 +29,8 @@ public class Util {
     public final static SimpleDateFormat isoDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     public final static SimpleDateFormat ofxDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
 
+    public static boolean debugInitialized = false;
+
     public static void openUrl(Purchase p, Context context){
          openUrl(buildAndroidMapsUri(p.getLatitude(), p.getLongitude()), context);
     }

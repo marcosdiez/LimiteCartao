@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.stetho.Stetho;
 import com.marcosdiez.extratocartao.BuildConfig;
 import com.marcosdiez.extratocartao.ParsingSmsException;
 import com.marcosdiez.extratocartao.R;
@@ -45,6 +46,10 @@ public class MainActivityV3 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (BuildConfig.DEBUG && !Util.debugInitialized) {
+            Util.debugInitialized=true;
+            Stetho.initializeWithDefaults(this);
+        }
         setContentView(R.layout.activity_main_activity_v3);
         mySelf = this;
 
