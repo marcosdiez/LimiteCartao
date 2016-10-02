@@ -14,7 +14,6 @@ public class ParseSmsTest {
     }
 
 
-
     @Test
     public void testBradesco() throws Exception {
         String msg = "BRADESCO CARTOES: COMPRA APROVADA NO CARTAO FINAL 5761 EM 30/07/2015 21:02. VALOR DE $ 41,00 NO(A) PANINI PIZZA.             SAO PAULO.";
@@ -277,8 +276,6 @@ public class ParseSmsTest {
     }
 
 
-
-
     @Test
     public void testBradescoDebitoA() throws Exception {
         String msg = "25/09/15 11:53 BRADESCO Maikon: Compra cartao deb. final 8108 de 1,50 realizada no estab. FAMILIA PEPERON.";
@@ -441,6 +438,7 @@ public class ParseSmsTest {
         assertEquals(parsedSms.estabelecimentoAndCidade, "SALAO DA PATRICIA");
 
     }
+
     @Test
     public void testCredicard3() throws Exception {
         String msg = "Compra aprovada no seu CREDICARD EXCLUS MC final 4897 - MC DONALDS IPI valor RS 21,00 em 03/02, as 18h34.";
@@ -454,6 +452,7 @@ public class ParseSmsTest {
         assertEquals(parsedSms.estabelecimentoAndCidade, "MC DONALDS IPI");
 
     }
+
     @Test
     public void testCredicard4() throws Exception {
         String msg = "Compra aprovada no CREDICARD EXCLUS MC p/ VALDEMIRA N QUEIROZ - CIRURGICA SINETE valor RS 213,34 em 20/01/2016 as 09h33.";
@@ -467,6 +466,9 @@ public class ParseSmsTest {
         assertEquals(parsedSms.estabelecimentoAndCidade, "CIRURGICA SINETE");
 
     }
+
+
+
     @Test
     public void testCredicard5() throws Exception {
         String msg = "Compra aprovada no seu CREDICARD EXCLUS MC final 4897 - ESTACAO DE SERVICOS AU valor RS 87,56 em 21/01, as 10h03.";
@@ -494,7 +496,6 @@ public class ParseSmsTest {
         assertEquals(parsedSms.estabelecimentoAndCidade, "SALAO DA PATRICIA");
     }
 
-
     @Test
     public void testCredicard7() throws Exception {
         String msg = "Compra aprovada no seu CREDICARD EXLCUS MC final 4897 - AUTO VIACAO BRAGANCA valor RS 25,70 em 06/02, as 10h03.";
@@ -507,6 +508,37 @@ public class ParseSmsTest {
         assertEquals(parsedSms.amount, "25,70");
         assertEquals(parsedSms.estabelecimentoAndCidade, "AUTO VIACAO BRAGANCA");
     }
+
+
+    @Test
+    public void testCredicard8() throws Exception {
+        String msg = "Compra aprovada no seu CREDICARD EXCLUS MC final 4897 - INVENTURE RESTARANTES valor RS 30,50 em 13/08, as 15h28.";
+
+        BankSms parsedSms = SmsParser.parseSms(Util.mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "ITAU");
+        assertEquals(parsedSms.nomeCartao, "4897");
+        assertEquals(parsedSms.timestamp, "13/08/2015 15:28");
+        assertEquals(parsedSms.amount, "30,50");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "INVENTURE RESTARANTES");
+    }
+
+    @Test
+    public void testCredicard9() throws Exception {
+        String msg = "Compra aprovada no CREDICARD EXCLUS MC final 4897 - MOVIDA RENT A CAR - RS 12.000,00 em 13/08/2016 as 17h20. Utilizando 80% do limite.";
+
+        BankSms parsedSms = SmsParser.parseSms(Util.mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "ITAU");
+        assertEquals(parsedSms.nomeCartao, "4897");
+        assertEquals(parsedSms.timestamp, "13/08/2016 17:20");
+        assertEquals(parsedSms.amount, "12.000,00");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "MOVIDA RENT A CAR");
+    }
+
+//    Compra aprovada no seu CREDICARD EXCLUS MC final 4897 - INVENTURE RESTARANTES valor RS 30,50 em 13/08, as 15h28.
+//    Compra aprovada no CREDICARD EXCLUS MC final 4897 - MOVIDA RENT A CAR - RS 12.000,00 em 13/08/2016 as 17h20. Utilizando 80% do limit.
+
 
 
 
@@ -605,6 +637,18 @@ public class ParseSmsTest {
         assertEquals(parsedSms.estabelecimentoAndCidade, "PBKIDS");
     }
 
+    @Test
+    public void testPortoSeguroF() throws Exception {
+        String msg = "Porto Cartoes: Compra aprovada no cartao MASTERCARD final 6117 no valor de R$ 78,75 em 03/09 as 18h59. O PIRATA FRUTOS DO MAR";
+
+        BankSms parsedSms = SmsParser.parseSms(Util.mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "Porto Seguro");
+        assertEquals(parsedSms.nomeCartao, "6117");
+        assertEquals(parsedSms.timestamp, "03/09/2015 18:59");
+        assertEquals(parsedSms.amount, "78,75");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "O PIRATA FRUTOS DO MAR");
+    }
 
     @Test
     public void testCaixa() throws Exception {
