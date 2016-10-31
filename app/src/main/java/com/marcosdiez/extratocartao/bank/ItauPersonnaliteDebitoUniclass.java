@@ -12,7 +12,7 @@ public class ItauPersonnaliteDebitoUniclass extends BaseBank {
         // ITAU PERSONNALITE
         // ITAU DEBITO
         // ITAU UNICLASS
-        return "ITAU\\s+.+:\\s+Cartao\\s+final\\s+(....)\\s+COMPRA\\s+APROVADA\\s+(\\d+/\\d+)\\s+(\\d+:\\d+:\\d+)\\s+R\\$\\s+(\\d+[\\.\\d]?\\d*,\\d+)\\s+Local:\\s+([^\\.]+)\\.";
+        return "ITAU\\s+.+:\\s+Cartao\\s+final\\s+(....)\\s+COMPRA\\s+APROVADA\\s+(\\d+/\\d+)\\s+(\\d+:\\d+:\\d+)\\s+R\\$?\\s+(\\d+[\\.\\d]?\\d*,\\d+)\\s+Local:\\s+([^\\.]+)\\.";
     }
 
     public BankSms getBankSmsHelper() {
