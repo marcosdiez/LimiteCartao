@@ -669,8 +669,24 @@ public class ParseSmsTest {
         assertEquals(parsedSms.estabelecimentoAndCidade, "PBKIDS");
     }
 
+
     @Test
-    public void testPortoSeguroF() throws Exception {
+    public void testPostorSeguroF() throws Exception {
+        String msg = "Porto Cartoes: Compra aprovada VISA final 9999 R¤ 99,90 em 26/11 as 13:13 PEIXE URBANO. http://porto.vc/cartaoapp baixe";
+        // Porto Cartoes: Compra aprovada VISA final 9999 R¤ 99,90 em 26/11 as 13:13 PEIXE URBANO
+        BankSms parsedSms = SmsParser.parseSms(Util.mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "Porto Seguro");
+        assertEquals(parsedSms.nomeCartao, "9999");
+        assertEquals(parsedSms.timestamp, "26/11/2015 13:13");
+        assertEquals(parsedSms.amount, "99,90");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "PEIXE URBANO");
+
+    }
+
+
+    @Test
+    public void testPortoSeguroG() throws Exception {
         String msg = "Porto Cartoes: Compra aprovada no cartao MASTERCARD final 6117 no valor de R$ 78,75 em 03/09 as 18h59. O PIRATA FRUTOS DO MAR";
 
         BankSms parsedSms = SmsParser.parseSms(Util.mockSms(msg));
@@ -681,6 +697,71 @@ public class ParseSmsTest {
         assertEquals(parsedSms.amount, "78,75");
         assertEquals(parsedSms.estabelecimentoAndCidade, "O PIRATA FRUTOS DO MAR");
     }
+
+
+    @Test
+    public void testPostorSeguroH() throws Exception {
+        String msg = "Porto Cartoes: Compra aprovada VISA final 9999 R$ 99,99 em 29/11 as 13:47 2033DROGASIL. http://porto.vc/cartaoapp baixe o novo app";
+        // Porto Cartoes: Compra aprovada VISA final 9999 R¤ 99,90 em 26/11 as 13:13 PEIXE URBANO
+        BankSms parsedSms = SmsParser.parseSms(Util.mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "Porto Seguro");
+        assertEquals(parsedSms.nomeCartao, "9999");
+        assertEquals(parsedSms.timestamp, "29/11/2015 13:47");
+        assertEquals(parsedSms.amount, "99,99");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "2033DROGASIL");
+
+    }
+
+    @Test
+    public void testPostorSeguroI() throws Exception {
+        String msg = "Porto Cartoes: Compra aprovada no cartao VISA final 9999 no valor de R¤ 63,45 em 18/10 as 21:48. PAO DE ACUCAR";
+        // Porto Cartoes: Compra aprovada VISA final 9999 R¤ 99,90 em 26/11 as 13:13 PEIXE URBANO
+        BankSms parsedSms = SmsParser.parseSms(Util.mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "Porto Seguro");
+        assertEquals(parsedSms.nomeCartao, "9999");
+        assertEquals(parsedSms.timestamp, "18/10/2015 21:48");
+        assertEquals(parsedSms.amount, "63,45");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "PAO DE ACUCAR");
+
+    }
+
+    @Test
+    public void testPostorSeguroJ() throws Exception {
+        String msg = "Porto Cartoes: Compra aprovada VISA final 9999 R¤ 115,27 em 09/11 as 20:04. AUTO POSTO UNIVERSITAR . Novidade! Baixe o app do cartao: http://porto.vc/appcartao";
+        // Porto Cartoes: Compra aprovada VISA final 9999 R¤ 99,90 em 26/11 as 13:13 PEIXE URBANO
+        BankSms parsedSms = SmsParser.parseSms(Util.mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "Porto Seguro");
+        assertEquals(parsedSms.nomeCartao, "9999");
+        assertEquals(parsedSms.timestamp, "09/11/2015 20:04");
+        assertEquals(parsedSms.amount, "115,27");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "AUTO POSTO UNIVERSITAR");
+
+    }
+
+    @Test
+    public void testPostorSeguroK() throws Exception {
+        String msg = "Porto Cartoes: Compra aprovada VISA final 9999 R$ 348,75 em 29/11 as 13:47 2033DROGASIL. http://porto.vc/cartaoapp baixe o novo app";
+        // Porto Cartoes: Compra aprovada VISA final 9999 R¤ 99,90 em 26/11 as 13:13 PEIXE URBANO
+        BankSms parsedSms = SmsParser.parseSms(Util.mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "Porto Seguro");
+        assertEquals(parsedSms.nomeCartao, "9999");
+        assertEquals(parsedSms.timestamp, "29/11/2015 13:47");
+        assertEquals(parsedSms.amount, "348,75");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "2033DROGASIL");
+
+    }
+
+
+//
+//
+//
+//
+//
+
 
     @Test
     public void testCaixa() throws Exception {
