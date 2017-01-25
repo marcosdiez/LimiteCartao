@@ -123,6 +123,31 @@ public class ParseSmsTest {
         assertEquals(parsedSms.estabelecimentoAndCidade, "SATADIUM CAFE BARUERI");
     }
 
+    @Test
+    public void testBradescoX() throws Exception {
+        String msg = "BRADESCO CARTOES: COMPRA APROVADA NO CARTAO FINAL 4642 EM 30/11/2016 18:28. VALOR DE $ 18,36 NO(A) DROGA RAIA F46           SAO PAULO.";
+        BankSms parsedSms = SmsParser.parseSms(Util.mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "BRADESCO");
+        assertEquals(parsedSms.nomeCartao, "4642");
+        assertEquals(parsedSms.timestamp, "30/11/2016 18:28");
+        assertEquals(parsedSms.amount, "18,36");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "DROGA RAIA F46");
+    }
+
+    @Test
+    public void testBradescoY() throws Exception {
+        String msg = "BRADESCO CARTOES: COMPRA APROVADA NO CARTAO FINAL 4642 EM 01/12/2016 19:49. VALOR DE $ 11,00 NO(A) SUBWAY CARDOSO           SAO PAULO.";
+        BankSms parsedSms = SmsParser.parseSms(Util.mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "BRADESCO");
+        assertEquals(parsedSms.nomeCartao, "4642");
+        assertEquals(parsedSms.timestamp, "01/12/2016 19:49");
+        assertEquals(parsedSms.amount, "11,00");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "SUBWAY CARDOSO");
+    }
+
+
 
     @Test
     public void testItau() throws Exception {
@@ -383,6 +408,22 @@ public class ParseSmsTest {
         assertEquals(parsedSms.amount, "362,34");
         assertEquals(parsedSms.estabelecimentoAndCidade, "PARC=102PagSegro Propag");
     }
+
+    // SEGURANCA: TRANSACAO APROVADA CARTAO FINAL 3113, REST HIKARI, 14,76, 24/01/2017 AS 12:43:14 SICREDI 3003-4770/0800-724-4770
+
+    @Test
+    public void testSicredi3() throws Exception {
+        String msg = "SEGURANCA: TRANSACAO APROVADA CARTAO FINAL 3113, REST HIKARI, 14,76, 24/01/2017 AS 12:43:14 SICREDI 3003-4770/0800-724-4770";
+
+        BankSms parsedSms = SmsParser.parseSms(Util.mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "SICREDI");
+        assertEquals(parsedSms.nomeCartao, "3113");
+        assertEquals(parsedSms.timestamp, "24/01/2017 12:43");
+        assertEquals(parsedSms.amount, "14,76");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "REST HIKARI");
+    }
+
 
     @Test
     public void testSicoob() throws Exception {
