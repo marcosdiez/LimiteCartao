@@ -14,14 +14,14 @@ buildscript {
 
 android {
     compileSdkVersion 22
-    buildToolsVersion "23.0.3"
+    buildToolsVersion "27.0.3"
 
     defaultConfig {
         applicationId "com.marcosdiez.extratocartao"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 36
-        versionName "1.36"
+        versionCode 37
+        versionName "1.37"
         setProperty("archivesBaseName", "$applicationId-$versionName")
     }
     buildTypes {

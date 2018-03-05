@@ -5,6 +5,7 @@ import android.util.Log;
 import com.marcosdiez.extratocartao.ParsingSmsException;
 import com.marcosdiez.extratocartao.bank.BancoDoBrasilCredito;
 import com.marcosdiez.extratocartao.bank.BancoDoBrasilDebito;
+import com.marcosdiez.extratocartao.bank.BancoDoBrasilDebito2;
 import com.marcosdiez.extratocartao.bank.Banrisul;
 import com.marcosdiez.extratocartao.bank.BaseBank;
 import com.marcosdiez.extratocartao.bank.BradescoCredito;
@@ -35,6 +36,7 @@ public class SmsParser {
     private static BaseBank[] bankList = new BaseBank[]{
             new BancoDoBrasilCredito(),
             new BancoDoBrasilDebito(),
+            new BancoDoBrasilDebito2(),
             new Banrisul(),
             new BradescoCredito(),
             new BradescoDebito(),

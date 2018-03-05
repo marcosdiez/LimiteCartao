@@ -261,6 +261,19 @@ public class ParseSmsTest {
     }
 
     @Test
+    public void testBancoDoBrasilDebito2() throws Exception {
+        String msg = "BB: compra em POSTO MAXIMO IPIRANG, cartao de debito final 5137, RS 251,91, em 02/03/18. Saldo c/c: RS  2.939,91D.";
+
+        BankSms parsedSms = SmsParser.parseSms(Util.mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "BANCO DO BRASIL DEBITO");
+        assertEquals(parsedSms.nomeCartao, "5137");
+        assertEquals(parsedSms.timestamp, "02/03/2018 02:28"); // a hora vem do SMS, no caso mockSms
+        assertEquals(parsedSms.amount, "251,91");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "POSTO MAXIMO IPIRANG");
+    }
+
+    @Test
     public void testSantanderA() throws Exception {
         String msg = "Santander Informa: Transacao Cartao Mastercard final 3031 de R$ 16,90 aprovada em 05/08/15 as 16:13 SMARTCOOKING COM DE";
 
