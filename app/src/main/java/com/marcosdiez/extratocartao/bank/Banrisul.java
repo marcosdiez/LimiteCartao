@@ -11,7 +11,7 @@ public class Banrisul extends BaseBank {
     protected String getRegEx() {
         // Banrisul informa: APROVADA TRANSACAO CARTAO DE CREDITO DE 150,00 AS 13:19:31 DE 05/05/2016 CARTAO FINAL 2123 FARMA LEVES
 
-        return "Banrisul\\s+informa:\\s+APROVADA\\s+TRANSACAO\\s+CARTAO\\s+DE\\s+CREDITO\\s+DE\\s+(\\d+[\\.\\d]?\\d*,\\d+)" +
+        return "Banrisul\\s+informa:\\s+APROVADA\\s+TRANSACAO\\s+CARTAO\\s+DE\\s+CREDITO\\s+DE\\s+" + valor +
                 "\\s+AS\\s+(\\d+:\\d+:\\d+)\\s+DE\\s+(\\d+/\\d+/\\d+)\\s+CARTAO\\s+FINAL\\s+(\\d+)\\s+(.+)";
     }
 

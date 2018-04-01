@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
 public class ItauPersonnaliteSaqueSemCartao extends BaseBank {
     protected String getRegEx() {
         // ITAU PERSONNALITE: SAQUE APROVADO 29/09 21:08:22 R$ 150,00 Local: CX ITAU AV NACOES UN.
-        return "ITAU\\s+PERSONNALITE:\\s+SAQUE\\s+APROVADO\\s+(\\d+/\\d+)\\s+(\\d+:\\d+:\\d+)\\s+R\\$\\s+(\\d+[\\.\\d]?\\d*,\\d+)\\s+Local:\\s+(.+)\\.";
+        return "ITAU\\s+PERSONNALITE:\\s+SAQUE\\s+APROVADO\\s+(\\d+/\\d+)\\s+(\\d+:\\d+:\\d+)\\s+R\\$\\s+" + valor + "\\s+Local:\\s+(.+)\\.";
     }
 
     public BankSms getBankSmsHelper() {

@@ -11,7 +11,7 @@ public class Sicoob extends BaseBank {
     // String msg = "SICOOB informa, compra Credito aprovada com seu cartao MasterCard - DAFITI, em 10/02 as 07:10h, valor R$107,99";
 
     protected String getRegEx() {
-        return "SICOOB\\s+informa,\\s+compra\\s+Credito\\s+aprovada\\s+com\\s+seu\\s+cartao\\s+(.+)\\s+-\\s+(.+),\\s+em\\s+(\\d+/\\d+)\\s+as\\s+(\\d+:\\d+)h,\\s+valor\\s+R\\$(\\d+[\\.\\d]?\\d*,\\d+)";
+        return "SICOOB\\s+informa,\\s+compra\\s+Credito\\s+aprovada\\s+com\\s+seu\\s+cartao\\s+(.+)\\s+-\\s+(.+),\\s+em\\s+(\\d+/\\d+)\\s+as\\s+(\\d+:\\d+)h,\\s+valor\\s+R\\$" + valor;
 //        return "SICOOB informa, compra Credito aprovada com seu cartao (.+) - (.+), em (\\d+/\\d+) as (\\d+:\\d+)h, valor R$(\\d+[\\.\\d]?\\d*,\\d+)";
         //return "TRANSACAO\\s+APROVADA\\s+CARTAO\\s+FINAL\\s+(\\d+),\\s+(.+),\\s+(\\d+[\\.\\d]?\\d*,\\d+),\\s+(\\d+/\\d+/\\d+)\\s+AS\\s+(\\d+:\\d+):\\d+\\.";
     }

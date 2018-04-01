@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
 public class PortoSeguro2 extends BaseBank {
     // Porto Cartoes: Compra aprovada VISA final 9999 R¤ 99,90 em 26/11 as 13:13 PEIXE URBANO.
     protected String getRegEx() {
-        return "Porto\\s+Cartoes:\\s+Compra\\s+aprovada\\s+(\\w+)\\s+final\\s+(\\d+)\\s+R.\\s+(\\d+[\\.\\d]?\\d*,\\d+)\\s+em\\s+(\\d+/\\d+)\\s+as\\s+(\\d+[h:]\\d+)\\.?\\s+(.+)(\\.)?";
+        return "Porto\\s+Cartoes:\\s+Compra\\s+aprovada\\s+(\\w+)\\s+final\\s+(\\d+)\\s+R.\\s+" + valor + "\\s+em\\s+(\\d+/\\d+)\\s+as\\s+(\\d+[h:]\\d+)\\.?\\s+(.+)(\\.)?";
     }
 
     public BankSms getBankSmsHelper() {

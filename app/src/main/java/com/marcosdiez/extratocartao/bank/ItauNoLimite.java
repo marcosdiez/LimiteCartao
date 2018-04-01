@@ -2,8 +2,6 @@ package com.marcosdiez.extratocartao.bank;
 
 import com.marcosdiez.extratocartao.sms.BankSms;
 
-import java.text.SimpleDateFormat;
-
 /**
  * Created by Marcos on 2015-09-19.
  */
@@ -14,7 +12,7 @@ public class ItauNoLimite extends BaseBank {
     */
 
     protected String getRegEx() {
-        return "Compra\\s+aprovada\\s+no\\s+([\\w\\s]+)\\s+final\\s+(\\d+)\\s+-\\s+(.+)\\s+-\\s+RS\\s+(\\d+[\\.\\d]?\\d*,\\d+)\\s+em\\s+(\\d+/\\d+/\\d+)\\s+as\\s+(\\d+h\\d+)";
+        return "Compra\\s+aprovada\\s+no\\s+([\\w\\s]+)\\s+final\\s+(\\d+)\\s+-\\s+(.+)\\s+-\\s+RS\\s+" + valor + "\\s+em\\s+(\\d+/\\d+/\\d+)\\s+as\\s+(\\d+h\\d+)";
     }
 
     public BankSms getBankSmsHelper() {

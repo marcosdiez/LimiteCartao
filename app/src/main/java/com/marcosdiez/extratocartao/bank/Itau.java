@@ -16,7 +16,7 @@ public class Itau extends BaseBank {
     */
 
     protected String getRegEx() {
-        return "Compra\\s+aprovada\\s+no\\s+seu\\s+(.+)\\s+final\\s+(\\d\\d\\d\\d)\\s+-\\s+(.+)\\s+valor\\s+RS\\s+(\\d+[\\.\\d]?\\d*,\\d+)\\s+em\\s+(\\d+/\\d+),\\s+as\\s+(\\d+h\\d+)";
+        return "Compra\\s+aprovada\\s+no\\s+seu\\s+(.+)\\s+final\\s+(\\d\\d\\d\\d)\\s+-\\s+(.+)\\s+valor\\s+RS\\s+" + valor + "\\s+em\\s+(\\d+/\\d+),\\s+as\\s+(\\d+h\\d+)";
     }
 
     public BankSms getBankSmsHelper() {

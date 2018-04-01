@@ -14,7 +14,7 @@ public class BancoDoBrasilCredito extends BaseBank {
     // BB avisa: compra PANIFICACAO URC, cartao final 5597, RS 39,94 - 11/10-16:18. Responda BL5597 se quiser bloquear cartao. Lim disp RS 9.534
 
     protected String getRegEx() {
-        return "BB.*:\\s+compra\\s+(.*),\\s+cartao\\s+final\\s+(\\d+),\\s+RS\\s+(\\d+[\\.\\d]?\\d*,\\d+)\\s+\\-\\s+(\\d+/\\d+)\\s*-\\s*(\\d+:\\d+).";
+        return "BB.*:\\s+compra\\s+(.*),\\s+cartao\\s+final\\s+(\\d+),\\s+RS\\s+" + valor + "\\s+\\-\\s+(\\d+/\\d+)\\s*-\\s*(\\d+:\\d+).";
     }
 
     public BankSms getBankSmsHelper() {

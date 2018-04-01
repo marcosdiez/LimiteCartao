@@ -18,7 +18,7 @@ public class Santander extends BaseBank {
 
 
     protected String getRegEx() {
-        return "Santander\\s+Informa:\\s+Transacao\\s+.+\\s+final\\s+(\\d+)\\s+de\\s+R\\$\\s+(\\d+[\\.\\d]?\\d*,\\d+)\\s+aprovada\\s+em\\s+(\\d+/\\d+)/(\\d+)\\s+as\\s+(\\d+:\\d+)\\s+(.+)";
+        return "Santander\\s+Informa:\\s+Transacao\\s+.+\\s+final\\s+(\\d+)\\s+de\\s+R\\$\\s+" + valor + "\\s+aprovada\\s+em\\s+(\\d+/\\d+)/(\\d+)\\s+as\\s+(\\d+:\\d+)\\s+(.+)";
     }
 
     public BankSms getBankSmsHelper() {

@@ -14,7 +14,7 @@ public class BancoDoBrasilDebito extends BaseBank {
 
     protected String getRegEx() {
         //\s+(.*),\s+cartao\s+final\s+(\d+),\s
-        return "BB.*:\\s+compra\\s++RS\\s+(\\d+[\\.\\d]?\\d*,\\d+)\\s+(.+)\\s+cartao\\s+final\\s+(\\d+)\\s+em\\s+(\\d\\d/\\d\\d)/(\\d+)";
+        return "BB.*:\\s+compra\\s++RS\\s+" + valor + "\\s+(.+)\\s+cartao\\s+final\\s+(\\d+)\\s+em\\s+(\\d\\d/\\d\\d)/(\\d+)";
     }
 
     public BankSms getBankSmsHelper() {

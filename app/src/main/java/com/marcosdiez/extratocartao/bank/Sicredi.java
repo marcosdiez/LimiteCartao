@@ -11,7 +11,7 @@ public class Sicredi extends BaseBank {
     //               SEGURANCA: TRANSACAO APROVADA CARTAO FINAL 3113, REST HIKARI,                14,76, 24/01/2017 AS 12:43:14 SICREDI 3003-4770/0800-724-4770
 
     protected String getRegEx() {
-        return "TRANSACAO\\s+APROVADA\\s+CARTAO\\s+FINAL\\s+(\\d+),\\s+(.+),\\s+(\\d+[\\.\\d]?\\d*,\\d+),\\s+(\\d+/\\d+/\\d+)\\s+AS\\s+(\\d+:\\d+):\\d+";
+        return "TRANSACAO\\s+APROVADA\\s+CARTAO\\s+FINAL\\s+(\\d+),\\s+(.+),\\s+" + valor + ",\\s+(\\d+/\\d+/\\d+)\\s+AS\\s+(\\d+:\\d+):\\d+";
 
 //        return "(\\w+)\\s+CARTOES:\\s+COMPRA\\s+APROVADA\\s+NO\\s+CARTAO\\s+FINAL\\s+(\\d+)\\s+EM\\s+(\\d+/\\d+/\\d+\\s+\\d+:\\d+)\\.?\\s*(NO)?\\s+VALOR\\s+DE\\s+\\$?\\s+(\\d+[\\.\\d]?\\d*,\\d+)\\s+(EM\\s+\\d+\\s*X\\s*)?NO\\(A\\)\\s+(.+)\\.";
     }

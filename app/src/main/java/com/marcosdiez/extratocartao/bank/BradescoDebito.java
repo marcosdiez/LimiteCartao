@@ -9,7 +9,7 @@ public class BradescoDebito extends BaseBank {
 
     // String msg = "25/09/15 09:39 BRADESCO Maikon: Compra cartao deb. final 8108 de 4,30 realizada no estab. FAMILIA PEPERON.";
     protected String getRegEx() {
-        return "(\\d+/\\d+/\\d+\\s+\\d+:\\d+)\\s+BRADESCO\\s+(\\w+):\\s+Compra\\s+cartao\\s+deb.\\s+final\\s+(\\d\\d\\d\\d)\\s+de\\s+(\\d+[\\.\\d]?\\d*,\\d+)\\s+realizada\\s+no\\s+estab\\.\\s+(.+)\\.";
+        return "(\\d+/\\d+/\\d+\\s+\\d+:\\d+)\\s+BRADESCO\\s+(\\w+):\\s+Compra\\s+cartao\\s+deb.\\s+final\\s+(\\d\\d\\d\\d)\\s+de\\s+" + valor + "\\s+realizada\\s+no\\s+estab\\.\\s+(.+)\\.";
     }
 
     public BankSms getBankSmsHelper() {

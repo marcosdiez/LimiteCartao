@@ -11,7 +11,7 @@ public class Caixa extends BaseBank {
     // CAIXA Informa: Compra aprovada no(a) RAFAELA SUELEN, R$ 25,00, 01/04 as 17:55, cartao MASTERCARD final 1549.
 
     protected String getRegEx() {
-        return "CAIXA\\s+Informa:\\s+Compra\\s+aprovada\\s+no\\(a\\)\\s+(.+),\\s+R\\$\\s+(\\d+[\\.\\d]?\\d*,\\d+),\\s+(\\d+/\\d+)\\s+as\\s+(\\d+:\\d+),\\s+cartao\\s+(.+)\\s+final\\s+(\\d+)\\.";
+        return "CAIXA\\s+Informa:\\s+Compra\\s+aprovada\\s+no\\(a\\)\\s+(.+),\\s+R\\$\\s+" + valor + ",\\s+(\\d+/\\d+)\\s+as\\s+(\\d+:\\d+),\\s+cartao\\s+(.+)\\s+final\\s+(\\d+)\\.";
     }
 
     public BankSms getBankSmsHelper() {

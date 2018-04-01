@@ -12,7 +12,7 @@ public class UniCred extends BaseBank {
     //   String msg = "Unicred informa: compra credito aprovada no cartao MasterCard em 02/04, 17:51, de R$358,80. Local: PAGSEGURO*PagSegu.";
 
     protected String getRegEx() {
-        return "Unicred\\s+informa:\\s+compra\\s+credito\\s+aprovada\\s+no\\s+cartao\\s+(\\w+)\\s+em\\s+(\\d+/\\d+),\\s+(\\d+:\\d+),\\s+de\\s+R\\$\\s*(\\d+[\\.\\d]?\\d*,\\d+).\\s+Local:\\s+(.+).";
+        return "Unicred\\s+informa:\\s+compra\\s+credito\\s+aprovada\\s+no\\s+cartao\\s+(\\w+)\\s+em\\s+(\\d+/\\d+),\\s+(\\d+:\\d+),\\s+de\\s+R\\$\\s*" + valor + ".\\s+Local:\\s+(.+).";
     }
 
     public BankSms getBankSmsHelper() {

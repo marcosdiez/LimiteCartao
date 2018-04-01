@@ -11,7 +11,7 @@ public class BancoDoBrasilContaCorrente extends BaseBank {
     // "BB: debito referente transferencia em 07/03/18, as 13:02, RS  265,00, canal Internet. Responda NR0292 para bloquear suas senhas.";
 
     protected String getRegEx() {
-        return "BB:\\s+debito\\s+referente\\s+transferencia\\s+em\\s+(\\d\\d/\\d\\d)/(\\d+),\\s+as\\s+(\\d+:\\d+),\\s+RS\\s+(\\d+[\\.\\d]?\\d*,\\d+),\\s+canal\\s+([\\w\\s\\d]+)\\.";
+        return "BB:\\s+debito\\s+referente\\s+transferencia\\s+em\\s+(\\d\\d/\\d\\d)/(\\d+),\\s+as\\s+(\\d+:\\d+),\\s+RS\\s+" + valor + ",\\s+canal\\s+([\\w\\s\\d]+)\\.";
     }
     public BankSms getBankSmsHelper() {
         String nomeBanco = "BANCO DO BRASIL";
