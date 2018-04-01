@@ -112,6 +112,19 @@ public class ParseSmsTest {
     }
 
     @Test
+    public void testBradescoParcelado2() throws Exception {
+        String msg = "BRADESCO CARTOES: COMPRA APROVADA NO CARTAO FINAL 2561 EM 29/03/2018 07:01 NO VALOR DE R$ 1.069,14 EM 6 X NO(A) DUFRY LOJAS FRANCAS LT   GUARULHOS.";
+        BankSms parsedSms = SmsParser.parseSms(Util.mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "BRADESCO");
+        assertEquals(parsedSms.nomeCartao, "2561");
+        assertEquals(parsedSms.timestamp, "29/03/2018 07:01");
+        assertEquals(parsedSms.amount, "1.069,14");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "DUFRY LOJAS FRANCAS LT");
+    }
+
+
+    @Test
     public void testBradescoDoisReais() throws Exception {
         String msg = "BRADESCO CARTOES: COMPRA APROVADA NO CARTAO FINAL 5761 EM 28/04/2016 18:26. VALOR DE $ 2,00 NO(A) SATADIUM CAFE BARUERI.";
         BankSms parsedSms = SmsParser.parseSms(Util.mockSms(msg));
@@ -380,6 +393,21 @@ public class ParseSmsTest {
         assertEquals(parsedSms.amount, "37,50");
         assertEquals(parsedSms.estabelecimentoAndCidade, "LANCH0S BURDOG");
     }
+
+
+    @Test
+    public void testBancoDoBrasilContaCorrente() throws Exception {
+        String msg = "BB: debito referente transferencia em 07/03/18, as 13:02, RS  265,00, canal Internet. Responda NR0292 para bloquear suas senhas.";
+
+        BankSms parsedSms = SmsParser.parseSms(Util.mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "BANCO DO BRASIL");
+        assertEquals(parsedSms.nomeCartao, "Conta Corrente");
+        assertEquals(parsedSms.timestamp, "07/03/2018 13:02"); // a hora vem do SMS, no caso mockSms
+        assertEquals(parsedSms.amount, "265,00");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "Internet");
+    }
+
 
 
     @Test
