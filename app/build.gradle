@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 buildscript {
     repositories {
         maven {
-            url uri('https://projectastoriasdk.blob.core.windows.net/gradleplugin')
+          //   url uri('https://projectastoriasdk.blob.core.windows.net/gradleplugin')
         }
     }
     dependencies {
@@ -20,8 +20,8 @@ android {
         applicationId "com.marcosdiez.extratocartao"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 37
-        versionName "1.37"
+        versionCode 39
+        versionName "1.39"
         setProperty("archivesBaseName", "$applicationId-$versionName")
     }
     buildTypes {
@@ -45,15 +45,15 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     //    androidCompile 'com.google.android.gms:play-services-location:7.5.0'
 //    windowsCompile 'com.microsoft.services:interop:6.5.87'
-    testCompile 'junit:junit:4.12'
-    testCompile "org.mockito:mockito-core:1.9.5"
-    compile 'com.android.support:appcompat-v7:22.2.1'
-    compile 'com.github.satyan:sugar:1.3.1'
+    testImplementation 'junit:junit:4.12'
+    testImplementation "org.mockito:mockito-core:1.9.5"
+    implementation 'com.android.support:appcompat-v7:22.2.1'
+    implementation 'com.github.satyan:sugar:1.3.1'
 //    compile 'com.google.android.gms:play-services-location:7.5.0'
-    compile 'com.google.android.gms:play-services-location:8.4.0'
-    compile 'com.google.android.gms:play-services-maps:8.4.0'
+    implementation 'com.google.android.gms:play-services-location:8.4.0'
+    implementation 'com.google.android.gms:play-services-maps:8.4.0'
 //    compile 'com.google.android.gms:play-services:8.4.0'
 }
