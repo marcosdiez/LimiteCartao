@@ -11,7 +11,7 @@ public class BradescoCredito extends BaseBank {
     // BRADESCO CARTOES: COMPRA APROVADA NO CARTAO FINAL 2561 EM 29/03/2018 07:01 NO VALOR DE R$ 1.069,14 EM 6 X NO(A) DUFRY LOJAS FRANCAS LT   GUARULHOS.";
     protected String getRegEx() {
         return "(\\w+)\\s+CARTOES:\\s+COMPRA\\s+APROVADA\\s+NO\\s+CARTAO\\s+FINAL\\s+(\\d+)\\s+EM\\s+" +
-                diaMesAnoHoraMinuto + "\\.?\\s*(NO)?\\s+VALOR\\s+DE\\s+R?\\$?\\s*" + valor + "\\s+(EM\\s+\\d+\\s*X\\s*)?NO\\(A\\)\\s+(.+)\\.";
+                diaMesAnoHoraMinuto + "\\.?\\s*(NO)?\\s+VALOR\\s+DE\\s+R?\\$?\\s*" + valor + "\\s+(EM\\s+\\d+\\s*X\\s*)?(NO\\(A\\))?\\s*(.+)\\.";
     }
 
     public BankSms getBankSmsHelper() {
@@ -21,8 +21,8 @@ public class BradescoCredito extends BaseBank {
         // NO = m.group(4) // "no" de "NO" VALOR DE
         String valor = lastMatch.group(5);
         // (EM 10 X)
-
-        String estabelecimentoAndCidade = lastMatch.group(7);
+        // NO(A)
+        String estabelecimentoAndCidade = lastMatch.group(8);
         int pos = estabelecimentoAndCidade.indexOf("  ");
         if (pos > 0) {
             estabelecimentoAndCidade = estabelecimentoAndCidade.substring(0, pos);

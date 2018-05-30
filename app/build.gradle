@@ -20,8 +20,8 @@ android {
         applicationId "com.marcosdiez.extratocartao"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 39
-        versionName "1.39"
+        versionCode 40
+        versionName "1.40"
         setProperty("archivesBaseName", "$applicationId-$versionName")
     }
     buildTypes {

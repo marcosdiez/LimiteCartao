@@ -27,6 +27,18 @@ public class ParseSmsTest {
     }
 
     @Test
+    public void testBradesco20180402() throws Exception {
+        String msg = "BRADESCO CARTOES: COMPRA APROVADA NO CARTAO FINAL 2561 EM 02/04/2018 18:51. VALOR DE R$ 31,12 NO(A) DIA 9888                 SAO PAULO.";
+        BankSms parsedSms = SmsParser.parseSms(Util.mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "BRADESCO");
+        assertEquals(parsedSms.nomeCartao, "2561");
+        assertEquals(parsedSms.timestamp, "02/04/2018 18:51");
+        assertEquals(parsedSms.amount, "31,12");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "DIA 9888");
+    }
+
+    @Test
     public void testBradescoMilReailsA() throws Exception {
         String msg = "BRADESCO CARTOES: COMPRA APROVADA NO CARTAO FINAL 5761 EM 28/08/2015 17:02. VALOR DE $ 1,00 NO(A) SPECIAL CAR   SAO PAULO.";
         BankSms parsedSms = SmsParser.parseSms(Util.mockSms(msg));
@@ -61,6 +73,32 @@ public class ParseSmsTest {
         assertEquals(parsedSms.amount, "130,00");
         assertEquals(parsedSms.estabelecimentoAndCidade, "SPECIAL CAR");
     }
+
+
+    @Test
+    public void testBradescoZZ() throws Exception {
+        String msg = "BRADESCO CARTOES: COMPRA APROVADA NO CARTAO FINAL 2561 EM 30/05/2018 11:15. VALOR DE R$ 25,30 ALQUIMIA COMER LTDA      SAO PAULO.";
+        BankSms parsedSms = SmsParser.parseSms(Util.mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "BRADESCO");
+        assertEquals(parsedSms.nomeCartao, "2561");
+        assertEquals(parsedSms.timestamp, "30/05/2018 11:15");
+        assertEquals(parsedSms.amount, "25,30");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "ALQUIMIA COMER LTDA");
+    }
+
+    @Test
+    public void testBradescoZZ2() throws Exception {
+        String msg = "BRADESCO CARTOES: COMPRA APROVADA NO CARTAO FINAL 2561 EM 23/05/2018 14:54 NO VALOR DE R$ 169,14 EM 2 X SONDA AGUA BRANCA        SAO PAULO.";
+        BankSms parsedSms = SmsParser.parseSms(Util.mockSms(msg));
+
+        assertEquals(parsedSms.nomeBanco, "BRADESCO");
+        assertEquals(parsedSms.nomeCartao, "2561");
+        assertEquals(parsedSms.timestamp, "23/05/2018 14:54");
+        assertEquals(parsedSms.amount, "169,14");
+        assertEquals(parsedSms.estabelecimentoAndCidade, "SONDA AGUA BRANCA");
+    }
+
 
     @Test
     public void testBradescoMilReailsD() throws Exception {
